@@ -9,12 +9,24 @@ exports.handler = async (event) => {
   // 2 ดึง Environment Variables
   const {
     TELEGRAM_BOT_TOKEN,
-    CHAT_ID_PRAYASATJA, // สาขาพระยาสัจจา
-    CHAT_ID_BANGSAEN,   // สาขาบางแสน
-    TELEGRAM_CHAT_ID    // ห้องกลาง แอดมินรวม
+
+    // แยก 4 ห้องตาม "ตำแหน่ง"
+    CHAT_ID_BANGSAEN_FULLTIME, // บางแสน - พนักงานประจำ
+    CHAT_ID_BANGSAEN_SUN_PT,   // บางแสน - พาร์ทไทม์เฉพาะอาทิตย์
+    CHAT_ID_PRAYASATJA_PT,     // พระยาสัจจา - พาร์ทไทม์
+    CHAT_ID_AMATA_WEEKEND_PT,  // อมตะนคร - พาร์ทไทม์เสาร์-อาทิตย์
+
+    // ห้องกลาง (สำรอง)
+    TELEGRAM_CHAT_ID
   } = process.env;
 
-  if (!TELEGRAM_BOT_TOKEN || !CHAT_ID_PRAYASATJA || !CHAT_ID_BANGSAEN) {
+  if (
+    !TELEGRAM_BOT_TOKEN ||
+    !CHAT_ID_BANGSAEN_FULLTIME ||
+    !CHAT_ID_BANGSAEN_SUN_PT ||
+    !CHAT_ID_PRAYASATJA_PT ||
+    !CHAT_ID_AMATA_WEEKEND_PT
+  ) {
     return { statusCode: 500, body: "Missing environment variables" };
   }
 
@@ -22,15 +34,53 @@ exports.handler = async (event) => {
   const data = JSON.parse(event.body || "{}");
   const positionText = data.position || "";
 
-  // 4 เลือกห้องปลายทางตามสาขา
+  // 4 เลือกห้องปลายทางตาม "ตำแหน่ง"
+  const detectPositionKey = (text) => {
+    const t = String(text || "");
+
+    // บางแสน - พนักงานประจำ
+    if (t.includes("บางแสน") && (t.includes("พนักงานประจำ") || t.includes("Fulltime") || t.includes("FULLTIME"))) {
+      return "BANGSAEN_FULLTIME";
+    }
+
+    // บางแสน - พาร์ทไทม์เฉพาะอาทิตย์ (วันละ 475)
+    // โค้ดหน้าเว็บส่งประมาณ: "สาขาบางแสน – PART TIME (เฉพาะวันอาทิตย์ ... ค่าแรงวันละ 475 บาท)"
+    if (t.includes("บางแสน") && (t.includes("เฉพาะวันอาทิตย์") || t.includes("วันละ 475") || t.includes("475"))) {
+      return "BANGSAEN_SUN_PT";
+    }
+
+    // พระยาสัจจา - พาร์ทไทม์
+    if (t.includes("พระยาสัจจา")) {
+      return "PRAYASATJA_PT";
+    }
+
+    // อมตะนคร - พาร์ทไทม์เสาร์-อาทิตย์
+    if (t.includes("อมตะนคร")) {
+      return "AMATA_WEEKEND_PT";
+    }
+
+    return "UNKNOWN";
+  };
+
+  const positionKey = detectPositionKey(positionText);
+
   let targetChatId;
-  if (positionText.includes("พระยาสัจจา")) {
-    targetChatId = CHAT_ID_PRAYASATJA;
-  } else if (positionText.includes("บางแสน")) {
-    targetChatId = CHAT_ID_BANGSAEN;
-  } else {
-    // ถ้าไม่ตรงอะไรเลย ส่งเข้าห้องกลาง หรือถ้าไม่ได้ตั้ง ก็ให้เข้า พระยาสัจจา ไว้ก่อน
-    targetChatId = TELEGRAM_CHAT_ID || CHAT_ID_PRAYASATJA;
+  switch (positionKey) {
+    case "BANGSAEN_FULLTIME":
+      targetChatId = CHAT_ID_BANGSAEN_FULLTIME;
+      break;
+    case "BANGSAEN_SUN_PT":
+      targetChatId = CHAT_ID_BANGSAEN_SUN_PT;
+      break;
+    case "PRAYASATJA_PT":
+      targetChatId = CHAT_ID_PRAYASATJA_PT;
+      break;
+    case "AMATA_WEEKEND_PT":
+      targetChatId = CHAT_ID_AMATA_WEEKEND_PT;
+      break;
+    default:
+      targetChatId = TELEGRAM_CHAT_ID || CHAT_ID_PRAYASATJA_PT;
+      break;
   }
 
   // 5 ฟังก์ชัน escape text สำหรับ HTML
@@ -63,9 +113,7 @@ exports.handler = async (event) => {
       const description = data[`description${i}`];
 
       // ถ้าไม่มีอะไรกรอกเลยในงานที่ i ให้ข้ามได้
-      if (!workplace && !position && !description) {
-        continue;
-      }
+      if (!workplace && !position && !description) continue;
 
       workHistoryText += `<b>${i}. ${escape(workplace || "ไม่ระบุสถานที่ทำงาน")}</b>\n`;
       workHistoryText += `   <i>ตำแหน่ง</i> ${escape(position || "N/A")}\n`;
@@ -73,30 +121,49 @@ exports.handler = async (event) => {
     }
   }
 
-  // 7 วันที่พร้อมเริ่มงาน
-  const startDate =
-    data.start_date_type === "immediate"
-      ? "พร้อมเริ่มงานทันที"
-      : `วันที่ ${escape(data.specific_start_date) || "ไม่ได้ระบุ"}`;
+  // 7 การศึกษา (รองรับ "กำลังศึกษาอยู่")
+  let educationText = escape(data.education);
+  if (data.education === "กำลังศึกษาอยู่") {
+    const lvl = escape(data.studying_level || "ไม่ได้ระบุระดับ");
+    const major = escape(data.studying_major || "ไม่ได้ระบุสาขา");
+    educationText = `กำลังศึกษาอยู่ (${lvl})\n<i>สาขา</i> ${major}`;
+  }
 
-  // 8 ความพร้อมสาขาพระยาสัจจา
+  // 8 วันที่พร้อมเริ่มงาน (ให้ตรงกับตำแหน่ง + รองรับเลือกวันที่เอง)
+  const startDateByPositionKey = {
+    BANGSAEN_FULLTIME: "พร้อมเริ่มงานได้ทันที",
+    BANGSAEN_SUN_PT: "พร้อมเริ่มงานได้ทันที",
+    PRAYASATJA_PT: "พร้อมเริ่มงานวันที่ 27 กุมภาพันธ์ 2568 ได้ทันที",
+    AMATA_WEEKEND_PT: "พร้อมเริ่มงานวันเสาร์ที่ 21 กุมภาพันธ์ 2568 ได้ทันที"
+  };
+
+  let startDateText = "N/A";
+
+  if (data.start_date_type === "specific") {
+    startDateText = `วันที่ ${escape(data.specific_start_date) || "ไม่ได้ระบุ"}`;
+  } else {
+    // immediate -> ใช้ข้อความตามตำแหน่ง เพื่อให้ตรงกับหน้าเว็บ
+    startDateText = startDateByPositionKey[positionKey] || "พร้อมเริ่มงานได้ทันที";
+  }
+
+  // 9 ความพร้อมสาขาพระยาสัจจา
   let prayasatjaAvailabilityText = "N/A";
   if (data.prayasatja_availability) {
     prayasatjaAvailabilityText = escape(data.prayasatja_availability);
   }
 
-  // 9 ประกอบข้อความหลัก
+  // 10 ประกอบข้อความหลัก
   let text = `<b>🔔 มีใบสมัครงานใหม่</b>\n\n`;
   text += `<b>ตำแหน่ง</b> ${escape(data.position)}\n`;
   text += `<b>ชื่อ นามสกุล</b> ${escape(data.first_name)} ${escape(data.last_name)} (${escape(data.nickname)})\n`;
   text += `<b>อายุ น้ำหนัก ส่วนสูง</b> ${escape(data.age)} ปี / ${escape(data.weight)} กก. / ${escape(data.height)} ซม.\n`;
   text += `<b>ติดต่อ</b> ${escape(data.phone)} (Line ${escape(data.line_id)})\n`;
-  text += `<b>การศึกษา</b> ${escape(data.education)}\n`;
+  text += `<b>การศึกษา</b> ${educationText}\n`;
   text += `<b>ที่อยู่</b> ${escape(data.address)}\n`;
-  text += `<b>พร้อมเริ่มงาน</b> ${startDate}\n`;
+  text += `<b>พร้อมเริ่มงาน</b> ${startDateText}\n`;
 
   // แสดงเฉพาะเคสสาขาพระยาสัจจาเท่านั้นที่มีคำถามนี้
-  if (positionText.includes("พระยาสัจจา")) {
+  if (positionKey === "PRAYASATJA_PT") {
     text += `<b>ความพร้อมสาขาพระยาสัจจา</b> ${prayasatjaAvailabilityText}\n`;
   }
 
@@ -108,7 +175,7 @@ exports.handler = async (event) => {
     text += `<b>🔗 ดูรูปถ่ายผู้สมัคร</b> <i>ไม่มีการแนบไฟล์</i>`;
   }
 
-  // 10 ฟังก์ชันยิงไป Telegram
+  // 11 ฟังก์ชันยิงไป Telegram
   const telegramURL = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}`;
 
   const sendTelegram = async (endpoint, payload) => {
