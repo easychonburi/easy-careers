@@ -11,9 +11,9 @@ exports.handler = async (event) => {
     TELEGRAM_BOT_TOKEN,
 
     // แยก 4 ห้องตาม "ตำแหน่ง"
-    CHAT_ID_BANGSAEN_FULLTIME, // บางแสน - พนักงานประจำ
+    CHAT_ID_BANGSAEN_FULLTIME, // บางแสน - พนักงานประจำสาขา
     CHAT_ID_BANGSAEN_SUN_PT,   // บางแสน - พาร์ทไทม์เฉพาะอาทิตย์
-    CHAT_ID_PRAYASATJA_PT,     // พระยาสัจจา - พาร์ทไทม์
+    CHAT_ID_AOAUDOM_PT,        // อ่าวอุดม - พาร์ทไทม์
     CHAT_ID_AMATA_WEEKEND_PT,  // อมตะนคร - พาร์ทไทม์เสาร์-อาทิตย์
 
     // ห้องกลาง (สำรอง)
@@ -24,7 +24,7 @@ exports.handler = async (event) => {
     !TELEGRAM_BOT_TOKEN ||
     !CHAT_ID_BANGSAEN_FULLTIME ||
     !CHAT_ID_BANGSAEN_SUN_PT ||
-    !CHAT_ID_PRAYASATJA_PT ||
+    !CHAT_ID_AOAUDOM_PT || 
     !CHAT_ID_AMATA_WEEKEND_PT
   ) {
     return { statusCode: 500, body: "Missing environment variables" };
@@ -38,20 +38,19 @@ exports.handler = async (event) => {
   const detectPositionKey = (text) => {
     const t = String(text || "");
 
-    // บางแสน - พนักงานประจำ
-    if (t.includes("บางแสน") && (t.includes("พนักงานประจำ") || t.includes("Fulltime") || t.includes("FULLTIME"))) {
+    // บางแสน - พนักงานประจำสาขา
+    if (t.includes("บางแสน") && (t.includes("ประจำ") || t.includes("Fulltime") || t.includes("FULLTIME"))) {
       return "BANGSAEN_FULLTIME";
     }
 
     // บางแสน - พาร์ทไทม์เฉพาะอาทิตย์ (วันละ 475)
-    // โค้ดหน้าเว็บส่งประมาณ: "สาขาบางแสน – PART TIME (เฉพาะวันอาทิตย์ ... ค่าแรงวันละ 475 บาท)"
     if (t.includes("บางแสน") && (t.includes("เฉพาะวันอาทิตย์") || t.includes("วันละ 475") || t.includes("475"))) {
       return "BANGSAEN_SUN_PT";
     }
 
-    // พระยาสัจจา - พาร์ทไทม์
-    if (t.includes("พระยาสัจจา")) {
-      return "PRAYASATJA_PT";
+    // อ่าวอุดม - พาร์ทไทม์ (อัปเดตคีย์เวิร์ดใหม่)
+    if (t.includes("อ่าวอุดม")) {
+      return "AOAUDOM_PT";
     }
 
     // อมตะนคร - พาร์ทไทม์เสาร์-อาทิตย์
@@ -72,14 +71,14 @@ exports.handler = async (event) => {
     case "BANGSAEN_SUN_PT":
       targetChatId = CHAT_ID_BANGSAEN_SUN_PT;
       break;
-    case "PRAYASATJA_PT":
-      targetChatId = CHAT_ID_PRAYASATJA_PT;
+    case "AOAUDOM_PT":
+      targetChatId = CHAT_ID_AOAUDOM_PT;
       break;
     case "AMATA_WEEKEND_PT":
       targetChatId = CHAT_ID_AMATA_WEEKEND_PT;
       break;
     default:
-      targetChatId = TELEGRAM_CHAT_ID || CHAT_ID_PRAYASATJA_PT;
+      targetChatId = TELEGRAM_CHAT_ID || CHAT_ID_AOAUDOM_PT;
       break;
   }
 
@@ -92,7 +91,7 @@ exports.handler = async (event) => {
       .replace(/>/g, "&gt;");
   };
 
-  // 6 จัดการประวัติการทำงานตาม workCount (0 1 2 3 4 5 5+)
+  // 6 จัดการประวัติการทำงาน
   let workHistoryText = "N/A (ไม่เคยทำงาน)";
   const rawWorkCount = data.workCount || "";
 
@@ -129,27 +128,20 @@ exports.handler = async (event) => {
     educationText = `กำลังศึกษาอยู่ (${lvl})\n<i>สาขา</i> ${major}`;
   }
 
-  // 8 วันที่พร้อมเริ่มงาน (ให้ตรงกับตำแหน่ง + รองรับเลือกวันที่เอง)
-  const startDateByPositionKey = {
-    BANGSAEN_FULLTIME: "พร้อมเริ่มงานได้ทันที",
-    BANGSAEN_SUN_PT: "พร้อมเริ่มงานได้ทันที",
-    PRAYASATJA_PT: "พร้อมเริ่มงานวันที่ 27 กุมภาพันธ์ 2568 ได้ทันที",
-    AMATA_WEEKEND_PT: "พร้อมเริ่มงานวันเสาร์ที่ 21 กุมภาพันธ์ 2568 ได้ทันที"
-  };
-
+  // 8 วันที่พร้อมเริ่มงาน (ปรับให้ดึงจาก Form หรือใช้ "พร้อมเริ่มงานได้ทันที" เลย)
   let startDateText = "N/A";
 
   if (data.start_date_type === "specific") {
     startDateText = `วันที่ ${escape(data.specific_start_date) || "ไม่ได้ระบุ"}`;
   } else {
-    // immediate -> ใช้ข้อความตามตำแหน่ง เพื่อให้ตรงกับหน้าเว็บ
-    startDateText = startDateByPositionKey[positionKey] || "พร้อมเริ่มงานได้ทันที";
+    // immediate -> ตอนนี้ทุกสาขาพร้อมเริ่มงานทันทีหมดแล้ว
+    startDateText = "พร้อมเริ่มงานได้ทันที";
   }
 
-  // 9 ความพร้อมสาขาพระยาสัจจา
-  let prayasatjaAvailabilityText = "N/A";
-  if (data.prayasatja_availability) {
-    prayasatjaAvailabilityText = escape(data.prayasatja_availability);
+  // 9 ความพร้อมสาขาอ่าวอุดม (อัปเดตตัวแปรใหม่)
+  let aoaudomAvailabilityText = "N/A";
+  if (data.aoaudom_availability) {
+    aoaudomAvailabilityText = escape(data.aoaudom_availability);
   }
 
   // 10 ประกอบข้อความหลัก
@@ -162,9 +154,9 @@ exports.handler = async (event) => {
   text += `<b>ที่อยู่</b> ${escape(data.address)}\n`;
   text += `<b>พร้อมเริ่มงาน</b> ${startDateText}\n`;
 
-  // แสดงเฉพาะเคสสาขาพระยาสัจจาเท่านั้นที่มีคำถามนี้
-  if (positionKey === "PRAYASATJA_PT") {
-    text += `<b>ความพร้อมสาขาพระยาสัจจา</b> ${prayasatjaAvailabilityText}\n`;
+  // แสดงเฉพาะเคสสาขาอ่าวอุดมเท่านั้นที่มีคำถามเรื่องเวลา
+  if (positionKey === "AOAUDOM_PT") {
+    text += `<b>เวลาที่สะดวก (อ่าวอุดม)</b> ${aoaudomAvailabilityText}\n`;
   }
 
   text += `<b>ประวัติการทำงาน</b> ${workHistoryText}\n\n`;
