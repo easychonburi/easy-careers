@@ -9,25 +9,35 @@
   <style>
     body { box-sizing: border-box; font-family: 'Kanit', sans-serif; }
     .progress-bar { transition: width 0.3s ease; }
-    .glass-effect {
-      backdrop-filter: blur(10px);
-      background: rgba(255, 255, 255, 0.97);
-      border: 1px solid rgba(255, 255, 255, 0.4);
+    
+    /* ปรับโทนใหม่ให้คลีน สว่าง สบายตา */
+    .clean-bg {
+      background-color: #f8fafc; /* slate-50 */
+      background-image: radial-gradient(#e2e8f0 1px, transparent 1px);
+      background-size: 20px 20px;
     }
-    .gradient-bg {
-      background: radial-gradient(circle at top left, #1e3a8a 0%, #0f172a 40%, #111827 70%, #991b1b 100%);
+    .card-clean {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
     }
+    
     .card-hover { transition: transform 0.2s ease, box-shadow 0.2s ease; }
     .card-hover:active { transform: scale(0.99); }
-    .fade-in { animation: fadeIn 0.5s ease-out; }
-    .slide-up { animation: slideUp 0.5s ease-out; }
+    .fade-in { animation: fadeIn 0.4s ease-out; }
+    .slide-up { animation: slideUp 0.4s ease-out; }
     @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
     @keyframes slideUp {
-      from { opacity: 0; transform: translateY(14px); }
+      from { opacity: 0; transform: translateY(10px); }
       to { opacity: 1; transform: translateY(0); }
     }
-    .input-focus { transition: all 0.15s ease; }
-    .input-focus:focus { transform: scale(1.01); box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.18); }
+    .input-focus { transition: all 0.15s ease; background-color: #f8fafc; }
+    .input-focus:focus { 
+      transform: scale(1.01); 
+      background-color: #ffffff;
+      box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.15); /* Red shadow */
+      border-color: #dc2626;
+    }
 
     /* Ribbon */
     .ribbon {
@@ -42,10 +52,10 @@
       padding: 6px 0;
       letter-spacing: 0.06em;
       color: #fff;
-      box-shadow: 0 10px 16px rgba(0,0,0,.14);
+      box-shadow: 0 4px 6px rgba(0,0,0,.1);
     }
-    .ribbon-fulltime { background: linear-gradient(90deg, #059669, #10b981); }
-    .ribbon-parttime { background: linear-gradient(90deg, #2563eb, #7c3aed); }
+    .ribbon-fulltime { background: linear-gradient(90deg, #dc2626, #b91c1c); } /* Red */
+    .ribbon-parttime { background: linear-gradient(90deg, #2563eb, #1d4ed8); } /* Blue */
 
     /* Sticky action bar (mobile) */
     .sticky-action {
@@ -55,166 +65,179 @@
       backdrop-filter: blur(10px);
       background: rgba(255,255,255,0.92);
       border-top: 1px solid rgba(0,0,0,0.08);
+      z-index: 10;
     }
     .safe-bottom { padding-bottom: calc(env(safe-area-inset-bottom) + 12px); }
   </style>
 </head>
 
-<body class="gradient-bg">
+<body class="clean-bg text-slate-800">
 
   <!-- หน้าเลือกตำแหน่ง -->
   <div id="positionSelection" class="min-h-screen px-4 py-6 fade-in">
-    <header class="text-center pt-6 pb-6">
-      <h1 class="text-4xl sm:text-5xl font-bold text-white mb-2 drop-shadow-lg">EASY หมี่ไก่ฉีก</h1>
-      <h2 class="text-2xl sm:text-3xl font-bold text-blue-100 mb-2 drop-shadow">ตำแหน่งที่กำลังเปิดรับสมัคร</h2>
-      <p class="text-base sm:text-lg text-gray-100 opacity-90">
+    <header class="text-center pt-8 pb-8">
+      <h1 class="text-4xl sm:text-5xl font-bold text-red-600 mb-2">EASY หมี่ไก่ฉีก</h1>
+      <h2 class="text-2xl sm:text-3xl font-bold text-slate-800 mb-2">ตำแหน่งที่กำลังเปิดรับสมัคร</h2>
+      <p class="text-base sm:text-lg text-slate-500">
         กรุณาเลือกตำแหน่งที่ต้องการสมัคร แล้วกรอกข้อมูลให้ครบถ้วน
       </p>
     </header>
 
     <main class="max-w-xl mx-auto pb-6">
-      <div class="grid grid-cols-1 gap-4">
+      <div class="grid grid-cols-1 gap-5">
 
-        <!-- 1) บางแสน - พนักงานประจำ -->
-        <div class="relative glass-effect card-hover rounded-2xl p-5 slide-up overflow-hidden">
+        <!-- 1) บางแสน - ประจำกะเย็น -->
+        <div class="relative card-clean card-hover rounded-2xl p-6 slide-up overflow-hidden">
           <div class="ribbon ribbon-fulltime">FULLTIME</div>
 
-          <p class="text-xs font-semibold text-blue-700 uppercase tracking-wide">EASY หมี่ไก่ฉีก</p>
-          <h3 class="text-2xl font-bold text-gray-900 mt-1">สาขาบางแสน</h3>
-
-          <div class="mt-3 flex flex-wrap gap-2">
-            <span class="inline-flex items-center px-3 py-1.5 rounded-full text-sm font-semibold bg-emerald-50 text-emerald-700">
-              พนักงานประจำ
+          <p class="text-xs font-bold text-red-600 uppercase tracking-wide">EASY หมี่ไก่ฉีก</p>
+          
+          <div class="flex flex-wrap items-center gap-2 mt-1 mb-2">
+            <h3 class="text-2xl font-bold text-slate-900">สาขาบางแสน</h3>
+            <span class="px-2.5 py-1 rounded-lg text-sm font-bold bg-red-100 text-red-800">
+              พนักงานประจำสาขา (กะเย็น)
             </span>
-            <span class="inline-flex items-center px-3 py-1.5 rounded-full text-sm font-semibold bg-emerald-50 text-emerald-700">
+          </div>
+
+          <div class="mb-4">
+            <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-bold bg-emerald-50 text-emerald-700 border border-emerald-200">
+              <svg class="w-4 h-4 mr-1.5 text-emerald-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
               พร้อมเริ่มงานได้ทันที
             </span>
           </div>
 
           <div class="mt-4 space-y-2">
             <div class="flex items-start gap-3">
-              <span class="mt-2 h-2 w-2 rounded-full bg-blue-600"></span>
-              <p class="text-base text-gray-900">จันทร์–เสาร์ เวลา 09:00–17:00</p>
+              <span class="mt-2 h-2 w-2 rounded-full bg-red-600 shrink-0"></span>
+              <p class="text-base text-slate-700 font-medium">ทำวันจันทร์–เสาร์ 17:00–24:00 น.</p>
             </div>
             <div class="flex items-start gap-3">
-              <span class="mt-2 h-2 w-2 rounded-full bg-gray-700"></span>
-              <p class="text-base text-gray-900">ค่าแรง วันละ 400 บาท</p>
+              <span class="mt-2 h-2 w-2 rounded-full bg-slate-400 shrink-0"></span>
+              <p class="text-base text-slate-700">ค่าแรง วันละ 400 บาท (รายวัน)</p>
             </div>
           </div>
 
           <button
-            onclick="openDetails(POSITIONS.BANGSAEN_FULLTIME)"
-            class="mt-5 w-full bg-red-600 active:bg-red-700 text-white py-3.5 px-6 rounded-xl text-base font-semibold shadow-md">
+            onclick="openDetails(POSITIONS.BANGSAEN_FT_EVENING)"
+            class="mt-6 w-full bg-red-600 active:bg-red-700 text-white py-3.5 px-6 rounded-xl text-base font-bold shadow-sm transition-colors">
             สมัครตำแหน่งนี้
           </button>
         </div>
 
-        <!-- 2) บางแสน - พาร์ทไทม์ (เฉพาะวันอาทิตย์) -->
-        <div class="relative glass-effect card-hover rounded-2xl p-5 slide-up overflow-hidden">
+        <!-- 2) บางแสน - พาร์ทไทม์ (อาทิตย์) -->
+        <div class="relative card-clean card-hover rounded-2xl p-6 slide-up overflow-hidden">
           <div class="ribbon ribbon-parttime">PART TIME</div>
 
-          <p class="text-xs font-semibold text-blue-700 uppercase tracking-wide">EASY หมี่ไก่ฉีก</p>
-          <h3 class="text-2xl font-bold text-gray-900 mt-1">สาขาบางแสน</h3>
-
-          <div class="mt-3 flex flex-wrap gap-2">
-            <span class="inline-flex items-center px-3 py-1.5 rounded-full text-sm font-semibold bg-indigo-50 text-indigo-700">
+          <p class="text-xs font-bold text-red-600 uppercase tracking-wide">EASY หมี่ไก่ฉีก</p>
+          
+          <div class="flex flex-wrap items-center gap-2 mt-1 mb-2">
+            <h3 class="text-2xl font-bold text-slate-900">สาขาบางแสน</h3>
+            <span class="px-2.5 py-1 rounded-lg text-sm font-bold bg-blue-100 text-blue-800">
               พาร์ทไทม์ (เฉพาะวันอาทิตย์)
             </span>
-            <span class="inline-flex items-center px-3 py-1.5 rounded-full text-sm font-semibold bg-emerald-50 text-emerald-700">
+          </div>
+
+          <div class="mb-4">
+            <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-bold bg-emerald-50 text-emerald-700 border border-emerald-200">
+              <svg class="w-4 h-4 mr-1.5 text-emerald-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
               พร้อมเริ่มงานได้ทันที
             </span>
           </div>
 
           <div class="mt-4 space-y-2">
             <div class="flex items-start gap-3">
-              <span class="mt-2 h-2 w-2 rounded-full bg-red-600"></span>
-              <p class="text-base text-gray-900">วันอาทิตย์ เวลา 10:30–20:00</p>
+              <span class="mt-2 h-2 w-2 rounded-full bg-blue-600 shrink-0"></span>
+              <p class="text-base text-slate-700 font-medium">วันอาทิตย์ เวลา 10:30–20:00 น.</p>
             </div>
             <div class="flex items-start gap-3">
-              <span class="mt-2 h-2 w-2 rounded-full bg-gray-700"></span>
-              <p class="text-base text-gray-900">ค่าแรง วันละ 475 บาท</p>
+              <span class="mt-2 h-2 w-2 rounded-full bg-slate-400 shrink-0"></span>
+              <p class="text-base text-slate-700">ค่าแรง วันละ 475 บาท</p>
             </div>
           </div>
 
           <button
-            onclick="openDetails(POSITIONS.BANGSAEN_SUN_PT)"
-            class="mt-5 w-full bg-red-600 active:bg-red-700 text-white py-3.5 px-6 rounded-xl text-base font-semibold shadow-md">
+            onclick="openDetails(POSITIONS.BANGSAEN_PT_SUN)"
+            class="mt-6 w-full bg-red-600 active:bg-red-700 text-white py-3.5 px-6 rounded-xl text-base font-bold shadow-sm transition-colors">
             สมัครตำแหน่งนี้
           </button>
         </div>
 
-        <!-- 3) พระยาสัจจา - พาร์ทไทม์ -->
-        <div class="relative glass-effect card-hover rounded-2xl p-5 slide-up overflow-hidden">
+        <!-- 3) อ่าวอุดม - พาร์ทไทม์ -->
+        <div class="relative card-clean card-hover rounded-2xl p-6 slide-up overflow-hidden">
           <div class="ribbon ribbon-parttime">PART TIME</div>
 
-          <p class="text-xs font-semibold text-blue-700 uppercase tracking-wide">EASY หมี่ไก่ฉีก</p>
-          <h3 class="text-2xl font-bold text-gray-900 mt-1">สาขาพระยาสัจจา</h3>
-
-          <div class="mt-3 flex flex-wrap gap-2">
-            <span class="inline-flex items-center px-3 py-1.5 rounded-full text-sm font-semibold bg-indigo-50 text-indigo-700">
+          <p class="text-xs font-bold text-red-600 uppercase tracking-wide">EASY หมี่ไก่ฉีก</p>
+          
+          <div class="flex flex-wrap items-center gap-2 mt-1 mb-2">
+            <h3 class="text-2xl font-bold text-slate-900">สาขาอ่าวอุดม</h3>
+            <span class="px-2.5 py-1 rounded-lg text-sm font-bold bg-blue-100 text-blue-800">
               พาร์ทไทม์
             </span>
-            <span class="inline-flex items-center px-3 py-1.5 rounded-full text-sm font-semibold bg-amber-50 text-amber-800">
-              เริ่มงานได้ 27 ก.พ. 2568
+          </div>
+
+          <div class="mb-4">
+            <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-bold bg-emerald-50 text-emerald-700 border border-emerald-200">
+              <svg class="w-4 h-4 mr-1.5 text-emerald-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+              พร้อมเริ่มงานได้ทันที
             </span>
           </div>
 
           <div class="mt-4 space-y-2">
             <div class="flex items-start gap-3">
-              <span class="mt-2 h-2 w-2 rounded-full bg-blue-600"></span>
-              <p class="text-base text-gray-900">จันทร์–เสาร์ เวลา 17:00–22:00</p>
+              <span class="mt-2 h-2 w-2 rounded-full bg-blue-600 shrink-0"></span>
+              <p class="text-base text-slate-700"><span class="font-medium">วันจันทร์ถึงเสาร์:</span> 17:00–22:00 น. (ชั่วโมงละ 50 บาท)</p>
             </div>
             <div class="flex items-start gap-3">
-              <span class="mt-2 h-2 w-2 rounded-full bg-red-600"></span>
-              <p class="text-base text-gray-900">วันอาทิตย์ เวลา 10:30–20:00</p>
+              <span class="mt-2 h-2 w-2 rounded-full bg-red-600 shrink-0"></span>
+              <p class="text-base text-slate-700"><span class="font-medium">วันอาทิตย์:</span> 10:30–20:00 น. (วันละ 475 บาท)</p>
             </div>
             <div class="flex items-start gap-3">
-              <span class="mt-2 h-2 w-2 rounded-full bg-gray-700"></span>
-              <p class="text-base text-gray-900">ค่าแรง ชั่วโมงละ 50 บาท (จ่ายรายอาทิตย์)</p>
+              <span class="mt-2 h-2 w-2 rounded-full bg-amber-500 shrink-0"></span>
+              <p class="text-base text-slate-700 font-semibold text-amber-700">สามารถแยกสมัครได้</p>
             </div>
           </div>
 
           <button
-            onclick="openDetails(POSITIONS.PRAYASATJA_PT)"
-            class="mt-5 w-full bg-red-600 active:bg-red-700 text-white py-3.5 px-6 rounded-xl text-base font-semibold shadow-md">
+            onclick="openDetails(POSITIONS.AOAUDOM_PT)"
+            class="mt-6 w-full bg-red-600 active:bg-red-700 text-white py-3.5 px-6 rounded-xl text-base font-bold shadow-sm transition-colors">
             สมัครตำแหน่งนี้
           </button>
         </div>
 
         <!-- 4) อมตะนคร - พาร์ทไทม์ เสาร์-อาทิตย์ -->
-        <div class="relative glass-effect card-hover rounded-2xl p-5 slide-up overflow-hidden">
+        <div class="relative card-clean card-hover rounded-2xl p-6 slide-up overflow-hidden">
           <div class="ribbon ribbon-parttime">PART TIME</div>
 
-          <p class="text-xs font-semibold text-blue-700 uppercase tracking-wide">EASY หมี่ไก่ฉีก</p>
-          <h3 class="text-2xl font-bold text-gray-900 mt-1">สาขาอมตะนคร</h3>
-
-          <div class="mt-3 flex flex-wrap gap-2">
-            <span class="inline-flex items-center px-3 py-1.5 rounded-full text-sm font-semibold bg-indigo-50 text-indigo-700">
+          <p class="text-xs font-bold text-red-600 uppercase tracking-wide">EASY หมี่ไก่ฉีก</p>
+          
+          <div class="flex flex-wrap items-center gap-2 mt-1 mb-2">
+            <h3 class="text-2xl font-bold text-slate-900">สาขาอมตะนคร</h3>
+            <span class="px-2.5 py-1 rounded-lg text-sm font-bold bg-blue-100 text-blue-800">
               พาร์ทไทม์ (เสาร์–อาทิตย์)
             </span>
-            <span class="inline-flex items-center px-3 py-1.5 rounded-full text-sm font-semibold bg-amber-50 text-amber-800">
-              เริ่มงานได้ เสาร์ 21 ก.พ. 2568
+          </div>
+
+          <div class="mb-4">
+            <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-bold bg-emerald-50 text-emerald-700 border border-emerald-200">
+              <svg class="w-4 h-4 mr-1.5 text-emerald-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+              พร้อมเริ่มงานได้ทันที
             </span>
           </div>
 
           <div class="mt-4 space-y-2">
             <div class="flex items-start gap-3">
-              <span class="mt-2 h-2 w-2 rounded-full bg-blue-600"></span>
-              <p class="text-base text-gray-900">วันเสาร์ เวลา 17:00–21:00</p>
+              <span class="mt-2 h-2 w-2 rounded-full bg-blue-600 shrink-0"></span>
+              <p class="text-base text-slate-700"><span class="font-medium">วันเสาร์:</span> 17:00–21:00 น. (ชั่วโมงละ 50 บาท)</p>
             </div>
             <div class="flex items-start gap-3">
-              <span class="mt-2 h-2 w-2 rounded-full bg-red-600"></span>
-              <p class="text-base text-gray-900">วันอาทิตย์ เวลา 10:30–20:00</p>
-            </div>
-            <div class="flex items-start gap-3">
-              <span class="mt-2 h-2 w-2 rounded-full bg-gray-700"></span>
-              <p class="text-base text-gray-900">ค่าแรง ชั่วโมงละ 50 บาท (จ่ายรายอาทิตย์)</p>
+              <span class="mt-2 h-2 w-2 rounded-full bg-red-600 shrink-0"></span>
+              <p class="text-base text-slate-700"><span class="font-medium">วันอาทิตย์:</span> 10:30–20:00 น. (วันละ 475 บาท)</p>
             </div>
           </div>
 
           <button
             onclick="openDetails(POSITIONS.AMATA_WEEKEND_PT)"
-            class="mt-5 w-full bg-red-600 active:bg-red-700 text-white py-3.5 px-6 rounded-xl text-base font-semibold shadow-md">
+            class="mt-6 w-full bg-red-600 active:bg-red-700 text-white py-3.5 px-6 rounded-xl text-base font-bold shadow-sm transition-colors">
             สมัครตำแหน่งนี้
           </button>
         </div>
@@ -225,64 +248,65 @@
 
   <!-- หน้ารายละเอียดตำแหน่ง -->
   <div id="positionDetails" class="hidden min-h-screen px-4 py-6 fade-in">
-    <div class="glass-effect rounded-2xl max-w-xl mx-auto slide-up overflow-hidden">
-      <header class="p-5 border-b border-gray-200 relative">
-        <button onclick="backToSelection()" class="absolute left-4 top-4 text-blue-700 text-2xl active:text-blue-900">
+    <div class="card-clean rounded-2xl max-w-xl mx-auto slide-up overflow-hidden">
+      <header class="p-6 border-b border-slate-100 relative bg-white">
+        <button onclick="backToSelection()" class="absolute left-4 top-5 text-slate-400 hover:text-slate-600 text-2xl transition-colors">
           ←
         </button>
 
-        <div class="text-center pt-1">
-          <div class="mb-2">
-            <svg class="mx-auto h-10 w-10 text-blue-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <div class="text-center pt-2">
+          <div class="mb-3 inline-flex items-center justify-center w-12 h-12 rounded-full bg-red-50 text-red-600">
+            <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                     d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
             </svg>
           </div>
-          <h1 class="text-2xl font-bold text-gray-900">รายละเอียดตำแหน่ง</h1>
-          <p id="detailsTitle" class="mt-2 text-base text-gray-900 font-extrabold"></p>
+          <h1 class="text-2xl font-bold text-slate-900">รายละเอียดตำแหน่ง</h1>
+          <p id="detailsTitle" class="mt-2 text-base text-red-600 font-bold"></p>
         </div>
       </header>
 
-      <main class="p-5 space-y-4 pb-2">
+      <main class="p-6 space-y-5 pb-4 bg-slate-50/50">
         <!-- Quick summary -->
-        <div class="bg-white/70 border border-gray-200 rounded-2xl p-4">
-          <div class="flex flex-wrap gap-2" id="detailsBadges"></div>
-        </div>
+        <div class="flex flex-wrap gap-2" id="detailsBadges"></div>
 
         <!-- ที่ตั้งร้าน -->
-        <div class="bg-gray-50 border-2 border-gray-200 rounded-2xl p-4">
-          <h3 class="text-lg font-semibold text-gray-900 mb-2">ที่ตั้งร้าน</h3>
-          <p id="detailsLocationText" class="text-base text-gray-900"></p>
+        <div class="bg-white border border-slate-200 rounded-xl p-5 shadow-sm">
+          <h3 class="text-lg font-bold text-slate-900 mb-2 flex items-center">
+            <svg class="w-5 h-5 mr-2 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+            ที่ตั้งร้าน
+          </h3>
+          <p id="detailsLocationText" class="text-base text-slate-700"></p>
           <a id="detailsMapLink"
              href="#"
              target="_blank"
              rel="noopener noreferrer"
-             class="inline-flex items-center mt-3 text-blue-700 font-semibold underline underline-offset-4">
-            เปิดแผนที่ Google Maps
+             class="inline-flex items-center mt-3 text-blue-600 font-semibold hover:text-blue-800 transition-colors">
+            📍 เปิดแผนที่ Google Maps
           </a>
         </div>
 
-        <div class="bg-gray-50 border-2 border-gray-200 rounded-2xl p-4">
-          <h3 class="text-lg font-semibold text-gray-900 mb-2">รายละเอียดงาน</h3>
-          <div id="detailsJob" class="text-base text-gray-900 space-y-1"></div>
+        <div class="bg-white border border-slate-200 rounded-xl p-5 shadow-sm">
+          <h3 class="text-lg font-bold text-slate-900 mb-3">รายละเอียดงาน</h3>
+          <div id="detailsJob" class="text-base text-slate-700 space-y-2"></div>
         </div>
 
-        <div class="bg-gray-50 border-2 border-gray-200 rounded-2xl p-4">
-          <h3 class="text-lg font-semibold text-gray-900 mb-2">หน้าที่ของคุณ</h3>
-          <ul id="detailsDuties" class="list-disc pl-6 text-base text-gray-900 space-y-1"></ul>
+        <div class="bg-white border border-slate-200 rounded-xl p-5 shadow-sm">
+          <h3 class="text-lg font-bold text-slate-900 mb-3">หน้าที่ของคุณ</h3>
+          <ul id="detailsDuties" class="list-disc pl-5 text-base text-slate-700 space-y-1.5"></ul>
         </div>
 
-        <div class="bg-gray-50 border-2 border-gray-200 rounded-2xl p-4">
-          <h3 class="text-lg font-semibold text-gray-900 mb-2">คุณสมบัติ</h3>
-          <ul id="detailsQual" class="list-disc pl-6 text-base text-gray-900 space-y-1"></ul>
+        <div class="bg-white border border-slate-200 rounded-xl p-5 shadow-sm">
+          <h3 class="text-lg font-bold text-slate-900 mb-3">คุณสมบัติ</h3>
+          <ul id="detailsQual" class="list-disc pl-5 text-base text-slate-700 space-y-1.5"></ul>
         </div>
       </main>
 
-      <div class="sticky-action safe-bottom">
+      <div class="sticky-action safe-bottom bg-white">
         <button
           onclick="proceedToForm()"
-          class="w-full bg-red-600 active:bg-red-700 text-white py-4 px-6 rounded-2xl text-lg font-semibold shadow-md">
-          สมัครตำแหน่งนี้
+          class="w-full bg-red-600 active:bg-red-700 text-white py-4 px-6 rounded-xl text-lg font-bold shadow-md transition-transform hover:scale-[1.02]">
+          กรอกแบบฟอร์มสมัคร
         </button>
       </div>
     </div>
@@ -290,90 +314,85 @@
 
   <!-- หน้าแบบฟอร์มสมัคร -->
   <div id="applicationForm" class="hidden min-h-screen px-4 py-6 fade-in">
-    <div class="glass-effect rounded-2xl max-w-xl mx-auto overflow-hidden">
-      <header class="p-5 border-b border-gray-200 relative">
-        <button onclick="backToDetails()" class="absolute left-4 top-4 text-blue-700 text-2xl active:text-blue-900">
+    <div class="card-clean rounded-2xl max-w-xl mx-auto overflow-hidden">
+      <header class="p-6 border-b border-slate-100 relative bg-white">
+        <button onclick="backToDetails()" class="absolute left-4 top-5 text-slate-400 hover:text-slate-600 text-2xl transition-colors">
           ←
         </button>
-        <div class="text-center pt-1">
-          <div class="mb-2">
-            <svg class="mx-auto h-10 w-10 text-blue-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <div class="text-center pt-2">
+          <div class="mb-3 inline-flex items-center justify-center w-12 h-12 rounded-full bg-red-50 text-red-600">
+            <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                    d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
+                    d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
             </svg>
           </div>
-          <h1 class="text-2xl font-bold text-gray-900">แบบฟอร์มสมัครงาน</h1>
-          <p id="selectedPosition" class="mt-2 text-base text-gray-800 font-semibold"></p>
+          <h1 class="text-2xl font-bold text-slate-900">กรอกข้อมูลส่วนตัว</h1>
+          <p id="selectedPosition" class="mt-2 text-sm text-red-600 font-bold bg-red-50 inline-block px-3 py-1 rounded-full"></p>
         </div>
       </header>
 
-      <main class="p-5">
-        <form id="jobApplicationForm" class="space-y-6">
+      <main class="p-6 bg-white">
+        <form id="jobApplicationForm" class="space-y-8">
 
           <!-- ข้อมูลส่วนตัว -->
           <section class="space-y-4">
-            <div class="flex items-center">
-              <svg class="h-6 w-6 text-blue-700 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                      d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
-              </svg>
-              <h3 class="text-lg font-semibold text-gray-900">ข้อมูลส่วนตัว</h3>
+            <h3 class="text-xl font-bold text-slate-900 border-l-4 border-red-600 pl-3">ข้อมูลพื้นฐาน</h3>
+
+            <div class="grid grid-cols-2 gap-4">
+              <div>
+                <label for="firstName" class="block text-sm font-semibold text-slate-700 mb-1.5">ชื่อจริง *</label>
+                <input type="text" id="firstName" name="first_name" required autocomplete="given-name"
+                       class="input-focus w-full p-3.5 text-base border border-slate-300 rounded-xl outline-none">
+              </div>
+              <div>
+                <label for="lastName" class="block text-sm font-semibold text-slate-700 mb-1.5">นามสกุล *</label>
+                <input type="text" id="lastName" name="last_name" required autocomplete="family-name"
+                       class="input-focus w-full p-3.5 text-base border border-slate-300 rounded-xl outline-none">
+              </div>
             </div>
 
             <div>
-              <label for="firstName" class="block text-base font-medium text-gray-900 mb-2">ชื่อจริง *</label>
-              <input type="text" id="firstName" name="first_name" required autocomplete="given-name"
-                     class="input-focus w-full p-4 text-base border-2 border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
-            </div>
-
-            <div>
-              <label for="lastName" class="block text-base font-medium text-gray-900 mb-2">นามสกุล *</label>
-              <input type="text" id="lastName" name="last_name" required autocomplete="family-name"
-                     class="input-focus w-full p-4 text-base border-2 border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
-            </div>
-
-            <div>
-              <label for="nickname" class="block text-base font-medium text-gray-900 mb-2">ชื่อเล่น *</label>
+              <label for="nickname" class="block text-sm font-semibold text-slate-700 mb-1.5">ชื่อเล่น *</label>
               <input type="text" id="nickname" name="nickname" required autocomplete="nickname"
-                     class="input-focus w-full p-4 text-base border-2 border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                     class="input-focus w-full p-3.5 text-base border border-slate-300 rounded-xl outline-none">
             </div>
 
             <div class="grid grid-cols-3 gap-3">
               <div>
-                <label for="age" class="block text-base font-medium text-gray-900 mb-2">อายุ *</label>
+                <label for="age" class="block text-sm font-semibold text-slate-700 mb-1.5">อายุ *</label>
                 <input type="number" id="age" name="age" required min="18" max="70" inputmode="numeric"
-                       class="input-focus w-full p-4 text-base border-2 border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                       class="input-focus w-full p-3.5 text-base border border-slate-300 rounded-xl outline-none text-center">
               </div>
               <div>
-                <label for="weight" class="block text-base font-medium text-gray-900 mb-2">น้ำหนัก *</label>
+                <label for="weight" class="block text-sm font-semibold text-slate-700 mb-1.5">น้ำหนัก *</label>
                 <input type="number" id="weight" name="weight" required min="30" max="200" inputmode="numeric"
-                       class="input-focus w-full p-4 text-base border-2 border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                       class="input-focus w-full p-3.5 text-base border border-slate-300 rounded-xl outline-none text-center">
               </div>
               <div>
-                <label for="height" class="block text-base font-medium text-gray-900 mb-2">ส่วนสูง *</label>
+                <label for="height" class="block text-sm font-semibold text-slate-700 mb-1.5">ส่วนสูง *</label>
                 <input type="number" id="height" name="height" required min="140" max="220" inputmode="numeric"
-                       class="input-focus w-full p-4 text-base border-2 border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                       class="input-focus w-full p-3.5 text-base border border-slate-300 rounded-xl outline-none text-center">
               </div>
             </div>
 
             <div>
-              <label for="lineId" class="block text-base font-medium text-gray-900 mb-2">ID LINE *</label>
+              <label for="lineId" class="block text-sm font-semibold text-slate-700 mb-1.5">ID LINE *</label>
               <input type="text" id="lineId" name="line_id" required autocomplete="off"
-                     class="input-focus w-full p-4 text-base border-2 border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                     class="input-focus w-full p-3.5 text-base border border-slate-300 rounded-xl outline-none">
             </div>
 
             <div>
-              <label for="phone" class="block text-base font-medium text-gray-900 mb-2">เบอร์โทร *</label>
-              <input type="tel" id="phone" name="phone" required pattern="[0-9]{10}" inputmode="numeric" autocomplete="tel"
-                     class="input-focus w-full p-4 text-base border-2 border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+              <label for="phone" class="block text-sm font-semibold text-slate-700 mb-1.5">เบอร์โทรติดต่อ *</label>
+              <input type="tel" id="phone" name="phone" required pattern="[0-9]{10}" inputmode="numeric" autocomplete="tel" placeholder="08xxxxxxxx"
+                     class="input-focus w-full p-3.5 text-base border border-slate-300 rounded-xl outline-none">
             </div>
 
             <!-- การศึกษา -->
-            <div>
-              <label for="education" class="block text-base font-medium text-gray-900 mb-2">ระดับการศึกษา *</label>
+            <div class="pt-2">
+              <label for="education" class="block text-sm font-semibold text-slate-700 mb-1.5">ระดับการศึกษา *</label>
               <select id="education" name="education" required
-                      class="input-focus w-full p-4 text-base border-2 border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
-                <option value="">เลือกระดับการศึกษา</option>
+                      class="input-focus w-full p-3.5 text-base border border-slate-300 rounded-xl outline-none bg-white">
+                <option value="">-- เลือกระดับการศึกษา --</option>
                 <option value="ป.6">ป.6</option>
                 <option value="ม.3">ม.3</option>
                 <option value="ม.6">ม.6</option>
@@ -384,12 +403,12 @@
               </select>
             </div>
 
-            <div id="studyingExtra" class="hidden bg-gray-50 border-2 border-gray-200 rounded-2xl p-4 space-y-3">
+            <div id="studyingExtra" class="hidden bg-slate-50 border border-slate-200 rounded-xl p-4 space-y-3 mt-2">
               <div>
-                <label for="studyingLevel" class="block text-base font-medium text-gray-900 mb-2">กำลังศึกษาอยู่ระดับไหน *</label>
+                <label for="studyingLevel" class="block text-sm font-semibold text-slate-700 mb-1.5">กำลังศึกษาอยู่ระดับไหน *</label>
                 <select id="studyingLevel" name="studying_level"
-                        class="input-focus w-full p-4 text-base border-2 border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
-                  <option value="">เลือกระดับ</option>
+                        class="input-focus w-full p-3.5 text-base border border-slate-300 rounded-xl outline-none bg-white">
+                  <option value="">-- เลือกระดับ --</option>
                   <option value="ม.3">ม.3</option>
                   <option value="ม.6">ม.6</option>
                   <option value="ปวช.">ปวช.</option>
@@ -399,99 +418,89 @@
               </div>
 
               <div>
-                <label for="studyingMajor" class="block text-base font-medium text-gray-900 mb-2">สาขาที่กำลังศึกษา *</label>
+                <label for="studyingMajor" class="block text-sm font-semibold text-slate-700 mb-1.5">สาขาที่กำลังศึกษา *</label>
                 <input type="text" id="studyingMajor" name="studying_major"
-                       class="input-focus w-full p-4 text-base border-2 border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                       placeholder="เช่น การตลาด, บัญชี, คอมพิวเตอร์">
+                       class="input-focus w-full p-3.5 text-base border border-slate-300 rounded-xl outline-none"
+                       placeholder="เช่น การตลาด, บัญชี, วิศวะ">
               </div>
             </div>
 
-            <div>
-              <label for="address" class="block text-base font-medium text-gray-900 mb-2">ที่อยู่ปัจจุบัน *</label>
-              <textarea id="address" name="address" required rows="3" autocomplete="street-address"
-                        class="input-focus w-full p-4 text-base border-2 border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500"></textarea>
+            <div class="pt-2">
+              <label for="address" class="block text-sm font-semibold text-slate-700 mb-1.5">ที่อยู่ปัจจุบัน *</label>
+              <textarea id="address" name="address" required rows="2" autocomplete="street-address" placeholder="บ้านเลขที่ ซอย ถนน ตำบล..."
+                        class="input-focus w-full p-3.5 text-base border border-slate-300 rounded-xl outline-none"></textarea>
             </div>
           </section>
 
           <!-- วันที่พร้อมเริ่มงาน -->
-          <section class="border-t-2 border-gray-200 pt-6">
-            <div class="flex items-center mb-4">
-              <svg class="h-6 w-6 text-blue-700 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                      d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
-              </svg>
-              <h3 class="text-lg font-semibold text-gray-900">วันที่พร้อมเริ่มงาน *</h3>
-            </div>
+          <section class="border-t border-slate-200 pt-6">
+            <h3 class="text-xl font-bold text-slate-900 border-l-4 border-red-600 pl-3 mb-4">วันที่พร้อมเริ่มงาน</h3>
 
             <div class="space-y-3">
-              <label class="flex items-center p-3 border-2 border-gray-300 rounded-xl cursor-pointer active:border-blue-300">
+              <label class="flex items-center p-3.5 border border-slate-300 rounded-xl cursor-pointer hover:bg-slate-50 transition-colors">
                 <input type="radio" id="startImmediateRadio" name="start_date_type" value="immediate" checked required
-                       class="mr-3 text-blue-700 focus:ring-blue-500 w-5 h-5">
-                <span id="startImmediateLabel" class="text-base text-gray-900">พร้อมเริ่มงานได้ทันที</span>
+                       class="mr-3 text-red-600 focus:ring-red-500 w-5 h-5 accent-red-600">
+                <span id="startImmediateLabel" class="text-base text-slate-900 font-medium">พร้อมเริ่มงานได้ทันที</span>
               </label>
 
-              <label class="flex items-center p-3 border-2 border-gray-300 rounded-xl cursor-pointer active:border-blue-300">
+              <label class="flex items-center p-3.5 border border-slate-300 rounded-xl cursor-pointer hover:bg-slate-50 transition-colors">
                 <input type="radio" name="start_date_type" value="specific" required
-                       class="mr-3 text-blue-700 focus:ring-blue-500 w-5 h-5">
-                <span class="text-base text-gray-900">กำหนดวันที่เฉพาะ</span>
+                       class="mr-3 text-red-600 focus:ring-red-500 w-5 h-5 accent-red-600">
+                <span class="text-base text-slate-900 font-medium">กำหนดวันที่เฉพาะ</span>
               </label>
 
-              <div id="dateInputContainer" class="hidden">
-                <label for="specificDate" class="block text-base font-medium text-gray-900 mb-2">กรุณาเลือกวันที่ *</label>
+              <div id="dateInputContainer" class="hidden mt-3 pl-1">
+                <label for="specificDate" class="block text-sm font-semibold text-slate-700 mb-1.5">กรุณาเลือกวันที่ *</label>
                 <input type="date" id="specificDate" name="specific_start_date"
-                       class="input-focus w-full p-4 text-base border-2 border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                       class="input-focus w-full p-3.5 text-base border border-slate-300 rounded-xl outline-none">
               </div>
             </div>
           </section>
 
-          <!-- ความพร้อมเฉพาะสาขาพระยาสัจจา -->
-          <section id="prayasatjaAvailabilitySection" class="border-t-2 border-gray-200 pt-6 hidden">
-            <div class="flex items-center mb-4">
-              <svg class="h-6 w-6 text-blue-700 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                      d="M4 6h16M4 10h16M4 14h10M4 18h10"/>
-              </svg>
-              <h3 class="text-lg font-semibold text-gray-900">ความพร้อมในการทำงาน (สาขาพระยาสัจจา) *</h3>
-            </div>
-            <p class="text-sm text-gray-600 mb-3">เลือกตัวเลือกที่ตรงกับเวลาที่สามารถทำงานได้</p>
+          <!-- ความพร้อมเฉพาะสาขาอ่าวอุดม -->
+          <section id="aoaudomAvailabilitySection" class="border-t border-slate-200 pt-6 hidden bg-blue-50/50 -mx-6 px-6 pb-6">
+            <h3 class="text-xl font-bold text-slate-900 border-l-4 border-blue-600 pl-3 mb-2">เวลาที่ต้องการสมัคร (สาขาอ่าวอุดม) *</h3>
 
-            <div class="space-y-3">
-              <label class="flex items-center p-3 border-2 border-gray-300 rounded-xl cursor-pointer active:border-blue-300">
-                <input type="radio" name="prayasatja_availability" value="ทำได้ทุกวัน"
-                       class="mr-3 text-blue-700 focus:ring-blue-500 w-5 h-5">
-                <span class="text-base text-gray-900">สามารถทำได้ทุกวัน (ตามวันและเวลาที่กำหนด)</span>
+            <div class="space-y-3 pl-4 mt-4">
+              <label class="flex items-start p-3.5 border border-blue-200 bg-white rounded-xl cursor-pointer hover:border-blue-400 transition-colors shadow-sm">
+                <input type="radio" name="aoaudom_availability" value="ทำทุกวัน"
+                       class="mt-1 mr-3 text-blue-600 focus:ring-blue-500 w-5 h-5 accent-blue-600">
+                <div>
+                  <span class="block text-base text-slate-900 font-bold">ทำทุกวัน</span>
+                  <span class="block text-sm text-slate-500 mt-0.5">วันจันทร์ถึงเสาร์ (17:00 - 22:00 น.) และ วันอาทิตย์ (10:30 - 20:00 น.)</span>
+                </div>
               </label>
 
-              <label class="flex items-center p-3 border-2 border-gray-300 rounded-xl cursor-pointer active:border-blue-300">
-                <input type="radio" name="prayasatja_availability" value="เฉพาะจันทร์ถึงเสาร์"
-                       class="mr-3 text-blue-700 focus:ring-blue-500 w-5 h-5">
-                <span class="text-base text-gray-900">สมัครเฉพาะวันจันทร์ถึงเสาร์</span>
+              <label class="flex items-start p-3.5 border border-slate-200 bg-white rounded-xl cursor-pointer hover:bg-slate-50 transition-colors shadow-sm">
+                <input type="radio" name="aoaudom_availability" value="เฉพาะวันจันทร์ถึงเสาร์"
+                       class="mt-1 mr-3 text-blue-600 focus:ring-blue-500 w-5 h-5 accent-blue-600">
+                <div>
+                  <span class="block text-base text-slate-900 font-bold">เฉพาะวันจันทร์ถึงเสาร์</span>
+                  <span class="block text-sm text-slate-500 mt-0.5">เวลา 17:00 - 22:00 น.</span>
+                </div>
               </label>
 
-              <label class="flex items-center p-3 border-2 border-gray-300 rounded-xl cursor-pointer active:border-blue-300">
-                <input type="radio" name="prayasatja_availability" value="เฉพาะอาทิตย์"
-                       class="mr-3 text-blue-700 focus:ring-blue-500 w-5 h-5">
-                <span class="text-base text-gray-900">สมัครเฉพาะวันอาทิตย์</span>
+              <label class="flex items-start p-3.5 border border-slate-200 bg-white rounded-xl cursor-pointer hover:bg-slate-50 transition-colors shadow-sm">
+                <input type="radio" name="aoaudom_availability" value="เฉพาะวันอาทิตย์"
+                       class="mt-1 mr-3 text-blue-600 focus:ring-blue-500 w-5 h-5 accent-blue-600">
+                <div>
+                  <span class="block text-base text-slate-900 font-bold">เฉพาะวันอาทิตย์</span>
+                  <span class="block text-sm text-slate-500 mt-0.5">เวลา 10:30 - 20:00 น.</span>
+                </div>
               </label>
             </div>
           </section>
 
           <!-- ประวัติการทำงาน -->
-          <section class="border-t-2 border-gray-200 pt-6">
-            <div class="flex items-center mb-4">
-              <svg class="h-6 w-6 text-blue-700 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                      d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"/>
-              </svg>
-              <h3 class="text-lg font-semibold text-gray-900">ประวัติการทำงาน</h3>
-            </div>
-            <p class="text-base text-gray-700 mb-4">หากไม่เคยทำงาน สามารถเลือก “0” หรือเว้นว่างส่วนนี้ได้</p>
+          <section class="border-t border-slate-200 pt-6">
+            <h3 class="text-xl font-bold text-slate-900 border-l-4 border-red-600 pl-3 mb-2">ประวัติการทำงาน</h3>
+            <p class="text-sm text-slate-500 mb-4 pl-4">หากไม่เคยทำงาน สามารถเลือก “0” หรือเว้นว่างได้</p>
 
             <div class="mb-4">
-              <label for="workCount" class="block text-base font-medium text-gray-900 mb-2">เคยทำงานมาแล้วกี่ที่</label>
+              <label for="workCount" class="block text-sm font-semibold text-slate-700 mb-1.5">เคยทำงานมาแล้วกี่ที่</label>
               <select id="workCount" name="workCount" onchange="showWorkHistory()"
-                      class="input-focus w-full p-4 text-base border-2 border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
-                <option value="">เลือกจำนวน</option>
+                      class="input-focus w-full p-3.5 text-base border border-slate-300 rounded-xl outline-none bg-white">
+                <option value="">-- เลือกจำนวน --</option>
                 <option value="0">0 (ไม่เคยทำงาน)</option>
                 <option value="1">1</option>
                 <option value="2">2</option>
@@ -502,56 +511,51 @@
               </select>
             </div>
 
-            <div id="workHistorySection" class="space-y-4 hidden">
-              <h4 class="text-base font-medium text-gray-900">
-                รายละเอียดประวัติการทำงาน <span class="text-sm text-gray-500">(กรอกเรียงจากล่าสุดไปเก่า)</span>
+            <div id="workHistorySection" class="space-y-4 hidden mt-4">
+              <h4 class="text-sm font-bold text-slate-700 bg-slate-100 p-2 rounded-md text-center">
+                กรอกรายละเอียด (เรียงจากล่าสุดไปเก่า)
               </h4>
               <div id="workHistoryContainer" class="space-y-4"></div>
             </div>
           </section>
 
           <!-- อัปโหลดรูป -->
-          <section class="border-t-2 border-gray-200 pt-6">
-            <div class="flex items-center mb-4">
-              <svg class="h-6 w-6 text-blue-700 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                      d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>
-              </svg>
-              <h3 class="text-lg font-semibold text-gray-900">อัปโหลดรูปถ่าย *</h3>
-            </div>
-            <p class="text-base text-gray-700 mb-2">เห็นหน้าชัดๆ (JPG หรือ PNG ขนาดไม่เกิน 10MB)</p>
-            <p class="text-base text-red-600 mb-4 font-medium">หากไม่อัปโหลดรูปจะไม่สามารถส่งแบบฟอร์มได้</p>
+          <section class="border-t border-slate-200 pt-6 pb-4">
+            <h3 class="text-xl font-bold text-slate-900 border-l-4 border-red-600 pl-3 mb-2">อัปโหลดรูปถ่าย *</h3>
+            <p class="text-sm text-slate-600 mb-4 pl-4">หน้าชัดเจน ไม่สวมแว่นดำ (JPG/PNG ขนาดไม่เกิน 10MB)</p>
 
             <div id="uploadArea"
-                 class="border-3 border-dashed border-gray-300 rounded-2xl p-8 text-center cursor-pointer active:border-blue-500 transition-all active:bg-blue-50"
+                 class="border-2 border-dashed border-slate-300 rounded-2xl p-8 text-center cursor-pointer hover:border-red-500 hover:bg-red-50 transition-all"
                  onclick="document.getElementById('photoInput').click()">
               <div id="uploadContent">
-                <svg class="mx-auto h-16 w-16 text-gray-400 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M12 6v6m0 0v6m0-6h6m-6 0H6"/>
-                </svg>
-                <p class="text-lg text-gray-900 font-medium">คลิกเพื่อเลือกรูปภาพ</p>
+                <div class="mx-auto h-16 w-16 bg-slate-100 rounded-full flex items-center justify-center mb-3">
+                  <svg class="h-8 w-8 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                  </svg>
+                </div>
+                <p class="text-base text-slate-700 font-bold">แตะเพื่อเลือกรูปภาพ</p>
+                <p class="text-sm text-red-500 mt-1">* จำเป็นต้องอัปโหลด</p>
               </div>
             </div>
 
             <input type="file" id="photoInput" accept="image/jpeg,image/png" class="hidden" onchange="handleFileUpload(event)">
 
-            <div id="uploadProgress" class="hidden mt-4">
-              <div class="flex justify-between text-base text-gray-900 mb-2">
-                <span id="uploadStatus">กำลังอัปโหลด</span>
-                <span id="uploadPercent">0%</span>
+            <div id="uploadProgress" class="hidden mt-4 bg-slate-50 p-4 rounded-xl border border-slate-200">
+              <div class="flex justify-between text-sm font-bold text-slate-700 mb-2">
+                <span id="uploadStatus">กำลังอัปโหลด...</span>
+                <span id="uploadPercent" class="text-blue-600">0%</span>
               </div>
-              <div class="w-full bg-gray-200 rounded-full h-3">
-                <div id="progressBar" class="progress-bar bg-blue-700 h-3 rounded-full" style="width: 0%"></div>
+              <div class="w-full bg-slate-200 rounded-full h-2.5">
+                <div id="progressBar" class="progress-bar bg-blue-600 h-2.5 rounded-full" style="width: 0%"></div>
               </div>
             </div>
 
-            <div id="uploadError" class="hidden mt-3 text-red-600 text-base font-medium"></div>
-            <div id="uploadSuccess" class="hidden mt-3 text-green-600 text-base font-medium"></div>
+            <div id="uploadError" class="hidden mt-3 text-red-600 text-sm font-bold bg-red-50 p-3 rounded-lg border border-red-100"></div>
+            <div id="uploadSuccess" class="hidden mt-3 text-emerald-600 text-sm font-bold bg-emerald-50 p-3 rounded-lg border border-emerald-100 text-center"></div>
           </section>
 
           <button type="submit" id="submitBtn" disabled
-                  class="w-full bg-gray-400 text-white py-4 px-6 rounded-2xl text-lg font-semibold cursor-not-allowed transition-all">
+                  class="w-full bg-slate-300 text-slate-500 py-4 px-6 rounded-xl text-lg font-bold cursor-not-allowed transition-all mt-4">
             ส่งใบสมัคร
           </button>
         </form>
@@ -560,32 +564,41 @@
   </div>
 
   <!-- Modal ส่งสำเร็จ -->
-  <div id="successModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-6 z-50">
-    <div class="glass-effect rounded-2xl p-8 max-w-sm w-full text-center slide-up">
-      <div class="text-green-600 text-6xl mb-6">✓</div>
-      <h3 class="text-2xl font-bold text-gray-900 mb-4">ส่งใบสมัครสำเร็จ</h3>
-      <p class="text-base text-gray-800 mb-4">หากผ่านการคัดเลือก ทางร้านจะติดต่อกลับไปโดยเร็วที่สุด</p>
-      <p class="text-base text-gray-800 mb-6">หากมีข้อสงสัยสามารถทักไลน์ @244dnoyw</p>
+  <div id="successModal" class="hidden fixed inset-0 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4 z-50">
+    <div class="bg-white rounded-2xl p-8 max-w-sm w-full text-center slide-up shadow-2xl">
+      <div class="mx-auto flex items-center justify-center h-20 w-20 rounded-full bg-emerald-100 mb-6">
+        <svg class="h-10 w-10 text-emerald-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/>
+        </svg>
+      </div>
+      <h3 class="text-2xl font-bold text-slate-900 mb-2">ส่งใบสมัครสำเร็จ!</h3>
+      <p class="text-base text-slate-600 mb-6">หากผ่านการคัดเลือก ทางร้านจะติดต่อกลับไปโดยเร็วที่สุด</p>
+      
+      <div class="bg-slate-50 p-4 rounded-xl mb-6">
+        <p class="text-sm text-slate-700 font-medium mb-3">หากมีข้อสงสัยสามารถทักสอบถามได้ที่</p>
+        <a href="https://lin.ee/ShkrKFE" target="_blank" rel="noopener noreferrer"
+           class="flex items-center justify-center w-full bg-[#06C755] hover:bg-[#05b34c] text-white px-4 py-3 rounded-xl text-base font-bold transition-colors">
+          <svg class="w-5 h-5 mr-2" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M24 10.304c0-5.369-5.383-9.738-12-9.738-6.616 0-12 4.369-12 9.738 0 4.814 3.55 8.845 8.365 9.578.324.069.757.215.867.502.1.258.066.66.031.93-.042.348-.266 1.62-.326 1.956-.078.43-.357 1.761 1.547.958 1.905-.803 10.252-6.046 12.186-9.117.886-1.42 1.33-2.99 1.33-4.807zm-14.775 3.328h-2.52c-.222 0-.402-.18-.402-.402v-5.28c0-.223.18-.403.402-.403h.804c.222 0 .402.18.402.403v4.475h1.314c.222 0 .402.18.402.403v.804c0 .222-.18.402-.402.402zm3.325 0h-.804c-.222 0-.403-.18-.403-.402v-5.28c0-.223.181-.403.403-.403h.804c.222 0 .402.18.402.403v5.28c0 .222-.18.402-.402.402zm4.35 0h-2.185c-.222 0-.402-.18-.402-.402v-5.28c0-.223.18-.403.402-.403h.804c.222 0 .402.18.402.403v3.136l1.636-2.902c.089-.156.257-.253.438-.253h.885c.27 0 .445.283.315.52l-1.92 3.25 1.968 3.336c.133.226-.032.518-.293.518h-.878c-.16 0-.31-.078-.405-.213l-1.564-2.585v1.875c0 .222-.18.402-.402.402z"/>
+          </svg>
+          เพิ่มเพื่อน LINE @244dnoyw
+        </a>
+      </div>
 
-      <a href="https://lin.ee/ShkrKFE" target="_blank" rel="noopener noreferrer"
-         class="inline-block bg-green-500 active:bg-green-600 text-white px-6 py-3 rounded-xl text-base font-semibold mb-4">
-        เพิ่มเพื่อน LINE
-      </a>
-      <br>
-      <button onclick="resetAll()" class="text-red-600 active:text-red-700 text-base font-medium">
-        สมัครตำแหน่งอื่น
+      <button onclick="resetAll()" class="text-slate-500 hover:text-slate-800 text-sm font-bold transition-colors underline underline-offset-4">
+        กลับไปหน้าเลือกตำแหน่ง
       </button>
     </div>
   </div>
 
   <!-- Modal ระหว่างกำลังส่ง -->
-  <div id="loadingModal" class="hidden fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center p-6 z-40">
-    <div class="glass-effect rounded-2xl p-6 max-w-xs w-full text-center slide-up">
-      <div class="flex justify-center mb-4">
-        <div class="h-10 w-10 border-4 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
+  <div id="loadingModal" class="hidden fixed inset-0 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4 z-40">
+    <div class="bg-white rounded-2xl p-8 max-w-xs w-full text-center slide-up shadow-xl">
+      <div class="flex justify-center mb-5">
+        <div class="h-12 w-12 border-4 border-slate-200 border-t-red-600 rounded-full animate-spin"></div>
       </div>
-      <h3 class="text-lg font-semibold text-gray-900 mb-2">กรุณารอสักครู่</h3>
-      <p class="text-base text-gray-800">กำลังส่งใบสมัครของคุณ...</p>
+      <h3 class="text-lg font-bold text-slate-900 mb-1">กรุณารอสักครู่</h3>
+      <p class="text-sm text-slate-500">กำลังอัปโหลดข้อมูลของคุณ...</p>
     </div>
   </div>
 
@@ -597,22 +610,22 @@
 
     let uploadedImageUrl = "";
 
-    // ===== Position data =====
+    // ===== Position data (อัปเดตใหม่ตามโจทย์) =====
     const POSITIONS = {
-      BANGSAEN_FULLTIME: {
-        key: "BANGSAEN_FULLTIME",
-        typeBadge: { text: "พนักงานประจำ", tone: "emerald" },
+      BANGSAEN_FT_EVENING: {
+        key: "BANGSAEN_FT_EVENING",
+        typeBadge: { text: "พนักงานประจำสาขา (กะเย็น)", tone: "red" },
         startBadge: { text: "พร้อมเริ่มงานได้ทันที", tone: "emerald" },
-        titleBold: "คุณกำลังสมัครตำแหน่ง พนักงานประจำ-สาขาบางแสน",
-        selectionText: "พนักงานประจำ-สาขาบางแสน",
-        positionPayload: "สาขาบางแสน – พนักงานประจำ (จันทร์–เสาร์ 09:00–17:00 ค่าแรงวันละ 400 บาท)",
+        titleBold: "พนักงานประจำสาขา กะเย็น - สาขาบางแสน",
+        selectionText: "พนักงานประจำสาขา กะเย็น - สาขาบางแสน",
+        positionPayload: "สาขาบางแสน – ประจำสาขา กะเย็น (จันทร์-เสาร์ 17:00–24:00 ค่าแรง 400 บาท/วัน)",
         startImmediateLabel: "พร้อมเริ่มงานได้ทันที",
-        showPrayasatjaAvailability: false,
+        showSrirachaAvailability: false,
         locationText: "ถนนมาบมะยม (ใกล้ๆโรตีลุงหยิก)",
         mapUrl: "https://maps.app.goo.gl/mDWUThpJmFaEsUxe9",
         jobLines: [
-          "ทำงานวันจันทร์-เสาร์ เวลา 9:00-17:00",
-          "ค่าแรงวันละ 400 บาท",
+          "ทำงานวันจันทร์-เสาร์ เวลา 17:00-24:00 น.",
+          "ค่าแรงวันละ 400 บาท (รายวัน)",
           "จ่ายค่าแรงทุกวันที่ 1 และ 16 ของทุกเดือน"
         ],
         duties: [
@@ -628,26 +641,26 @@
         ]
       },
 
-      BANGSAEN_SUN_PT: {
-        key: "BANGSAEN_SUN_PT",
-        typeBadge: { text: "พาร์ทไทม์ (เฉพาะวันอาทิตย์)", tone: "indigo" },
+      BANGSAEN_PT_SUN: {
+        key: "BANGSAEN_PT_SUN",
+        typeBadge: { text: "พาร์ทไทม์ (อาทิตย์)", tone: "blue" },
         startBadge: { text: "พร้อมเริ่มงานได้ทันที", tone: "emerald" },
-        titleBold: "คุณกำลังสมัครตำแหน่ง พนักงานพาร์ทไทม์ (เฉพาะวันอาทิตย์) - สาขาบางแสน",
+        titleBold: "พนักงานพาร์ทไทม์ (อาทิตย์) - สาขาบางแสน",
         selectionText: "พนักงานพาร์ทไทม์ (เฉพาะวันอาทิตย์) - สาขาบางแสน",
-        positionPayload: "สาขาบางแสน – PART TIME (เฉพาะวันอาทิตย์ 10:30–20:00 ค่าแรงวันละ 475 บาท)",
+        positionPayload: "สาขาบางแสน – PART TIME (เฉพาะวันอาทิตย์ 10:30–20:00 ค่าแรง 475 บาท/วัน)",
         startImmediateLabel: "พร้อมเริ่มงานได้ทันที",
-        showPrayasatjaAvailability: false,
+        showSrirachaAvailability: false,
         locationText: "ถนนมาบมะยม (ใกล้ๆโรตีลุงหยิก)",
         mapUrl: "https://maps.app.goo.gl/mDWUThpJmFaEsUxe9",
         jobLines: [
-          "ทำงานเฉพาะวันอาทิตย์ เวลา 10:30-20:00",
+          "ทำงานเฉพาะวันอาทิตย์ เวลา 10:30-20:00 น.",
           "ค่าแรงวันละ 475 บาท",
           "จ่ายค่าแรงรายอาทิตย์"
         ],
         duties: [
           "จัดออเดอร์จากแอพเดลิเวอรี่",
-          "ร้านเป็นร้านเล็กๆรับแต่เดลิเวอรี่ ไม่มีนั่งทานหน้าร้าน",
-          "เช็คสต็อคและปิดร้าน"
+          "เช็คสต็อคและปิดร้าน",
+          "ร้านเป็นร้านเล็กๆรับแต่เดลิเวอรี่ ไม่มีนั่งทานหน้าร้าน"
         ],
         qualifications: [
           "เพศหญิงเท่านั้น",
@@ -657,26 +670,25 @@
         ]
       },
 
-      PRAYASATJA_PT: {
-        key: "PRAYASATJA_PT",
-        typeBadge: { text: "พาร์ทไทม์", tone: "indigo" },
-        startBadge: { text: "เริ่มงานได้ 27 ก.พ. 2568", tone: "amber" },
-        titleBold: "คุณกำลังสมัครตำแหน่ง พนักงานพาร์ทไทม์ - สาขาพระยาสัจจา",
-        selectionText: "พนักงานพาร์ทไทม์ - สาขาพระยาสัจจา",
-        positionPayload: "สาขาพระยาสัจจา – PART TIME (จันทร์–เสาร์ 17:00–22:00 และอาทิตย์ 10:30–20:00 ค่าแรงชั่วโมงละ 50 บาท)",
-        startImmediateLabel: "พร้อมเริ่มงานวันที่ 27 กุมภาพันธ์ 2568 ได้ทันที",
-        showPrayasatjaAvailability: true,
-        locationText: "อยู่ในตลาดธนา (ตรงข้ามร้าน มา•หา•ชล)",
-        mapUrl: "https://maps.app.goo.gl/7fXQyfmVQos9rvux6",
+      AOAUDOM_PT: {
+        key: "AOAUDOM_PT",
+        typeBadge: { text: "พาร์ทไทม์", tone: "blue" },
+        startBadge: { text: "พร้อมเริ่มงานได้ทันที", tone: "emerald" },
+        titleBold: "พนักงานพาร์ทไทม์ - สาขาอ่าวอุดม",
+        selectionText: "พนักงานพาร์ทไทม์ - สาขาอ่าวอุดม",
+        positionPayload: "สาขาอ่าวอุดม – PART TIME",
+        startImmediateLabel: "พร้อมเริ่มงานได้ทันที",
+        showAoaudomAvailability: true, // เปิด Section ให้เลือกเวลา
+        locationText: "ม.เกษตร ประตู 3 หน้าร้านชาบู 21",
+        mapUrl: "https://maps.app.goo.gl/7VrqHru324X9fyai7",
         jobLines: [
-          "ทำงานวันจันทร์-เสาร์ เวลา 17:00-22:00 และวันอาทิตย์ 10:30-20:00 (สามารถเลือกสมัครเฉพาะวันธรรมดา หรือเฉพาะวันอาทิตย์ได้)",
-          "ค่าแรงชั่วโมงละ 50 บาท",
+          "วันจันทร์ถึงเสาร์: เวลา 17:00-22:00 น. (ชั่วโมงละ 50 บาท)",
+          "วันอาทิตย์: เวลา 10:30-20:00 น. (วันละ 475 บาท)",
           "จ่ายค่าแรงเป็นรายอาทิตย์",
-          "เริ่มงานได้วันที่ 27 กุมภาพันธ์ 2568"
+          "**สามารถแยกสมัครได้**"
         ],
         duties: [
           "จัดออเดอร์จากแอพเดลิเวอรี่",
-          "ร้านเป็นร้านเล็กๆรับแต่เดลิเวอรี่ ไม่มีนั่งทานหน้าร้าน",
           "เช็คสต็อคและปิดร้าน"
         ],
         qualifications: [
@@ -689,24 +701,22 @@
 
       AMATA_WEEKEND_PT: {
         key: "AMATA_WEEKEND_PT",
-        typeBadge: { text: "พาร์ทไทม์ (เสาร์–อาทิตย์)", tone: "indigo" },
-        startBadge: { text: "เริ่มงานได้ เสาร์ 21 ก.พ. 2568", tone: "amber" },
-        titleBold: "คุณกำลังสมัครตำแหน่ง พนักงานพาร์ทไทม์ วันเสาร์-อาทิตย์ - สาขาอมตะนคร",
+        typeBadge: { text: "พาร์ทไทม์ (เสาร์-อาทิตย์)", tone: "blue" },
+        startBadge: { text: "พร้อมเริ่มงานได้ทันที", tone: "emerald" },
+        titleBold: "พาร์ทไทม์ เสาร์-อาทิตย์ - สาขาอมตะนคร",
         selectionText: "พนักงานพาร์ทไทม์ วันเสาร์-อาทิตย์ - สาขาอมตะนคร",
-        positionPayload: "สาขาอมตะนคร – PART TIME (เสาร์ 17:00–21:00 และอาทิตย์ 10:30–20:00 ค่าแรงชั่วโมงละ 50 บาท)",
-        startImmediateLabel: "พร้อมเริ่มงานวันเสาร์ที่ 21 กุมภาพันธ์ 2568 ได้ทันที",
-        showPrayasatjaAvailability: false,
+        positionPayload: "สาขาอมตะนคร – PART TIME (เสาร์ 17:00–21:00 และอาทิตย์ 10:30–20:00)",
+        startImmediateLabel: "พร้อมเริ่มงานได้ทันที",
+        showSrirachaAvailability: false,
         locationText: "โครงการ Pure Park บ้านเก่าซอย 5",
         mapUrl: "https://maps.app.goo.gl/RvNuerqE86Qh5MbRA",
         jobLines: [
-          "ทำงานวันเสาร์ เวลา 17:00-21:00 และวันอาทิตย์ 10:30-20:00",
-          "ค่าแรงชั่วโมงละ 50 บาท",
-          "จ่ายค่าแรงเป็นรายอาทิตย์",
-          "พร้อมเริ่มงานได้วันเสาร์ที่ 21 กุมภาพันธ์ 2568"
+          "วันเสาร์: เวลา 17:00-21:00 น. (ชั่วโมงละ 50 บาท)",
+          "วันอาทิตย์: เวลา 10:30-20:00 น. (วันละ 475 บาท)",
+          "จ่ายค่าแรงเป็นรายอาทิตย์"
         ],
         duties: [
           "จัดออเดอร์จากแอพเดลิเวอรี่",
-          "ร้านเป็นร้านเล็กๆรับแต่เดลิเวอรี่ ไม่มีนั่งทานหน้าร้าน",
           "เช็คสต็อคและปิดร้าน"
         ],
         qualifications: [
@@ -724,11 +734,10 @@
     // ===== Navigation =====
     function openDetails(positionObj) {
       currentPosition = positionObj;
-
       document.getElementById("positionSelection").classList.add("hidden");
       document.getElementById("positionDetails").classList.remove("hidden");
       document.getElementById("applicationForm").classList.add("hidden");
-
+      window.scrollTo(0, 0);
       renderDetails(positionObj);
     }
 
@@ -736,11 +745,13 @@
       document.getElementById("positionDetails").classList.add("hidden");
       document.getElementById("applicationForm").classList.add("hidden");
       document.getElementById("positionSelection").classList.remove("hidden");
+      window.scrollTo(0, 0);
     }
 
     function backToDetails() {
       document.getElementById("applicationForm").classList.add("hidden");
       document.getElementById("positionDetails").classList.remove("hidden");
+      window.scrollTo(0, 0);
     }
 
     function proceedToForm() {
@@ -748,21 +759,23 @@
 
       document.getElementById("positionDetails").classList.add("hidden");
       document.getElementById("applicationForm").classList.remove("hidden");
+      window.scrollTo(0, 0);
 
       document.getElementById("selectedPosition").textContent = currentPosition.selectionText;
       selectedPositionText = currentPosition.positionPayload;
 
       document.getElementById("startImmediateLabel").textContent = currentPosition.startImmediateLabel;
 
-      const section = document.getElementById("prayasatjaAvailabilitySection");
-      const radios = document.querySelectorAll('input[name="prayasatja_availability"]');
+      // จัดการ Section เลือกเวลาของสาขาอ่าวอุดม
+      const aoaudomSection = document.getElementById("aoaudomAvailabilitySection");
+      const aoaudomRadios = document.querySelectorAll('input[name="aoaudom_availability"]');
 
-      if (currentPosition.showPrayasatjaAvailability) {
-        section.classList.remove("hidden");
-        radios.forEach(r => r.required = true);
+      if (currentPosition.showAoaudomAvailability) {
+        aoaudomSection.classList.remove("hidden");
+        aoaudomRadios.forEach(r => r.required = true);
       } else {
-        section.classList.add("hidden");
-        radios.forEach(r => { r.required = false; r.checked = false; });
+        aoaudomSection.classList.add("hidden");
+        aoaudomRadios.forEach(r => { r.required = false; r.checked = false; });
       }
 
       document.getElementById("startImmediateRadio").checked = true;
@@ -771,12 +784,12 @@
 
     function badgeClass(tone) {
       const map = {
-        emerald: "bg-emerald-50 text-emerald-700",
-        indigo: "bg-indigo-50 text-indigo-700",
-        amber: "bg-amber-50 text-amber-800",
-        gray: "bg-gray-100 text-gray-800"
+        emerald: "bg-emerald-50 text-emerald-700 border border-emerald-100",
+        blue: "bg-blue-50 text-blue-700 border border-blue-100",
+        red: "bg-red-50 text-red-700 border border-red-100",
+        amber: "bg-amber-50 text-amber-700 border border-amber-100"
       };
-      return map[tone] || map.gray;
+      return map[tone] || "bg-slate-100 text-slate-700 border border-slate-200";
     }
 
     function renderDetails(p) {
@@ -786,7 +799,7 @@
       badges.innerHTML = "";
       const makeBadge = (text, tone) => {
         const span = document.createElement("span");
-        span.className = `inline-flex items-center px-3 py-1.5 rounded-full text-sm font-semibold ${badgeClass(tone)}`;
+        span.className = `inline-flex items-center px-3 py-1 rounded-full text-sm font-semibold ${badgeClass(tone)}`;
         span.textContent = text;
         return span;
       };
@@ -797,14 +810,23 @@
       document.getElementById("detailsLocationText").textContent = p.locationText || "N/A";
       const link = document.getElementById("detailsMapLink");
       link.href = p.mapUrl || "#";
-      link.style.pointerEvents = p.mapUrl ? "auto" : "none";
-      link.classList.toggle("opacity-50", !p.mapUrl);
+      
+      if (!p.mapUrl) {
+        link.style.display = "none";
+      } else {
+        link.style.display = "inline-flex";
+      }
 
       const job = document.getElementById("detailsJob");
       job.innerHTML = "";
       p.jobLines.forEach(line => {
         const div = document.createElement("div");
-        div.textContent = line;
+        // รองรับการทำตัวหนาจาก **text**
+        if(line.includes("**")) {
+          div.innerHTML = line.replace(/\*\*(.*?)\*\*/g, '<strong class="text-slate-900 font-bold">$1</strong>');
+        } else {
+          div.textContent = line;
+        }
         job.appendChild(div);
       });
 
@@ -867,18 +889,16 @@
 
       for (let i = 1; i <= count; i++) {
         const wrapper = document.createElement("div");
-        wrapper.className = "bg-gray-50 p-4 rounded-xl border-2 border-gray-200";
-
-        const title = i === 1 ? `งานที่ ${i} (เรียงจากล่าสุด)` : `งานที่ ${i}`;
+        wrapper.className = "bg-white p-4 rounded-xl border border-slate-200 shadow-sm relative";
 
         wrapper.innerHTML = `
-          <h5 class="text-base font-medium text-gray-900 mb-3">${title}</h5>
+          <div class="absolute -top-3 -left-2 bg-slate-800 text-white text-xs font-bold px-2 py-1 rounded-md shadow-sm">งานที่ ${i}</div>
           <input type="text" name="workplace${i}" placeholder="ชื่อสถานที่ทำงาน"
-                 class="input-focus w-full p-3 mb-3 text-base border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                 class="input-focus w-full p-3 mt-2 mb-3 text-sm border border-slate-300 rounded-lg outline-none">
           <input type="text" name="position${i}" placeholder="ตำแหน่ง"
-                 class="input-focus w-full p-3 mb-3 text-base border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                 class="input-focus w-full p-3 mb-3 text-sm border border-slate-300 rounded-lg outline-none">
           <textarea name="description${i}" placeholder="อธิบายสิ่งที่ทำคร่าวๆ" rows="2"
-                    class="input-focus w-full p-3 text-base border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"></textarea>
+                    class="input-focus w-full p-3 text-sm border border-slate-300 rounded-lg outline-none"></textarea>
         `;
         container.appendChild(wrapper);
       }
@@ -946,7 +966,7 @@
             const res = JSON.parse(xhr.responseText);
             if (res.secure_url) {
               uploadedImageUrl = res.secure_url;
-              showUploadSuccess();
+              showUploadSuccess(file);
               enableSubmitButton();
             } else {
               throw new Error("no secure_url");
@@ -967,6 +987,7 @@
       document.getElementById("uploadProgress").classList.remove("hidden");
       document.getElementById("uploadError").classList.add("hidden");
       document.getElementById("uploadSuccess").classList.add("hidden");
+      document.getElementById("uploadArea").classList.add("hidden");
     }
 
     function updateProgress(percent) {
@@ -987,36 +1008,46 @@
       uploadErrorEl.classList.remove("hidden");
       document.getElementById("uploadProgress").classList.add("hidden");
       document.getElementById("uploadSuccess").classList.add("hidden");
+      document.getElementById("uploadArea").classList.remove("hidden");
       uploadedImageUrl = "";
       disableSubmitButton();
     }
 
-    function showUploadSuccess() {
-      document.getElementById("uploadSuccess").textContent = "อัปโหลดรูปภาพสำเร็จ";
-      document.getElementById("uploadSuccess").classList.remove("hidden");
+    function showUploadSuccess(file) {
+      const successEl = document.getElementById("uploadSuccess");
+      successEl.innerHTML = `
+        <div class="flex flex-col items-center">
+          <img src="${URL.createObjectURL(file)}" class="h-24 w-24 object-cover rounded-xl border-4 border-white shadow-md mb-2">
+          <p>อัปโหลดรูปภาพสำเร็จ</p>
+          <button type="button" onclick="resetUpload()" class="text-xs text-slate-500 underline mt-2">เปลี่ยนรูป</button>
+        </div>
+      `;
+      successEl.classList.remove("hidden");
       document.getElementById("uploadProgress").classList.add("hidden");
       document.getElementById("uploadError").classList.add("hidden");
+      document.getElementById("uploadArea").classList.add("hidden");
+    }
 
-      const uploadContent = document.getElementById("uploadContent");
-      uploadContent.innerHTML = `
-        <img src="${URL.createObjectURL(document.getElementById('photoInput').files[0])}"
-             class="mx-auto h-24 w-24 object-cover rounded-2xl mb-3 border-4 border-green-500">
-        <p class="text-green-600 text-base font-medium">อัปโหลดสำเร็จ</p>
-      `;
+    function resetUpload() {
+      uploadedImageUrl = "";
+      document.getElementById("photoInput").value = "";
+      document.getElementById("uploadSuccess").classList.add("hidden");
+      document.getElementById("uploadArea").classList.remove("hidden");
+      disableSubmitButton();
     }
 
     function enableSubmitButton() {
       const submitBtn = document.getElementById("submitBtn");
       submitBtn.disabled = false;
-      submitBtn.classList.remove("bg-gray-400", "cursor-not-allowed");
-      submitBtn.classList.add("bg-red-600", "cursor-pointer");
+      submitBtn.classList.remove("bg-slate-300", "text-slate-500", "cursor-not-allowed");
+      submitBtn.classList.add("bg-red-600", "text-white", "cursor-pointer", "hover:bg-red-700", "hover:shadow-md");
     }
 
     function disableSubmitButton() {
       const submitBtn = document.getElementById("submitBtn");
       submitBtn.disabled = true;
-      submitBtn.classList.add("bg-gray-400", "cursor-not-allowed");
-      submitBtn.classList.remove("bg-red-600", "cursor-pointer");
+      submitBtn.classList.add("bg-slate-300", "text-slate-500", "cursor-not-allowed");
+      submitBtn.classList.remove("bg-red-600", "text-white", "cursor-pointer", "hover:bg-red-700", "hover:shadow-md");
     }
 
     // ===== Reset =====
@@ -1030,19 +1061,7 @@
 
       document.getElementById("jobApplicationForm").reset();
 
-      uploadedImageUrl = "";
-      disableSubmitButton();
-
-      document.getElementById("uploadContent").innerHTML = `
-        <svg class="mx-auto h-16 w-16 text-gray-400 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                d="M12 6v6m0 0v6m0-6h6m-6 0H6"/>
-        </svg>
-        <p class="text-lg text-gray-900 font-medium">คลิกเพื่อเลือกรูปภาพ</p>
-      `;
-      document.getElementById("uploadProgress").classList.add("hidden");
-      document.getElementById("uploadError").classList.add("hidden");
-      document.getElementById("uploadSuccess").classList.add("hidden");
+      resetUpload();
 
       document.getElementById("workCount").value = "";
       document.getElementById("workHistorySection").classList.add("hidden");
@@ -1050,15 +1069,16 @@
 
       toggleStudyingExtra();
 
-      const section = document.getElementById("prayasatjaAvailabilitySection");
-      const radios = document.querySelectorAll('input[name="prayasatja_availability"]');
-      section.classList.add("hidden");
-      radios.forEach(r => { r.required = false; r.checked = false; });
+      const aoaudomSection = document.getElementById("aoaudomAvailabilitySection");
+      const aoaudomRadios = document.querySelectorAll('input[name="aoaudom_availability"]');
+      aoaudomSection.classList.add("hidden");
+      aoaudomRadios.forEach(r => { r.required = false; r.checked = false; });
 
       toggleDateInput();
 
       currentPosition = null;
       selectedPositionText = "";
+      window.scrollTo(0, 0);
     }
 
     // ===== Submit =====
@@ -1074,15 +1094,21 @@
       const loadingModal = document.getElementById("loadingModal");
 
       submitBtn.disabled = true;
-      submitBtn.textContent = "กำลังส่งข้อมูล";
+      submitBtn.textContent = "กำลังส่งข้อมูล...";
       showUploadError("");
       loadingModal.classList.remove("hidden");
 
       const formData = new FormData(e.target);
       const data = Object.fromEntries(formData.entries());
 
+      // จัดการแนบชื่อตำแหน่ง
       data.position = selectedPositionText;
       data.photo_url = uploadedImageUrl;
+
+      // ถ้าสมัครอ่าวอุดม ให้เอาเวลาที่เลือกแนบเข้าไปในชื่อตำแหน่งเลย แอดมินจะได้เห็นชัดๆ
+      if (data.aoaudom_availability) {
+        data.position += ` [เลือกเวลา: ${data.aoaudom_availability}]`;
+      }
 
       try {
         const response = await fetch("/.netlify/functions/send-to-telegram", {
@@ -1099,7 +1125,7 @@
         console.error("Submit error:", error);
         loadingModal.classList.add("hidden");
         showUploadError("เกิดข้อผิดพลาดในการส่งฟอร์ม กรุณาลองอีกครั้ง");
-        submitBtn.disabled = false;
+        enableSubmitButton();
         submitBtn.textContent = "ส่งใบสมัคร";
       }
     });
