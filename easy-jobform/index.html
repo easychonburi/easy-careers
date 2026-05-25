@@ -10,9 +10,8 @@
     body { box-sizing: border-box; font-family: 'Kanit', sans-serif; }
     .progress-bar { transition: width 0.3s ease; }
     
-    /* ปรับโทนใหม่ให้คลีน สว่าง สบายตา */
     .clean-bg {
-      background-color: #f8fafc; /* slate-50 */
+      background-color: #f8fafc;
       background-image: radial-gradient(#e2e8f0 1px, transparent 1px);
       background-size: 20px 20px;
     }
@@ -35,11 +34,10 @@
     .input-focus:focus { 
       transform: scale(1.01); 
       background-color: #ffffff;
-      box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.15); /* Red shadow */
+      box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.15);
       border-color: #dc2626;
     }
 
-    /* Ribbon */
     .ribbon {
       position: absolute;
       top: 14px;
@@ -54,10 +52,9 @@
       color: #fff;
       box-shadow: 0 4px 6px rgba(0,0,0,.1);
     }
-    .ribbon-fulltime { background: linear-gradient(90deg, #dc2626, #b91c1c); } /* Red */
-    .ribbon-parttime { background: linear-gradient(90deg, #2563eb, #1d4ed8); } /* Blue */
+    .ribbon-fulltime { background: linear-gradient(90deg, #dc2626, #b91c1c); }
+    .ribbon-parttime { background: linear-gradient(90deg, #2563eb, #1d4ed8); }
 
-    /* Sticky action bar (mobile) */
     .sticky-action {
       position: sticky;
       bottom: 0;
@@ -81,21 +78,22 @@
       <p class="text-base sm:text-lg text-slate-500">
         กรุณาเลือกตำแหน่งที่ต้องการสมัคร แล้วกรอกข้อมูลให้ครบถ้วน
       </p>
+      <p class="text-xs text-slate-400 mt-2">อัพเดท พ.ค. 2026</p>
     </header>
 
     <main class="max-w-xl mx-auto pb-6">
       <div class="grid grid-cols-1 gap-5">
 
-        <!-- 1) บางแสน - ประจำกะเย็น -->
+        <!-- 1) อ่าวอุดม - ประจำกะเช้า -->
         <div class="relative card-clean card-hover rounded-2xl p-6 slide-up overflow-hidden">
           <div class="ribbon ribbon-fulltime">FULLTIME</div>
 
           <p class="text-xs font-bold text-red-600 uppercase tracking-wide">EASY หมี่ไก่ฉีก</p>
           
           <div class="flex flex-wrap items-center gap-2 mt-1 mb-2">
-            <h3 class="text-2xl font-bold text-slate-900">สาขาบางแสน</h3>
+            <h3 class="text-2xl font-bold text-slate-900">สาขาอ่าวอุดม</h3>
             <span class="px-2.5 py-1 rounded-lg text-sm font-bold bg-red-100 text-red-800">
-              พนักงานประจำสาขา (กะเย็น)
+              พนักงานประจำสาขา
             </span>
           </div>
 
@@ -109,7 +107,7 @@
           <div class="mt-4 space-y-2">
             <div class="flex items-start gap-3">
               <span class="mt-2 h-2 w-2 rounded-full bg-red-600 shrink-0"></span>
-              <p class="text-base text-slate-700 font-medium">ทำวันจันทร์–เสาร์ 17:00–24:00 น.</p>
+              <p class="text-base text-slate-700 font-medium">ทำวันจันทร์–เสาร์ 09:00–17:00 น.</p>
             </div>
             <div class="flex items-start gap-3">
               <span class="mt-2 h-2 w-2 rounded-full bg-slate-400 shrink-0"></span>
@@ -118,58 +116,20 @@
           </div>
 
           <button
-            onclick="openDetails(POSITIONS.BANGSAEN_FT_EVENING)"
+            onclick="openDetails(POSITIONS.AOAUDOM_FT)"
             class="mt-6 w-full bg-red-600 active:bg-red-700 text-white py-3.5 px-6 rounded-xl text-base font-bold shadow-sm transition-colors">
             สมัครตำแหน่งนี้
           </button>
         </div>
 
-        <!-- 2) บางแสน - พาร์ทไทม์ (อาทิตย์) -->
+        <!-- 2) อมตะนคร - พาร์ทไทม์ -->
         <div class="relative card-clean card-hover rounded-2xl p-6 slide-up overflow-hidden">
           <div class="ribbon ribbon-parttime">PART TIME</div>
 
           <p class="text-xs font-bold text-red-600 uppercase tracking-wide">EASY หมี่ไก่ฉีก</p>
           
           <div class="flex flex-wrap items-center gap-2 mt-1 mb-2">
-            <h3 class="text-2xl font-bold text-slate-900">สาขาบางแสน</h3>
-            <span class="px-2.5 py-1 rounded-lg text-sm font-bold bg-blue-100 text-blue-800">
-              พาร์ทไทม์ (เฉพาะวันอาทิตย์)
-            </span>
-          </div>
-
-          <div class="mb-4">
-            <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-bold bg-emerald-50 text-emerald-700 border border-emerald-200">
-              <svg class="w-4 h-4 mr-1.5 text-emerald-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-              พร้อมเริ่มงานได้ทันที
-            </span>
-          </div>
-
-          <div class="mt-4 space-y-2">
-            <div class="flex items-start gap-3">
-              <span class="mt-2 h-2 w-2 rounded-full bg-blue-600 shrink-0"></span>
-              <p class="text-base text-slate-700 font-medium">วันอาทิตย์ เวลา 10:30–20:00 น.</p>
-            </div>
-            <div class="flex items-start gap-3">
-              <span class="mt-2 h-2 w-2 rounded-full bg-slate-400 shrink-0"></span>
-              <p class="text-base text-slate-700">ค่าแรง วันละ 475 บาท</p>
-            </div>
-          </div>
-
-          <button
-            onclick="openDetails(POSITIONS.BANGSAEN_PT_SUN)"
-            class="mt-6 w-full bg-red-600 active:bg-red-700 text-white py-3.5 px-6 rounded-xl text-base font-bold shadow-sm transition-colors">
-            สมัครตำแหน่งนี้
-          </button>
-        </div>
-
-        <!-- 3) อ่าวอุดม - พาร์ทไทม์ -->
-        <div class="relative card-clean card-hover rounded-2xl p-6 slide-up overflow-hidden">
-          <div class="ribbon ribbon-parttime">PART TIME</div>
-
-          <p class="text-xs font-bold text-red-600 uppercase tracking-wide">EASY หมี่ไก่ฉีก</p>
-          
-          <div class="flex flex-wrap items-center gap-2 mt-1 mb-2">
-            <h3 class="text-2xl font-bold text-slate-900">สาขาอ่าวอุดม</h3>
+            <h3 class="text-2xl font-bold text-slate-900">สาขาอมตะนคร</h3>
             <span class="px-2.5 py-1 rounded-lg text-sm font-bold bg-blue-100 text-blue-800">
               พาร์ทไทม์
             </span>
@@ -185,7 +145,7 @@
           <div class="mt-4 space-y-2">
             <div class="flex items-start gap-3">
               <span class="mt-2 h-2 w-2 rounded-full bg-blue-600 shrink-0"></span>
-              <p class="text-base text-slate-700"><span class="font-medium">วันจันทร์ถึงเสาร์:</span> 17:00–22:00 น. (ชั่วโมงละ 50 บาท)</p>
+              <p class="text-base text-slate-700"><span class="font-medium">วันจันทร์ถึงเสาร์:</span> 17:00–21:00 น. (ชั่วโมงละ 50 บาท)</p>
             </div>
             <div class="flex items-start gap-3">
               <span class="mt-2 h-2 w-2 rounded-full bg-red-600 shrink-0"></span>
@@ -198,45 +158,7 @@
           </div>
 
           <button
-            onclick="openDetails(POSITIONS.AOAUDOM_PT)"
-            class="mt-6 w-full bg-red-600 active:bg-red-700 text-white py-3.5 px-6 rounded-xl text-base font-bold shadow-sm transition-colors">
-            สมัครตำแหน่งนี้
-          </button>
-        </div>
-
-        <!-- 4) อมตะนคร - พาร์ทไทม์ เสาร์-อาทิตย์ -->
-        <div class="relative card-clean card-hover rounded-2xl p-6 slide-up overflow-hidden">
-          <div class="ribbon ribbon-parttime">PART TIME</div>
-
-          <p class="text-xs font-bold text-red-600 uppercase tracking-wide">EASY หมี่ไก่ฉีก</p>
-          
-          <div class="flex flex-wrap items-center gap-2 mt-1 mb-2">
-            <h3 class="text-2xl font-bold text-slate-900">สาขาอมตะนคร</h3>
-            <span class="px-2.5 py-1 rounded-lg text-sm font-bold bg-blue-100 text-blue-800">
-              พาร์ทไทม์ (เสาร์–อาทิตย์)
-            </span>
-          </div>
-
-          <div class="mb-4">
-            <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-bold bg-emerald-50 text-emerald-700 border border-emerald-200">
-              <svg class="w-4 h-4 mr-1.5 text-emerald-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-              พร้อมเริ่มงานได้ทันที
-            </span>
-          </div>
-
-          <div class="mt-4 space-y-2">
-            <div class="flex items-start gap-3">
-              <span class="mt-2 h-2 w-2 rounded-full bg-blue-600 shrink-0"></span>
-              <p class="text-base text-slate-700"><span class="font-medium">วันเสาร์:</span> 17:00–21:00 น. (ชั่วโมงละ 50 บาท)</p>
-            </div>
-            <div class="flex items-start gap-3">
-              <span class="mt-2 h-2 w-2 rounded-full bg-red-600 shrink-0"></span>
-              <p class="text-base text-slate-700"><span class="font-medium">วันอาทิตย์:</span> 10:30–20:00 น. (วันละ 475 บาท)</p>
-            </div>
-          </div>
-
-          <button
-            onclick="openDetails(POSITIONS.AMATA_WEEKEND_PT)"
+            onclick="openDetails(POSITIONS.AMATA_PT)"
             class="mt-6 w-full bg-red-600 active:bg-red-700 text-white py-3.5 px-6 rounded-xl text-base font-bold shadow-sm transition-colors">
             สมัครตำแหน่งนี้
           </button>
@@ -267,10 +189,8 @@
       </header>
 
       <main class="p-6 space-y-5 pb-4 bg-slate-50/50">
-        <!-- Quick summary -->
         <div class="flex flex-wrap gap-2" id="detailsBadges"></div>
 
-        <!-- ที่ตั้งร้าน -->
         <div class="bg-white border border-slate-200 rounded-xl p-5 shadow-sm">
           <h3 class="text-lg font-bold text-slate-900 mb-2 flex items-center">
             <svg class="w-5 h-5 mr-2 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
@@ -387,7 +307,6 @@
                      class="input-focus w-full p-3.5 text-base border border-slate-300 rounded-xl outline-none">
             </div>
 
-            <!-- การศึกษา -->
             <div class="pt-2">
               <label for="education" class="block text-sm font-semibold text-slate-700 mb-1.5">ระดับการศึกษา *</label>
               <select id="education" name="education" required
@@ -457,31 +376,31 @@
             </div>
           </section>
 
-          <!-- ความพร้อมเฉพาะสาขาอ่าวอุดม -->
-          <section id="aoaudomAvailabilitySection" class="border-t border-slate-200 pt-6 hidden bg-blue-50/50 -mx-6 px-6 pb-6">
-            <h3 class="text-xl font-bold text-slate-900 border-l-4 border-blue-600 pl-3 mb-2">เวลาที่ต้องการสมัคร (สาขาอ่าวอุดม) *</h3>
+          <!-- ความพร้อมเลือกเวลา (สำหรับตำแหน่งที่ showAvailabilitySection = true) -->
+          <section id="availabilitySection" class="border-t border-slate-200 pt-6 hidden bg-blue-50/50 -mx-6 px-6 pb-6">
+            <h3 id="availabilitySectionTitle" class="text-xl font-bold text-slate-900 border-l-4 border-blue-600 pl-3 mb-2">เวลาที่ต้องการสมัคร *</h3>
 
             <div class="space-y-3 pl-4 mt-4">
               <label class="flex items-start p-3.5 border border-blue-200 bg-white rounded-xl cursor-pointer hover:border-blue-400 transition-colors shadow-sm">
-                <input type="radio" name="aoaudom_availability" value="ทำทุกวัน"
+                <input type="radio" name="availability_choice" value="ทำทุกวัน"
                        class="mt-1 mr-3 text-blue-600 focus:ring-blue-500 w-5 h-5 accent-blue-600">
                 <div>
                   <span class="block text-base text-slate-900 font-bold">ทำทุกวัน</span>
-                  <span class="block text-sm text-slate-500 mt-0.5">วันจันทร์ถึงเสาร์ (17:00 - 22:00 น.) และ วันอาทิตย์ (10:30 - 20:00 น.)</span>
+                  <span class="block text-sm text-slate-500 mt-0.5">วันจันทร์ถึงเสาร์ (17:00 - 21:00 น.) และ วันอาทิตย์ (10:30 - 20:00 น.)</span>
                 </div>
               </label>
 
               <label class="flex items-start p-3.5 border border-slate-200 bg-white rounded-xl cursor-pointer hover:bg-slate-50 transition-colors shadow-sm">
-                <input type="radio" name="aoaudom_availability" value="เฉพาะวันจันทร์ถึงเสาร์"
+                <input type="radio" name="availability_choice" value="เฉพาะวันจันทร์ถึงเสาร์"
                        class="mt-1 mr-3 text-blue-600 focus:ring-blue-500 w-5 h-5 accent-blue-600">
                 <div>
                   <span class="block text-base text-slate-900 font-bold">เฉพาะวันจันทร์ถึงเสาร์</span>
-                  <span class="block text-sm text-slate-500 mt-0.5">เวลา 17:00 - 22:00 น.</span>
+                  <span class="block text-sm text-slate-500 mt-0.5">เวลา 17:00 - 21:00 น.</span>
                 </div>
               </label>
 
               <label class="flex items-start p-3.5 border border-slate-200 bg-white rounded-xl cursor-pointer hover:bg-slate-50 transition-colors shadow-sm">
-                <input type="radio" name="aoaudom_availability" value="เฉพาะวันอาทิตย์"
+                <input type="radio" name="availability_choice" value="เฉพาะวันอาทิตย์"
                        class="mt-1 mr-3 text-blue-600 focus:ring-blue-500 w-5 h-5 accent-blue-600">
                 <div>
                   <span class="block text-base text-slate-900 font-bold">เฉพาะวันอาทิตย์</span>
@@ -494,7 +413,7 @@
           <!-- ประวัติการทำงาน -->
           <section class="border-t border-slate-200 pt-6">
             <h3 class="text-xl font-bold text-slate-900 border-l-4 border-red-600 pl-3 mb-2">ประวัติการทำงาน</h3>
-            <p class="text-sm text-slate-500 mb-4 pl-4">หากไม่เคยทำงาน สามารถเลือก “0” หรือเว้นว่างได้</p>
+            <p class="text-sm text-slate-500 mb-4 pl-4">หากไม่เคยทำงาน สามารถเลือก "0" หรือเว้นว่างได้</p>
 
             <div class="mb-4">
               <label for="workCount" class="block text-sm font-semibold text-slate-700 mb-1.5">เคยทำงานมาแล้วกี่ที่</label>
@@ -610,21 +529,21 @@
 
     let uploadedImageUrl = "";
 
-    // ===== Position data (อัปเดตใหม่ตามโจทย์) =====
+    // ===== Position data =====
     const POSITIONS = {
-      BANGSAEN_FT_EVENING: {
-        key: "BANGSAEN_FT_EVENING",
-        typeBadge: { text: "พนักงานประจำสาขา (กะเย็น)", tone: "red" },
+      AOAUDOM_FT: {
+        key: "AOAUDOM_FT",
+        typeBadge: { text: "พนักงานประจำสาขา", tone: "red" },
         startBadge: { text: "พร้อมเริ่มงานได้ทันที", tone: "emerald" },
-        titleBold: "พนักงานประจำสาขา กะเย็น - สาขาบางแสน",
-        selectionText: "พนักงานประจำสาขา กะเย็น - สาขาบางแสน",
-        positionPayload: "สาขาบางแสน – ประจำสาขา กะเย็น (จันทร์-เสาร์ 17:00–24:00 ค่าแรง 400 บาท/วัน)",
+        titleBold: "พนักงานประจำสาขา - สาขาอ่าวอุดม",
+        selectionText: "พนักงานประจำสาขา - สาขาอ่าวอุดม",
+        positionPayload: "สาขาอ่าวอุดม – ประจำสาขา (จันทร์-เสาร์ 09:00–17:00 ค่าแรง 400 บาท/วัน)",
         startImmediateLabel: "พร้อมเริ่มงานได้ทันที",
-        showSrirachaAvailability: false,
-        locationText: "ถนนมาบมะยม (ใกล้ๆโรตีลุงหยิก)",
-        mapUrl: "https://maps.app.goo.gl/mDWUThpJmFaEsUxe9",
+        showAvailabilitySection: false,
+        locationText: "ม.เกษตร ประตู 3 หน้าร้านชาบู 21",
+        mapUrl: "https://maps.app.goo.gl/7VrqHru324X9fyai7",
         jobLines: [
-          "ทำงานวันจันทร์-เสาร์ เวลา 17:00-24:00 น.",
+          "ทำงานวันจันทร์-เสาร์ เวลา 09:00-17:00 น.",
           "ค่าแรงวันละ 400 บาท (รายวัน)",
           "จ่ายค่าแรงทุกวันที่ 1 และ 16 ของทุกเดือน"
         ],
@@ -641,79 +560,23 @@
         ]
       },
 
-      BANGSAEN_PT_SUN: {
-        key: "BANGSAEN_PT_SUN",
-        typeBadge: { text: "พาร์ทไทม์ (อาทิตย์)", tone: "blue" },
-        startBadge: { text: "พร้อมเริ่มงานได้ทันที", tone: "emerald" },
-        titleBold: "พนักงานพาร์ทไทม์ (อาทิตย์) - สาขาบางแสน",
-        selectionText: "พนักงานพาร์ทไทม์ (เฉพาะวันอาทิตย์) - สาขาบางแสน",
-        positionPayload: "สาขาบางแสน – PART TIME (เฉพาะวันอาทิตย์ 10:30–20:00 ค่าแรง 475 บาท/วัน)",
-        startImmediateLabel: "พร้อมเริ่มงานได้ทันที",
-        showSrirachaAvailability: false,
-        locationText: "ถนนมาบมะยม (ใกล้ๆโรตีลุงหยิก)",
-        mapUrl: "https://maps.app.goo.gl/mDWUThpJmFaEsUxe9",
-        jobLines: [
-          "ทำงานเฉพาะวันอาทิตย์ เวลา 10:30-20:00 น.",
-          "ค่าแรงวันละ 475 บาท",
-          "จ่ายค่าแรงรายอาทิตย์"
-        ],
-        duties: [
-          "จัดออเดอร์จากแอพเดลิเวอรี่",
-          "เช็คสต็อคและปิดร้าน",
-          "ร้านเป็นร้านเล็กๆรับแต่เดลิเวอรี่ ไม่มีนั่งทานหน้าร้าน"
-        ],
-        qualifications: [
-          "เพศหญิงเท่านั้น",
-          "อายุ 18 ปีขึ้นไป",
-          "ขยัน สะอาด มีความรับผิดชอบ",
-          "สามารถทำงานคนเดียวได้เป็นอย่างดี"
-        ]
-      },
-
-      AOAUDOM_PT: {
-        key: "AOAUDOM_PT",
+      AMATA_PT: {
+        key: "AMATA_PT",
         typeBadge: { text: "พาร์ทไทม์", tone: "blue" },
         startBadge: { text: "พร้อมเริ่มงานได้ทันที", tone: "emerald" },
-        titleBold: "พนักงานพาร์ทไทม์ - สาขาอ่าวอุดม",
-        selectionText: "พนักงานพาร์ทไทม์ - สาขาอ่าวอุดม",
-        positionPayload: "สาขาอ่าวอุดม – PART TIME",
+        titleBold: "พนักงานพาร์ทไทม์ - สาขาอมตะนคร",
+        selectionText: "พนักงานพาร์ทไทม์ - สาขาอมตะนคร",
+        positionPayload: "สาขาอมตะนคร – PART TIME",
         startImmediateLabel: "พร้อมเริ่มงานได้ทันที",
-        showAoaudomAvailability: true, // เปิด Section ให้เลือกเวลา
-        locationText: "ม.เกษตร ประตู 3 หน้าร้านชาบู 21",
-        mapUrl: "https://maps.app.goo.gl/7VrqHru324X9fyai7",
-        jobLines: [
-          "วันจันทร์ถึงเสาร์: เวลา 17:00-22:00 น. (ชั่วโมงละ 50 บาท)",
-          "วันอาทิตย์: เวลา 10:30-20:00 น. (วันละ 475 บาท)",
-          "จ่ายค่าแรงเป็นรายอาทิตย์",
-          "**สามารถแยกสมัครได้**"
-        ],
-        duties: [
-          "จัดออเดอร์จากแอพเดลิเวอรี่",
-          "เช็คสต็อคและปิดร้าน"
-        ],
-        qualifications: [
-          "เพศหญิงเท่านั้น",
-          "อายุ 18 ปีขึ้นไป",
-          "ขยัน สะอาด มีความรับผิดชอบ",
-          "สามารถทำงานคนเดียวได้เป็นอย่างดี"
-        ]
-      },
-
-      AMATA_WEEKEND_PT: {
-        key: "AMATA_WEEKEND_PT",
-        typeBadge: { text: "พาร์ทไทม์ (เสาร์-อาทิตย์)", tone: "blue" },
-        startBadge: { text: "พร้อมเริ่มงานได้ทันที", tone: "emerald" },
-        titleBold: "พาร์ทไทม์ เสาร์-อาทิตย์ - สาขาอมตะนคร",
-        selectionText: "พนักงานพาร์ทไทม์ วันเสาร์-อาทิตย์ - สาขาอมตะนคร",
-        positionPayload: "สาขาอมตะนคร – PART TIME (เสาร์ 17:00–21:00 และอาทิตย์ 10:30–20:00)",
-        startImmediateLabel: "พร้อมเริ่มงานได้ทันที",
-        showSrirachaAvailability: false,
+        showAvailabilitySection: true,
+        availabilitySectionTitle: "เวลาที่ต้องการสมัคร (สาขาอมตะนคร) *",
         locationText: "โครงการ Pure Park บ้านเก่าซอย 5",
         mapUrl: "https://maps.app.goo.gl/RvNuerqE86Qh5MbRA",
         jobLines: [
-          "วันเสาร์: เวลา 17:00-21:00 น. (ชั่วโมงละ 50 บาท)",
+          "วันจันทร์ถึงเสาร์: เวลา 17:00-21:00 น. (ชั่วโมงละ 50 บาท)",
           "วันอาทิตย์: เวลา 10:30-20:00 น. (วันละ 475 บาท)",
-          "จ่ายค่าแรงเป็นรายอาทิตย์"
+          "จ่ายค่าแรงเป็นรายอาทิตย์",
+          "**สามารถแยกสมัครได้**"
         ],
         duties: [
           "จัดออเดอร์จากแอพเดลิเวอรี่",
@@ -763,19 +626,22 @@
 
       document.getElementById("selectedPosition").textContent = currentPosition.selectionText;
       selectedPositionText = currentPosition.positionPayload;
-
       document.getElementById("startImmediateLabel").textContent = currentPosition.startImmediateLabel;
 
-      // จัดการ Section เลือกเวลาของสาขาอ่าวอุดม
-      const aoaudomSection = document.getElementById("aoaudomAvailabilitySection");
-      const aoaudomRadios = document.querySelectorAll('input[name="aoaudom_availability"]');
+      // ตัวเลือกเวลา (generic section)
+      const availSection = document.getElementById("availabilitySection");
+      const availRadios = document.querySelectorAll('input[name="availability_choice"]');
+      const availTitle = document.getElementById("availabilitySectionTitle");
 
-      if (currentPosition.showAoaudomAvailability) {
-        aoaudomSection.classList.remove("hidden");
-        aoaudomRadios.forEach(r => r.required = true);
+      if (currentPosition.showAvailabilitySection) {
+        availSection.classList.remove("hidden");
+        availRadios.forEach(r => r.required = true);
+        if (currentPosition.availabilitySectionTitle) {
+          availTitle.textContent = currentPosition.availabilitySectionTitle;
+        }
       } else {
-        aoaudomSection.classList.add("hidden");
-        aoaudomRadios.forEach(r => { r.required = false; r.checked = false; });
+        availSection.classList.add("hidden");
+        availRadios.forEach(r => { r.required = false; r.checked = false; });
       }
 
       document.getElementById("startImmediateRadio").checked = true;
@@ -810,19 +676,13 @@
       document.getElementById("detailsLocationText").textContent = p.locationText || "N/A";
       const link = document.getElementById("detailsMapLink");
       link.href = p.mapUrl || "#";
-      
-      if (!p.mapUrl) {
-        link.style.display = "none";
-      } else {
-        link.style.display = "inline-flex";
-      }
+      link.style.display = p.mapUrl ? "inline-flex" : "none";
 
       const job = document.getElementById("detailsJob");
       job.innerHTML = "";
       p.jobLines.forEach(line => {
         const div = document.createElement("div");
-        // รองรับการทำตัวหนาจาก **text**
-        if(line.includes("**")) {
+        if (line.includes("**")) {
           div.innerHTML = line.replace(/\*\*(.*?)\*\*/g, '<strong class="text-slate-900 font-bold">$1</strong>');
         } else {
           div.textContent = line;
@@ -1054,13 +914,11 @@
     function resetAll() {
       document.getElementById("successModal").classList.add("hidden");
       document.getElementById("loadingModal").classList.add("hidden");
-
       document.getElementById("applicationForm").classList.add("hidden");
       document.getElementById("positionDetails").classList.add("hidden");
       document.getElementById("positionSelection").classList.remove("hidden");
 
       document.getElementById("jobApplicationForm").reset();
-
       resetUpload();
 
       document.getElementById("workCount").value = "";
@@ -1069,10 +927,10 @@
 
       toggleStudyingExtra();
 
-      const aoaudomSection = document.getElementById("aoaudomAvailabilitySection");
-      const aoaudomRadios = document.querySelectorAll('input[name="aoaudom_availability"]');
-      aoaudomSection.classList.add("hidden");
-      aoaudomRadios.forEach(r => { r.required = false; r.checked = false; });
+      const availSection = document.getElementById("availabilitySection");
+      const availRadios = document.querySelectorAll('input[name="availability_choice"]');
+      availSection.classList.add("hidden");
+      availRadios.forEach(r => { r.required = false; r.checked = false; });
 
       toggleDateInput();
 
@@ -1101,13 +959,12 @@
       const formData = new FormData(e.target);
       const data = Object.fromEntries(formData.entries());
 
-      // จัดการแนบชื่อตำแหน่ง
       data.position = selectedPositionText;
       data.photo_url = uploadedImageUrl;
 
-      // ถ้าสมัครอ่าวอุดม ให้เอาเวลาที่เลือกแนบเข้าไปในชื่อตำแหน่งเลย แอดมินจะได้เห็นชัดๆ
-      if (data.aoaudom_availability) {
-        data.position += ` [เลือกเวลา: ${data.aoaudom_availability}]`;
+      // แนบตัวเลือกเวลาเข้าไปในชื่อตำแหน่ง (เฉพาะตำแหน่งที่มี availability section)
+      if (data.availability_choice) {
+        data.position += ` [เลือกเวลา: ${data.availability_choice}]`;
       }
 
       try {
