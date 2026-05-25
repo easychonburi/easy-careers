@@ -7,26 +7,17 @@ exports.handler = async (event) => {
   }
 
   // 2 ดึง Environment Variables
+  // หมายเหตุ: ใช้ env vars เดิมที่มีอยู่ใน Netlify แล้ว
+  // CHAT_ID_AOAUDOM_PT     → ตอนนี้ใช้รับใบสมัครสาขาอ่าวอุดม (ประจำ)
+  // CHAT_ID_AMATA_WEEKEND_PT → ตอนนี้ใช้รับใบสมัครสาขาอมตะนคร (Part Time)
   const {
     TELEGRAM_BOT_TOKEN,
-
-    // แยก 4 ห้องตาม "ตำแหน่ง"
-    CHAT_ID_BANGSAEN_FULLTIME, // บางแสน - พนักงานประจำสาขา
-    CHAT_ID_BANGSAEN_SUN_PT,   // บางแสน - พาร์ทไทม์เฉพาะอาทิตย์
-    CHAT_ID_AOAUDOM_PT,        // อ่าวอุดม - พาร์ทไทม์
-    CHAT_ID_AMATA_WEEKEND_PT,  // อมตะนคร - พาร์ทไทม์เสาร์-อาทิตย์
-
-    // ห้องกลาง (สำรอง)
-    TELEGRAM_CHAT_ID
+    CHAT_ID_AOAUDOM_PT,
+    CHAT_ID_AMATA_WEEKEND_PT,
+    TELEGRAM_CHAT_ID  // fallback กรณีฉุกเฉิน
   } = process.env;
 
-  if (
-    !TELEGRAM_BOT_TOKEN ||
-    !CHAT_ID_BANGSAEN_FULLTIME ||
-    !CHAT_ID_BANGSAEN_SUN_PT ||
-    !CHAT_ID_AOAUDOM_PT || 
-    !CHAT_ID_AMATA_WEEKEND_PT
-  ) {
+  if (!TELEGRAM_BOT_TOKEN || !CHAT_ID_AOAUDOM_PT || !CHAT_ID_AMATA_WEEKEND_PT) {
     return { statusCode: 500, body: "Missing environment variables" };
   }
 
@@ -34,30 +25,11 @@ exports.handler = async (event) => {
   const data = JSON.parse(event.body || "{}");
   const positionText = data.position || "";
 
-  // 4 เลือกห้องปลายทางตาม "ตำแหน่ง"
+  // 4 เลือกห้องปลายทาง
   const detectPositionKey = (text) => {
     const t = String(text || "");
-
-    // บางแสน - พนักงานประจำสาขา
-    if (t.includes("บางแสน") && (t.includes("ประจำ") || t.includes("Fulltime") || t.includes("FULLTIME"))) {
-      return "BANGSAEN_FULLTIME";
-    }
-
-    // บางแสน - พาร์ทไทม์เฉพาะอาทิตย์ (วันละ 475)
-    if (t.includes("บางแสน") && (t.includes("เฉพาะวันอาทิตย์") || t.includes("วันละ 475") || t.includes("475"))) {
-      return "BANGSAEN_SUN_PT";
-    }
-
-    // อ่าวอุดม - พาร์ทไทม์ (อัปเดตคีย์เวิร์ดใหม่)
-    if (t.includes("อ่าวอุดม")) {
-      return "AOAUDOM_PT";
-    }
-
-    // อมตะนคร - พาร์ทไทม์เสาร์-อาทิตย์
-    if (t.includes("อมตะนคร")) {
-      return "AMATA_WEEKEND_PT";
-    }
-
+    if (t.includes("อ่าวอุดม")) return "AOAUDOM_FT";
+    if (t.includes("อมตะนคร")) return "AMATA_PT";
     return "UNKNOWN";
   };
 
@@ -65,16 +37,10 @@ exports.handler = async (event) => {
 
   let targetChatId;
   switch (positionKey) {
-    case "BANGSAEN_FULLTIME":
-      targetChatId = CHAT_ID_BANGSAEN_FULLTIME;
-      break;
-    case "BANGSAEN_SUN_PT":
-      targetChatId = CHAT_ID_BANGSAEN_SUN_PT;
-      break;
-    case "AOAUDOM_PT":
+    case "AOAUDOM_FT":
       targetChatId = CHAT_ID_AOAUDOM_PT;
       break;
-    case "AMATA_WEEKEND_PT":
+    case "AMATA_PT":
       targetChatId = CHAT_ID_AMATA_WEEKEND_PT;
       break;
     default:
@@ -111,7 +77,6 @@ exports.handler = async (event) => {
       const position = data[`position${i}`];
       const description = data[`description${i}`];
 
-      // ถ้าไม่มีอะไรกรอกเลยในงานที่ i ให้ข้ามได้
       if (!workplace && !position && !description) continue;
 
       workHistoryText += `<b>${i}. ${escape(workplace || "ไม่ระบุสถานที่ทำงาน")}</b>\n`;
@@ -120,7 +85,7 @@ exports.handler = async (event) => {
     }
   }
 
-  // 7 การศึกษา (รองรับ "กำลังศึกษาอยู่")
+  // 7 การศึกษา
   let educationText = escape(data.education);
   if (data.education === "กำลังศึกษาอยู่") {
     const lvl = escape(data.studying_level || "ไม่ได้ระบุระดับ");
@@ -128,20 +93,18 @@ exports.handler = async (event) => {
     educationText = `กำลังศึกษาอยู่ (${lvl})\n<i>สาขา</i> ${major}`;
   }
 
-  // 8 วันที่พร้อมเริ่มงาน (ปรับให้ดึงจาก Form หรือใช้ "พร้อมเริ่มงานได้ทันที" เลย)
+  // 8 วันที่พร้อมเริ่มงาน
   let startDateText = "N/A";
-
   if (data.start_date_type === "specific") {
     startDateText = `วันที่ ${escape(data.specific_start_date) || "ไม่ได้ระบุ"}`;
   } else {
-    // immediate -> ตอนนี้ทุกสาขาพร้อมเริ่มงานทันทีหมดแล้ว
     startDateText = "พร้อมเริ่มงานได้ทันที";
   }
 
-  // 9 ความพร้อมสาขาอ่าวอุดม (อัปเดตตัวแปรใหม่)
-  let aoaudomAvailabilityText = "N/A";
-  if (data.aoaudom_availability) {
-    aoaudomAvailabilityText = escape(data.aoaudom_availability);
+  // 9 ตัวเลือกเวลา (สาขาอมตะนคร Part Time)
+  let availabilityText = "N/A";
+  if (data.availability_choice) {
+    availabilityText = escape(data.availability_choice);
   }
 
   // 10 ประกอบข้อความหลัก
@@ -154,9 +117,9 @@ exports.handler = async (event) => {
   text += `<b>ที่อยู่</b> ${escape(data.address)}\n`;
   text += `<b>พร้อมเริ่มงาน</b> ${startDateText}\n`;
 
-  // แสดงเฉพาะเคสสาขาอ่าวอุดมเท่านั้นที่มีคำถามเรื่องเวลา
-  if (positionKey === "AOAUDOM_PT") {
-    text += `<b>เวลาที่สะดวก (อ่าวอุดม)</b> ${aoaudomAvailabilityText}\n`;
+  // แสดงเฉพาะตำแหน่งที่มีตัวเลือกเวลา (สาขาอมตะนคร Part Time)
+  if (positionKey === "AMATA_PT") {
+    text += `<b>เวลาที่สะดวก (อมตะนคร)</b> ${availabilityText}\n`;
   }
 
   text += `<b>ประวัติการทำงาน</b> ${workHistoryText}\n\n`;
@@ -167,7 +130,7 @@ exports.handler = async (event) => {
     text += `<b>🔗 ดูรูปถ่ายผู้สมัคร</b> <i>ไม่มีการแนบไฟล์</i>`;
   }
 
-  // 11 ฟังก์ชันยิงไป Telegram
+  // 11 ยิงไป Telegram
   const telegramURL = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}`;
 
   const sendTelegram = async (endpoint, payload) => {
@@ -183,7 +146,6 @@ exports.handler = async (event) => {
   };
 
   try {
-    // ส่งรูปก่อน ถ้ามี
     if (data.photo_url) {
       const caption =
         `ใบสมัครงานจาก <b>${escape(data.first_name)} ${escape(data.last_name)}</b>\n` +
@@ -197,7 +159,6 @@ exports.handler = async (event) => {
       });
     }
 
-    // ส่งข้อความรายละเอียด
     await sendTelegram("sendMessage", {
       chat_id: targetChatId,
       text,
