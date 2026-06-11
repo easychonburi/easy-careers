@@ -69,6 +69,7 @@
 
 <body class="clean-bg text-slate-800">
 
+  <!-- หน้าเลือกตำแหน่ง -->
   <div id="positionSelection" class="min-h-screen px-4 py-6 fade-in">
     <header class="text-center pt-8 pb-8">
       <h1 class="text-4xl sm:text-5xl font-bold text-red-600 mb-2">EASY หมี่ไก่ฉีก</h1>
@@ -81,6 +82,7 @@
     <main class="max-w-xl mx-auto pb-6">
       <div class="grid grid-cols-1 gap-5">
 
+        <!-- 1) พระยาสัจจา - พาร์ทไทม์ -->
         <div class="relative card-clean card-hover rounded-2xl p-6 slide-up overflow-hidden">
           <div class="ribbon ribbon-parttime">PART TIME</div>
 
@@ -126,6 +128,7 @@
     </main>
   </div>
 
+  <!-- หน้ารายละเอียดตำแหน่ง -->
   <div id="positionDetails" class="hidden min-h-screen px-4 py-6 fade-in">
     <div class="card-clean rounded-2xl max-w-xl mx-auto slide-up overflow-hidden">
       <header class="p-6 border-b border-slate-100 relative bg-white">
@@ -189,6 +192,7 @@
     </div>
   </div>
 
+  <!-- หน้าแบบฟอร์มสมัคร -->
   <div id="applicationForm" class="hidden min-h-screen px-4 py-6 fade-in">
     <div class="card-clean rounded-2xl max-w-xl mx-auto overflow-hidden">
       <header class="p-6 border-b border-slate-100 relative bg-white">
@@ -210,6 +214,7 @@
       <main class="p-6 bg-white">
         <form id="jobApplicationForm" class="space-y-8">
 
+          <!-- ข้อมูลส่วนตัว -->
           <section class="space-y-4">
             <h3 class="text-xl font-bold text-slate-900 border-l-4 border-red-600 pl-3">ข้อมูลพื้นฐาน</h3>
 
@@ -235,7 +240,7 @@
             <div class="grid grid-cols-3 gap-3">
               <div>
                 <label for="age" class="block text-sm font-semibold text-slate-700 mb-1.5">อายุ *</label>
-                <input type="number" id="age" name="age" required min="18" max="70" inputmode="numeric"
+                <input type="number" id="age" name="age" required min="17" max="70" inputmode="numeric"
                        class="input-focus w-full p-3.5 text-base border border-slate-300 rounded-xl outline-none text-center">
               </div>
               <div>
@@ -306,6 +311,7 @@
             </div>
           </section>
 
+          <!-- วันที่พร้อมเริ่มงาน -->
           <section class="border-t border-slate-200 pt-6">
             <h3 class="text-xl font-bold text-slate-900 border-l-4 border-red-600 pl-3 mb-4">วันที่พร้อมเริ่มงาน</h3>
 
@@ -330,6 +336,7 @@
             </div>
           </section>
 
+          <!-- ความพร้อมเลือกเวลา -->
           <section id="availabilitySection" class="border-t border-slate-200 pt-6 hidden bg-blue-50/50 -mx-6 px-6 pb-6">
             <h3 id="availabilitySectionTitle" class="text-xl font-bold text-slate-900 border-l-4 border-blue-600 pl-3 mb-2">เวลาที่ต้องการสมัคร *</h3>
 
@@ -363,6 +370,7 @@
             </div>
           </section>
 
+          <!-- ประวัติการทำงาน -->
           <section class="border-t border-slate-200 pt-6">
             <h3 class="text-xl font-bold text-slate-900 border-l-4 border-red-600 pl-3 mb-2">ประวัติการทำงาน</h3>
             <p class="text-sm text-slate-500 mb-4 pl-4">หากไม่เคยทำงาน สามารถเลือก "0" หรือเว้นว่างได้</p>
@@ -390,6 +398,7 @@
             </div>
           </section>
 
+          <!-- อัปโหลดรูป -->
           <section class="border-t border-slate-200 pt-6 pb-4">
             <h3 class="text-xl font-bold text-slate-900 border-l-4 border-red-600 pl-3 mb-2">อัปโหลดรูปถ่าย *</h3>
             <p class="text-sm text-slate-600 mb-4 pl-4">หน้าชัดเจน ไม่สวมแว่นดำ (JPG/PNG ขนาดไม่เกิน 10MB)</p>
@@ -424,15 +433,17 @@
             <div id="uploadSuccess" class="hidden mt-3 text-emerald-600 text-sm font-bold bg-emerald-50 p-3 rounded-lg border border-emerald-100 text-center"></div>
           </section>
 
+          <!-- ปุ่มตรวจสอบข้อมูล -->
           <button type="button" id="reviewBtn" onclick="goToReview()" disabled
                   class="w-full bg-slate-300 text-slate-500 py-4 px-6 rounded-xl text-lg font-bold cursor-not-allowed transition-all mt-4">
-            ตรวจสอบข้อมูลก่อนส่ง
+            ส่งใบสมัคร
           </button>
         </form>
       </main>
     </div>
   </div>
 
+  <!-- หน้าทบทวนข้อมูลก่อนส่ง (หน้ายืนยัน) -->
   <div id="reviewPage" class="hidden min-h-screen px-4 py-6 fade-in">
     <div class="card-clean rounded-2xl max-w-xl mx-auto overflow-hidden">
       <header class="p-6 border-b border-slate-100 bg-white">
@@ -441,21 +452,24 @@
       </header>
       <main class="p-6 bg-slate-50 space-y-5">
         
+        <!-- โชว์ชื่อ -->
         <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
           <p class="text-sm text-slate-500 mb-1">ชื่อ-นามสกุล (ชื่อเล่น)</p>
           <p id="reviewName" class="text-lg font-bold text-slate-900"></p>
         </div>
 
-        <div class="bg-red-50 p-5 rounded-xl border-2 border-red-400 shadow-sm relative overflow-hidden">
-          <div class="absolute top-0 left-0 w-1.5 h-full bg-red-500"></div>
-          <p class="text-sm text-red-600 font-bold flex items-center mb-1">
+        <!-- ไฮไลท์ตรวจสอบ ID LINE -->
+        <div class="bg-emerald-50 p-5 rounded-xl border-2 border-emerald-400 shadow-sm relative overflow-hidden">
+          <div class="absolute top-0 left-0 w-1.5 h-full bg-emerald-500"></div>
+          <p class="text-sm text-emerald-700 font-bold flex items-center mb-1">
             <svg class="w-5 h-5 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
             กรุณาตรวจสอบ ID LINE (สำคัญมาก)
           </p>
-          <p class="text-xs text-red-500 mb-2">เพื่อใช้ในการติดต่อกลับหากผ่านการพิจารณา</p>
-          <p id="reviewLineId" class="text-xl font-bold text-red-700 bg-white px-3 py-2 rounded-lg border border-red-200 inline-block w-full text-center"></p>
+          <p class="text-xs text-emerald-600 mb-2">เพื่อใช้ในการติดต่อกลับหากผ่านการพิจารณา</p>
+          <p id="reviewLineId" class="text-xl font-bold text-emerald-800 bg-white px-3 py-2 rounded-lg border border-emerald-200 inline-block w-full text-center"></p>
         </div>
 
+        <!-- ข้อมูลอื่นๆ -->
         <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm space-y-4">
           <div>
             <p class="text-sm text-slate-500">เบอร์โทรศัพท์</p>
@@ -483,6 +497,7 @@
     </div>
   </div>
 
+  <!-- Modal ส่งสำเร็จ -->
   <div id="successModal" class="hidden fixed inset-0 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4 z-50">
     <div class="bg-white rounded-2xl p-8 max-w-sm w-full text-center slide-up shadow-2xl">
       <div class="mx-auto flex items-center justify-center h-20 w-20 rounded-full bg-emerald-100 mb-6">
@@ -510,6 +525,7 @@
     </div>
   </div>
 
+  <!-- Modal ระหว่างกำลังส่ง -->
   <div id="loadingModal" class="hidden fixed inset-0 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4 z-40">
     <div class="bg-white rounded-2xl p-8 max-w-xs w-full text-center slide-up shadow-xl">
       <div class="flex justify-center mb-5">
@@ -541,8 +557,8 @@
         startImmediateLabel: "พร้อมเริ่มงานได้ทันที",
         showAvailabilitySection: true,
         availabilitySectionTitle: "เวลาที่ต้องการสมัคร (สาขาพระยาสัจจา) *",
-        locationText: "สาขาพระยาสัจจา (รอวิวใส่ลิงก์แผนที่อีกทีนะครับ)", 
-        mapUrl: "#", 
+        locationText: "ตลาดธนา ถนนพระยาสัจจา (ข้างๆร้านแก้วรักสัตว์)", 
+        mapUrl: "https://maps.app.goo.gl/kKczyyq8rCuFHfkQ9", 
         jobLines: [
           "วันจันทร์ถึงเสาร์: เวลา 17:00-21:00 น. (ชั่วโมงละ 50 บาท)",
           "วันอาทิตย์: เวลา 10:30-20:00 น. (วันละ 475 บาท)",
@@ -555,7 +571,7 @@
         ],
         qualifications: [
           "เพศหญิงเท่านั้น",
-          "อายุ 18 ปีขึ้นไป",
+          "อายุ 17 ปีขึ้นไป",
           "ขยัน สะอาด มีความรับผิดชอบ",
           "สามารถทำงานคนเดียวได้เป็นอย่างดี"
         ]
