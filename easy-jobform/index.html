@@ -52,7 +52,6 @@
       color: #fff;
       box-shadow: 0 4px 6px rgba(0,0,0,.1);
     }
-    .ribbon-fulltime { background: linear-gradient(90deg, #dc2626, #b91c1c); }
     .ribbon-parttime { background: linear-gradient(90deg, #2563eb, #1d4ed8); }
 
     .sticky-action {
@@ -70,7 +69,6 @@
 
 <body class="clean-bg text-slate-800">
 
-  <!-- หน้าเลือกตำแหน่ง -->
   <div id="positionSelection" class="min-h-screen px-4 py-6 fade-in">
     <header class="text-center pt-8 pb-8">
       <h1 class="text-4xl sm:text-5xl font-bold text-red-600 mb-2">EASY หมี่ไก่ฉีก</h1>
@@ -78,58 +76,18 @@
       <p class="text-base sm:text-lg text-slate-500">
         กรุณาเลือกตำแหน่งที่ต้องการสมัคร แล้วกรอกข้อมูลให้ครบถ้วน
       </p>
-      <p class="text-xs text-slate-400 mt-2">อัพเดท พ.ค. 2026</p>
     </header>
 
     <main class="max-w-xl mx-auto pb-6">
       <div class="grid grid-cols-1 gap-5">
 
-        <!-- 1) อ่าวอุดม - ประจำกะเช้า -->
-        <div class="relative card-clean card-hover rounded-2xl p-6 slide-up overflow-hidden">
-          <div class="ribbon ribbon-fulltime">FULLTIME</div>
-
-          <p class="text-xs font-bold text-red-600 uppercase tracking-wide">EASY หมี่ไก่ฉีก</p>
-          
-          <div class="flex flex-wrap items-center gap-2 mt-1 mb-2">
-            <h3 class="text-2xl font-bold text-slate-900">สาขาอ่าวอุดม</h3>
-            <span class="px-2.5 py-1 rounded-lg text-sm font-bold bg-red-100 text-red-800">
-              พนักงานประจำสาขา
-            </span>
-          </div>
-
-          <div class="mb-4">
-            <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-bold bg-emerald-50 text-emerald-700 border border-emerald-200">
-              <svg class="w-4 h-4 mr-1.5 text-emerald-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-              พร้อมเริ่มงานได้ทันที
-            </span>
-          </div>
-
-          <div class="mt-4 space-y-2">
-            <div class="flex items-start gap-3">
-              <span class="mt-2 h-2 w-2 rounded-full bg-red-600 shrink-0"></span>
-              <p class="text-base text-slate-700 font-medium">ทำวันจันทร์–เสาร์ 09:00–17:00 น.</p>
-            </div>
-            <div class="flex items-start gap-3">
-              <span class="mt-2 h-2 w-2 rounded-full bg-slate-400 shrink-0"></span>
-              <p class="text-base text-slate-700">ค่าแรง วันละ 400 บาท (รายวัน)</p>
-            </div>
-          </div>
-
-          <button
-            onclick="openDetails(POSITIONS.AOAUDOM_FT)"
-            class="mt-6 w-full bg-red-600 active:bg-red-700 text-white py-3.5 px-6 rounded-xl text-base font-bold shadow-sm transition-colors">
-            สมัครตำแหน่งนี้
-          </button>
-        </div>
-
-        <!-- 2) อมตะนคร - พาร์ทไทม์ -->
         <div class="relative card-clean card-hover rounded-2xl p-6 slide-up overflow-hidden">
           <div class="ribbon ribbon-parttime">PART TIME</div>
 
           <p class="text-xs font-bold text-red-600 uppercase tracking-wide">EASY หมี่ไก่ฉีก</p>
           
           <div class="flex flex-wrap items-center gap-2 mt-1 mb-2">
-            <h3 class="text-2xl font-bold text-slate-900">สาขาอมตะนคร</h3>
+            <h3 class="text-2xl font-bold text-slate-900">สาขาพระยาสัจจา</h3>
             <span class="px-2.5 py-1 rounded-lg text-sm font-bold bg-blue-100 text-blue-800">
               พาร์ทไทม์
             </span>
@@ -158,7 +116,7 @@
           </div>
 
           <button
-            onclick="openDetails(POSITIONS.AMATA_PT)"
+            onclick="openDetails(POSITIONS.PHRAYA_PT)"
             class="mt-6 w-full bg-red-600 active:bg-red-700 text-white py-3.5 px-6 rounded-xl text-base font-bold shadow-sm transition-colors">
             สมัครตำแหน่งนี้
           </button>
@@ -168,7 +126,6 @@
     </main>
   </div>
 
-  <!-- หน้ารายละเอียดตำแหน่ง -->
   <div id="positionDetails" class="hidden min-h-screen px-4 py-6 fade-in">
     <div class="card-clean rounded-2xl max-w-xl mx-auto slide-up overflow-hidden">
       <header class="p-6 border-b border-slate-100 relative bg-white">
@@ -232,7 +189,6 @@
     </div>
   </div>
 
-  <!-- หน้าแบบฟอร์มสมัคร -->
   <div id="applicationForm" class="hidden min-h-screen px-4 py-6 fade-in">
     <div class="card-clean rounded-2xl max-w-xl mx-auto overflow-hidden">
       <header class="p-6 border-b border-slate-100 relative bg-white">
@@ -254,7 +210,6 @@
       <main class="p-6 bg-white">
         <form id="jobApplicationForm" class="space-y-8">
 
-          <!-- ข้อมูลส่วนตัว -->
           <section class="space-y-4">
             <h3 class="text-xl font-bold text-slate-900 border-l-4 border-red-600 pl-3">ข้อมูลพื้นฐาน</h3>
 
@@ -351,7 +306,6 @@
             </div>
           </section>
 
-          <!-- วันที่พร้อมเริ่มงาน -->
           <section class="border-t border-slate-200 pt-6">
             <h3 class="text-xl font-bold text-slate-900 border-l-4 border-red-600 pl-3 mb-4">วันที่พร้อมเริ่มงาน</h3>
 
@@ -376,7 +330,6 @@
             </div>
           </section>
 
-          <!-- ความพร้อมเลือกเวลา (สำหรับตำแหน่งที่ showAvailabilitySection = true) -->
           <section id="availabilitySection" class="border-t border-slate-200 pt-6 hidden bg-blue-50/50 -mx-6 px-6 pb-6">
             <h3 id="availabilitySectionTitle" class="text-xl font-bold text-slate-900 border-l-4 border-blue-600 pl-3 mb-2">เวลาที่ต้องการสมัคร *</h3>
 
@@ -410,7 +363,6 @@
             </div>
           </section>
 
-          <!-- ประวัติการทำงาน -->
           <section class="border-t border-slate-200 pt-6">
             <h3 class="text-xl font-bold text-slate-900 border-l-4 border-red-600 pl-3 mb-2">ประวัติการทำงาน</h3>
             <p class="text-sm text-slate-500 mb-4 pl-4">หากไม่เคยทำงาน สามารถเลือก "0" หรือเว้นว่างได้</p>
@@ -438,7 +390,6 @@
             </div>
           </section>
 
-          <!-- อัปโหลดรูป -->
           <section class="border-t border-slate-200 pt-6 pb-4">
             <h3 class="text-xl font-bold text-slate-900 border-l-4 border-red-600 pl-3 mb-2">อัปโหลดรูปถ่าย *</h3>
             <p class="text-sm text-slate-600 mb-4 pl-4">หน้าชัดเจน ไม่สวมแว่นดำ (JPG/PNG ขนาดไม่เกิน 10MB)</p>
@@ -473,16 +424,65 @@
             <div id="uploadSuccess" class="hidden mt-3 text-emerald-600 text-sm font-bold bg-emerald-50 p-3 rounded-lg border border-emerald-100 text-center"></div>
           </section>
 
-          <button type="submit" id="submitBtn" disabled
+          <button type="button" id="reviewBtn" onclick="goToReview()" disabled
                   class="w-full bg-slate-300 text-slate-500 py-4 px-6 rounded-xl text-lg font-bold cursor-not-allowed transition-all mt-4">
-            ส่งใบสมัคร
+            ตรวจสอบข้อมูลก่อนส่ง
           </button>
         </form>
       </main>
     </div>
   </div>
 
-  <!-- Modal ส่งสำเร็จ -->
+  <div id="reviewPage" class="hidden min-h-screen px-4 py-6 fade-in">
+    <div class="card-clean rounded-2xl max-w-xl mx-auto overflow-hidden">
+      <header class="p-6 border-b border-slate-100 bg-white">
+        <h1 class="text-2xl font-bold text-slate-900 text-center">ตรวจสอบข้อมูล</h1>
+        <p class="text-center text-slate-500 mt-2">กรุณาตรวจสอบความถูกต้องก่อนกดส่งใบสมัคร</p>
+      </header>
+      <main class="p-6 bg-slate-50 space-y-5">
+        
+        <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
+          <p class="text-sm text-slate-500 mb-1">ชื่อ-นามสกุล (ชื่อเล่น)</p>
+          <p id="reviewName" class="text-lg font-bold text-slate-900"></p>
+        </div>
+
+        <div class="bg-red-50 p-5 rounded-xl border-2 border-red-400 shadow-sm relative overflow-hidden">
+          <div class="absolute top-0 left-0 w-1.5 h-full bg-red-500"></div>
+          <p class="text-sm text-red-600 font-bold flex items-center mb-1">
+            <svg class="w-5 h-5 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+            กรุณาตรวจสอบ ID LINE (สำคัญมาก)
+          </p>
+          <p class="text-xs text-red-500 mb-2">เพื่อใช้ในการติดต่อกลับหากผ่านการพิจารณา</p>
+          <p id="reviewLineId" class="text-xl font-bold text-red-700 bg-white px-3 py-2 rounded-lg border border-red-200 inline-block w-full text-center"></p>
+        </div>
+
+        <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm space-y-4">
+          <div>
+            <p class="text-sm text-slate-500">เบอร์โทรศัพท์</p>
+            <p id="reviewPhone" class="font-bold text-slate-900"></p>
+          </div>
+          <div>
+            <p class="text-sm text-slate-500">ตำแหน่งที่สมัคร</p>
+            <p id="reviewPosition" class="font-bold text-slate-900"></p>
+          </div>
+          <div id="reviewAvailBlock">
+            <p class="text-sm text-slate-500">เวลาที่ต้องการทำ</p>
+            <p id="reviewAvailability" class="font-bold text-slate-900"></p>
+          </div>
+        </div>
+
+        <div class="flex gap-3 pt-2">
+          <button onclick="backToForm()" class="w-1/3 bg-white border-2 border-slate-200 text-slate-700 font-bold py-3.5 rounded-xl hover:bg-slate-50 transition-colors">
+            แก้ไข
+          </button>
+          <button onclick="submitApplication()" class="w-2/3 bg-red-600 text-white font-bold py-3.5 rounded-xl hover:bg-red-700 shadow-md transition-transform hover:scale-[1.02]">
+            ยืนยันและส่งใบสมัคร
+          </button>
+        </div>
+      </main>
+    </div>
+  </div>
+
   <div id="successModal" class="hidden fixed inset-0 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4 z-50">
     <div class="bg-white rounded-2xl p-8 max-w-sm w-full text-center slide-up shadow-2xl">
       <div class="mx-auto flex items-center justify-center h-20 w-20 rounded-full bg-emerald-100 mb-6">
@@ -510,7 +510,6 @@
     </div>
   </div>
 
-  <!-- Modal ระหว่างกำลังส่ง -->
   <div id="loadingModal" class="hidden fixed inset-0 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4 z-40">
     <div class="bg-white rounded-2xl p-8 max-w-xs w-full text-center slide-up shadow-xl">
       <div class="flex justify-center mb-5">
@@ -528,50 +527,22 @@
     const CLOUD_FOLDER = "job-applications";
 
     let uploadedImageUrl = "";
+    let pendingFormData = {}; // เก็บข้อมูลไว้ก่อนกดยืนยันส่ง
 
     // ===== Position data =====
     const POSITIONS = {
-      AOAUDOM_FT: {
-        key: "AOAUDOM_FT",
-        typeBadge: { text: "พนักงานประจำสาขา", tone: "red" },
-        startBadge: { text: "พร้อมเริ่มงานได้ทันที", tone: "emerald" },
-        titleBold: "พนักงานประจำสาขา - สาขาอ่าวอุดม",
-        selectionText: "พนักงานประจำสาขา - สาขาอ่าวอุดม",
-        positionPayload: "สาขาอ่าวอุดม – ประจำสาขา (จันทร์-เสาร์ 09:00–17:00 ค่าแรง 400 บาท/วัน)",
-        startImmediateLabel: "พร้อมเริ่มงานได้ทันที",
-        showAvailabilitySection: false,
-        locationText: "ม.เกษตร ประตู 3 หน้าร้านชาบู 21",
-        mapUrl: "https://maps.app.goo.gl/7VrqHru324X9fyai7",
-        jobLines: [
-          "ทำงานวันจันทร์-เสาร์ เวลา 09:00-17:00 น.",
-          "ค่าแรงวันละ 400 บาท (รายวัน)",
-          "จ่ายค่าแรงทุกวันที่ 1 และ 16 ของทุกเดือน"
-        ],
-        duties: [
-          "จัดเตรียมวัตถุดิบสำหรับขาย",
-          "จัดออเดอร์จากแอพเดลิเวอรี่",
-          "ร้านเป็นร้านเล็กๆรับแต่เดลิเวอรี่ ไม่มีนั่งทานหน้าร้าน"
-        ],
-        qualifications: [
-          "เพศหญิงเท่านั้น",
-          "อายุ 18 ปีขึ้นไป",
-          "ขยัน สะอาด มีความรับผิดชอบ",
-          "สามารถทำงานคนเดียวได้เป็นอย่างดี"
-        ]
-      },
-
-      AMATA_PT: {
-        key: "AMATA_PT",
+      PHRAYA_PT: {
+        key: "PHRAYA_PT",
         typeBadge: { text: "พาร์ทไทม์", tone: "blue" },
         startBadge: { text: "พร้อมเริ่มงานได้ทันที", tone: "emerald" },
-        titleBold: "พนักงานพาร์ทไทม์ - สาขาอมตะนคร",
-        selectionText: "พนักงานพาร์ทไทม์ - สาขาอมตะนคร",
-        positionPayload: "สาขาอมตะนคร – PART TIME",
+        titleBold: "พนักงานพาร์ทไทม์ - สาขาพระยาสัจจา",
+        selectionText: "พนักงานพาร์ทไทม์ - สาขาพระยาสัจจา",
+        positionPayload: "สาขาพระยาสัจจา – PART TIME",
         startImmediateLabel: "พร้อมเริ่มงานได้ทันที",
         showAvailabilitySection: true,
-        availabilitySectionTitle: "เวลาที่ต้องการสมัคร (สาขาอมตะนคร) *",
-        locationText: "โครงการ Pure Park บ้านเก่าซอย 5",
-        mapUrl: "https://maps.app.goo.gl/RvNuerqE86Qh5MbRA",
+        availabilitySectionTitle: "เวลาที่ต้องการสมัคร (สาขาพระยาสัจจา) *",
+        locationText: "สาขาพระยาสัจจา (รอวิวใส่ลิงก์แผนที่อีกทีนะครับ)", 
+        mapUrl: "#", 
         jobLines: [
           "วันจันทร์ถึงเสาร์: เวลา 17:00-21:00 น. (ชั่วโมงละ 50 บาท)",
           "วันอาทิตย์: เวลา 10:30-20:00 น. (วันละ 475 บาท)",
@@ -600,6 +571,7 @@
       document.getElementById("positionSelection").classList.add("hidden");
       document.getElementById("positionDetails").classList.remove("hidden");
       document.getElementById("applicationForm").classList.add("hidden");
+      document.getElementById("reviewPage").classList.add("hidden");
       window.scrollTo(0, 0);
       renderDetails(positionObj);
     }
@@ -628,7 +600,6 @@
       selectedPositionText = currentPosition.positionPayload;
       document.getElementById("startImmediateLabel").textContent = currentPosition.startImmediateLabel;
 
-      // ตัวเลือกเวลา (generic section)
       const availSection = document.getElementById("availabilitySection");
       const availRadios = document.querySelectorAll('input[name="availability_choice"]');
       const availTitle = document.getElementById("availabilitySectionTitle");
@@ -676,7 +647,7 @@
       document.getElementById("detailsLocationText").textContent = p.locationText || "N/A";
       const link = document.getElementById("detailsMapLink");
       link.href = p.mapUrl || "#";
-      link.style.display = p.mapUrl ? "inline-flex" : "none";
+      link.style.display = (p.mapUrl && p.mapUrl !== "#") ? "inline-flex" : "none";
 
       const job = document.getElementById("detailsJob");
       job.innerHTML = "";
@@ -707,7 +678,6 @@
       });
     }
 
-    // ===== Start date toggle =====
     function toggleDateInput() {
       const specificRadio = document.querySelector('input[name="start_date_type"][value="specific"]');
       const dateInputContainer = document.getElementById("dateInputContainer");
@@ -723,7 +693,6 @@
       }
     }
 
-    // ===== Work history =====
     function showWorkHistory() {
       const workCountValue = document.getElementById("workCount").value;
       const workHistorySection = document.getElementById("workHistorySection");
@@ -764,7 +733,6 @@
       }
     }
 
-    // ===== Education dynamic =====
     function toggleStudyingExtra() {
       const education = document.getElementById("education").value;
       const box = document.getElementById("studyingExtra");
@@ -784,7 +752,6 @@
       }
     }
 
-    // ===== Upload =====
     function handleFileUpload(event) {
       const file = event.target.files[0];
       if (!file) return;
@@ -897,24 +864,24 @@
     }
 
     function enableSubmitButton() {
-      const submitBtn = document.getElementById("submitBtn");
+      const submitBtn = document.getElementById("reviewBtn");
       submitBtn.disabled = false;
       submitBtn.classList.remove("bg-slate-300", "text-slate-500", "cursor-not-allowed");
       submitBtn.classList.add("bg-red-600", "text-white", "cursor-pointer", "hover:bg-red-700", "hover:shadow-md");
     }
 
     function disableSubmitButton() {
-      const submitBtn = document.getElementById("submitBtn");
+      const submitBtn = document.getElementById("reviewBtn");
       submitBtn.disabled = true;
       submitBtn.classList.add("bg-slate-300", "text-slate-500", "cursor-not-allowed");
       submitBtn.classList.remove("bg-red-600", "text-white", "cursor-pointer", "hover:bg-red-700", "hover:shadow-md");
     }
 
-    // ===== Reset =====
     function resetAll() {
       document.getElementById("successModal").classList.add("hidden");
       document.getElementById("loadingModal").classList.add("hidden");
       document.getElementById("applicationForm").classList.add("hidden");
+      document.getElementById("reviewPage").classList.add("hidden");
       document.getElementById("positionDetails").classList.add("hidden");
       document.getElementById("positionSelection").classList.remove("hidden");
 
@@ -936,56 +903,81 @@
 
       currentPosition = null;
       selectedPositionText = "";
+      pendingFormData = {};
       window.scrollTo(0, 0);
     }
 
-    // ===== Submit =====
-    document.getElementById("jobApplicationForm").addEventListener("submit", async function (e) {
-      e.preventDefault();
+    // ===== Review & Submit Logic =====
+    function goToReview() {
+      const form = document.getElementById("jobApplicationForm");
+      
+      // เช็คว่ากรอกครบมั้ย
+      if (!form.reportValidity()) return;
 
       if (!uploadedImageUrl) {
         showUploadError("กรุณาอัปโหลดรูปถ่ายก่อนส่งใบสมัคร");
         return;
       }
 
-      const submitBtn = document.getElementById("submitBtn");
-      const loadingModal = document.getElementById("loadingModal");
+      // ดึงข้อมูลเตรียมไปโชว์ในหน้า Review
+      const formDataObj = new FormData(form);
+      pendingFormData = Object.fromEntries(formDataObj.entries());
+      
+      pendingFormData.position = selectedPositionText;
+      pendingFormData.photo_url = uploadedImageUrl;
 
-      submitBtn.disabled = true;
-      submitBtn.textContent = "กำลังส่งข้อมูล...";
-      showUploadError("");
-      loadingModal.classList.remove("hidden");
-
-      const formData = new FormData(e.target);
-      const data = Object.fromEntries(formData.entries());
-
-      data.position = selectedPositionText;
-      data.photo_url = uploadedImageUrl;
-
-      // แนบตัวเลือกเวลาเข้าไปในชื่อตำแหน่ง (เฉพาะตำแหน่งที่มี availability section)
-      if (data.availability_choice) {
-        data.position += ` [เลือกเวลา: ${data.availability_choice}]`;
+      if (pendingFormData.availability_choice) {
+        pendingFormData.position += ` [เลือกเวลา: ${pendingFormData.availability_choice}]`;
       }
+
+      // ใส่ข้อมูลลงในหน้า Review
+      document.getElementById("reviewName").textContent = `${pendingFormData.first_name} ${pendingFormData.last_name} (${pendingFormData.nickname})`;
+      document.getElementById("reviewLineId").textContent = pendingFormData.line_id;
+      document.getElementById("reviewPhone").textContent = pendingFormData.phone;
+      document.getElementById("reviewPosition").textContent = selectedPositionText;
+      
+      if (pendingFormData.availability_choice) {
+        document.getElementById("reviewAvailBlock").classList.remove("hidden");
+        document.getElementById("reviewAvailability").textContent = pendingFormData.availability_choice;
+      } else {
+        document.getElementById("reviewAvailBlock").classList.add("hidden");
+      }
+
+      // สลับหน้าจอ
+      document.getElementById("applicationForm").classList.add("hidden");
+      document.getElementById("reviewPage").classList.remove("hidden");
+      window.scrollTo(0, 0);
+    }
+
+    function backToForm() {
+      document.getElementById("reviewPage").classList.add("hidden");
+      document.getElementById("applicationForm").classList.remove("hidden");
+      window.scrollTo(0, 0);
+    }
+
+    async function submitApplication() {
+      const loadingModal = document.getElementById("loadingModal");
+      loadingModal.classList.remove("hidden");
 
       try {
         const response = await fetch("/.netlify/functions/send-to-telegram", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(data),
+          body: JSON.stringify(pendingFormData),
         });
 
         if (!response.ok) throw new Error("Server error " + response.statusText);
 
         loadingModal.classList.add("hidden");
+        document.getElementById("reviewPage").classList.add("hidden");
         document.getElementById("successModal").classList.remove("hidden");
       } catch (error) {
         console.error("Submit error:", error);
         loadingModal.classList.add("hidden");
+        backToForm();
         showUploadError("เกิดข้อผิดพลาดในการส่งฟอร์ม กรุณาลองอีกครั้ง");
-        enableSubmitButton();
-        submitBtn.textContent = "ส่งใบสมัคร";
       }
-    });
+    }
 
     // ===== Event listeners =====
     document.querySelectorAll('input[name="start_date_type"]').forEach((radio) => {
