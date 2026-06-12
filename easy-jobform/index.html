@@ -69,7 +69,6 @@
 
 <body class="clean-bg text-slate-800">
 
-  <!-- หน้าเลือกตำแหน่ง -->
   <div id="positionSelection" class="min-h-screen px-4 py-6 fade-in">
     <header class="text-center pt-8 pb-8">
       <h1 class="text-4xl sm:text-5xl font-bold text-red-600 mb-2">EASY หมี่ไก่ฉีก</h1>
@@ -82,7 +81,6 @@
     <main class="max-w-xl mx-auto pb-6">
       <div class="grid grid-cols-1 gap-5">
 
-        <!-- 1) พระยาสัจจา - พาร์ทไทม์ -->
         <div class="relative card-clean card-hover rounded-2xl p-6 slide-up overflow-hidden">
           <div class="ribbon ribbon-parttime">PART TIME</div>
 
@@ -128,7 +126,6 @@
     </main>
   </div>
 
-  <!-- หน้ารายละเอียดตำแหน่ง -->
   <div id="positionDetails" class="hidden min-h-screen px-4 py-6 fade-in">
     <div class="card-clean rounded-2xl max-w-xl mx-auto slide-up overflow-hidden">
       <header class="p-6 border-b border-slate-100 relative bg-white">
@@ -192,7 +189,6 @@
     </div>
   </div>
 
-  <!-- หน้าแบบฟอร์มสมัคร -->
   <div id="applicationForm" class="hidden min-h-screen px-4 py-6 fade-in">
     <div class="card-clean rounded-2xl max-w-xl mx-auto overflow-hidden">
       <header class="p-6 border-b border-slate-100 relative bg-white">
@@ -214,7 +210,6 @@
       <main class="p-6 bg-white">
         <form id="jobApplicationForm" class="space-y-8">
 
-          <!-- ข้อมูลส่วนตัว -->
           <section class="space-y-4">
             <h3 class="text-xl font-bold text-slate-900 border-l-4 border-red-600 pl-3">ข้อมูลพื้นฐาน</h3>
 
@@ -311,7 +306,6 @@
             </div>
           </section>
 
-          <!-- วันที่พร้อมเริ่มงาน -->
           <section class="border-t border-slate-200 pt-6">
             <h3 class="text-xl font-bold text-slate-900 border-l-4 border-red-600 pl-3 mb-4">วันที่พร้อมเริ่มงาน</h3>
 
@@ -336,7 +330,6 @@
             </div>
           </section>
 
-          <!-- ความพร้อมเลือกเวลา -->
           <section id="availabilitySection" class="border-t border-slate-200 pt-6 hidden bg-blue-50/50 -mx-6 px-6 pb-6">
             <h3 id="availabilitySectionTitle" class="text-xl font-bold text-slate-900 border-l-4 border-blue-600 pl-3 mb-2">เวลาที่ต้องการสมัคร *</h3>
 
@@ -370,7 +363,6 @@
             </div>
           </section>
 
-          <!-- ประวัติการทำงาน -->
           <section class="border-t border-slate-200 pt-6">
             <h3 class="text-xl font-bold text-slate-900 border-l-4 border-red-600 pl-3 mb-2">ประวัติการทำงาน</h3>
             <p class="text-sm text-slate-500 mb-4 pl-4">หากไม่เคยทำงาน สามารถเลือก "0" หรือเว้นว่างได้</p>
@@ -398,26 +390,33 @@
             </div>
           </section>
 
-          <!-- อัปโหลดรูป -->
           <section class="border-t border-slate-200 pt-6 pb-4">
             <h3 class="text-xl font-bold text-slate-900 border-l-4 border-red-600 pl-3 mb-2">อัปโหลดรูปถ่าย *</h3>
             <p class="text-sm text-slate-600 mb-4 pl-4">หน้าชัดเจน ไม่สวมแว่นดำ (JPG/PNG ขนาดไม่เกิน 10MB)</p>
 
-            <div id="uploadArea"
-                 class="border-2 border-dashed border-slate-300 rounded-2xl p-8 text-center cursor-pointer hover:border-red-500 hover:bg-red-50 transition-all"
-                 onclick="document.getElementById('photoInput').click()">
-              <div id="uploadContent">
-                <div class="mx-auto h-16 w-16 bg-slate-100 rounded-full flex items-center justify-center mb-3">
-                  <svg class="h-8 w-8 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>
-                  </svg>
-                </div>
-                <p class="text-base text-slate-700 font-bold">แตะเพื่อเลือกรูปภาพ</p>
-                <p class="text-sm text-red-500 mt-1">* จำเป็นต้องอัปโหลด</p>
+            <div id="uploadArea" class="border-2 border-dashed border-slate-300 rounded-2xl p-6 text-center transition-all bg-white">
+              <div class="mx-auto h-16 w-16 bg-slate-100 rounded-full flex items-center justify-center mb-3">
+                <svg class="h-8 w-8 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                </svg>
               </div>
+              <p class="text-base text-slate-700 font-bold mb-4">เลือกวิธีอัปโหลดรูปภาพ</p>
+              
+              <div class="flex flex-col sm:flex-row gap-3 justify-center">
+                <button type="button" onclick="document.getElementById('cameraInput').click()" class="bg-white border-2 border-slate-200 hover:border-red-500 hover:bg-red-50 text-slate-700 py-2.5 px-4 rounded-xl font-bold flex items-center justify-center transition-colors">
+                  <svg class="w-5 h-5 mr-2 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                  ถ่ายภาพ
+                </button>
+                <button type="button" onclick="document.getElementById('galleryInput').click()" class="bg-white border-2 border-slate-200 hover:border-red-500 hover:bg-red-50 text-slate-700 py-2.5 px-4 rounded-xl font-bold flex items-center justify-center transition-colors">
+                  <svg class="w-5 h-5 mr-2 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                  เลือกจากแกลเลอรี่
+                </button>
+              </div>
+              <p class="text-sm text-red-500 mt-4">* จำเป็นต้องอัปโหลด</p>
             </div>
 
-            <input type="file" id="photoInput" accept="image/jpeg,image/png" class="hidden" onchange="handleFileUpload(event)">
+            <input type="file" id="cameraInput" accept="image/jpeg,image/png" capture="environment" class="hidden" onchange="handleFileUpload(event)">
+            <input type="file" id="galleryInput" accept="image/jpeg,image/png" class="hidden" onchange="handleFileUpload(event)">
 
             <div id="uploadProgress" class="hidden mt-4 bg-slate-50 p-4 rounded-xl border border-slate-200">
               <div class="flex justify-between text-sm font-bold text-slate-700 mb-2">
@@ -433,7 +432,6 @@
             <div id="uploadSuccess" class="hidden mt-3 text-emerald-600 text-sm font-bold bg-emerald-50 p-3 rounded-lg border border-emerald-100 text-center"></div>
           </section>
 
-          <!-- ปุ่มตรวจสอบข้อมูล -->
           <button type="button" id="reviewBtn" onclick="goToReview()" disabled
                   class="w-full bg-slate-300 text-slate-500 py-4 px-6 rounded-xl text-lg font-bold cursor-not-allowed transition-all mt-4">
             ส่งใบสมัคร
@@ -443,7 +441,6 @@
     </div>
   </div>
 
-  <!-- หน้าทบทวนข้อมูลก่อนส่ง (หน้ายืนยัน) -->
   <div id="reviewPage" class="hidden min-h-screen px-4 py-6 fade-in">
     <div class="card-clean rounded-2xl max-w-xl mx-auto overflow-hidden">
       <header class="p-6 border-b border-slate-100 bg-white">
@@ -452,13 +449,11 @@
       </header>
       <main class="p-6 bg-slate-50 space-y-5">
         
-        <!-- โชว์ชื่อ -->
         <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
           <p class="text-sm text-slate-500 mb-1">ชื่อ-นามสกุล (ชื่อเล่น)</p>
           <p id="reviewName" class="text-lg font-bold text-slate-900"></p>
         </div>
 
-        <!-- ไฮไลท์ตรวจสอบ ID LINE -->
         <div class="bg-emerald-50 p-5 rounded-xl border-2 border-emerald-400 shadow-sm relative overflow-hidden">
           <div class="absolute top-0 left-0 w-1.5 h-full bg-emerald-500"></div>
           <p class="text-sm text-emerald-700 font-bold flex items-center mb-1">
@@ -469,7 +464,6 @@
           <p id="reviewLineId" class="text-xl font-bold text-emerald-800 bg-white px-3 py-2 rounded-lg border border-emerald-200 inline-block w-full text-center"></p>
         </div>
 
-        <!-- ข้อมูลอื่นๆ -->
         <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm space-y-4">
           <div>
             <p class="text-sm text-slate-500">เบอร์โทรศัพท์</p>
@@ -497,7 +491,6 @@
     </div>
   </div>
 
-  <!-- Modal ส่งสำเร็จ -->
   <div id="successModal" class="hidden fixed inset-0 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4 z-50">
     <div class="bg-white rounded-2xl p-8 max-w-sm w-full text-center slide-up shadow-2xl">
       <div class="mx-auto flex items-center justify-center h-20 w-20 rounded-full bg-emerald-100 mb-6">
@@ -525,7 +518,6 @@
     </div>
   </div>
 
-  <!-- Modal ระหว่างกำลังส่ง -->
   <div id="loadingModal" class="hidden fixed inset-0 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4 z-40">
     <div class="bg-white rounded-2xl p-8 max-w-xs w-full text-center slide-up shadow-xl">
       <div class="flex justify-center mb-5">
@@ -873,7 +865,8 @@
 
     function resetUpload() {
       uploadedImageUrl = "";
-      document.getElementById("photoInput").value = "";
+      document.getElementById("cameraInput").value = "";
+      document.getElementById("galleryInput").value = "";
       document.getElementById("uploadSuccess").classList.add("hidden");
       document.getElementById("uploadArea").classList.remove("hidden");
       disableSubmitButton();
