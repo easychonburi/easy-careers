@@ -7,18 +7,16 @@ exports.handler = async (event) => {
   }
 
   // 2 ดึง Environment Variables
-  // หมายเหตุ: ใช้ env vars เดิมที่มีอยู่ใน Netlify แล้ว
-  // CHAT_ID_AOAUDOM_PT     → ตอนนี้ใช้รับใบสมัครสาขาอ่าวอุดม (ประจำ)
-  // CHAT_ID_AMATA_WEEKEND_PT → ตอนนี้ใช้รับใบสมัครสาขาอมตะนคร (Part Time)
   const {
     TELEGRAM_BOT_TOKEN,
     CHAT_ID_AOAUDOM_PT,
     CHAT_ID_AMATA_WEEKEND_PT,
+    CHAT_ID_PHRAYA_PT, // เพิ่มตัวแปรสำหรับสาขาพระยาสัจจา
     TELEGRAM_CHAT_ID  // fallback กรณีฉุกเฉิน
   } = process.env;
 
-  if (!TELEGRAM_BOT_TOKEN || !CHAT_ID_AOAUDOM_PT || !CHAT_ID_AMATA_WEEKEND_PT) {
-    return { statusCode: 500, body: "Missing environment variables" };
+  if (!TELEGRAM_BOT_TOKEN) {
+    return { statusCode: 500, body: "Missing Bot Token environment variable" };
   }
 
   // 3 ดึงข้อมูลจาก body
@@ -30,6 +28,7 @@ exports.handler = async (event) => {
     const t = String(text || "");
     if (t.includes("อ่าวอุดม")) return "AOAUDOM_FT";
     if (t.includes("อมตะนคร")) return "AMATA_PT";
+    if (t.includes("พระยาสัจจา")) return "PHRAYA_PT"; // ดักจับคำว่าพระยาสัจจา
     return "UNKNOWN";
   };
 
@@ -42,6 +41,9 @@ exports.handler = async (event) => {
       break;
     case "AMATA_PT":
       targetChatId = CHAT_ID_AMATA_WEEKEND_PT;
+      break;
+    case "PHRAYA_PT":
+      targetChatId = CHAT_ID_PHRAYA_PT || TELEGRAM_CHAT_ID; // ถ้ายังไม่ได้ตั้ง env var ให้เด้งเข้าห้องแอดมินแทน
       break;
     default:
       targetChatId = TELEGRAM_CHAT_ID || CHAT_ID_AOAUDOM_PT;
@@ -101,7 +103,7 @@ exports.handler = async (event) => {
     startDateText = "พร้อมเริ่มงานได้ทันที";
   }
 
-  // 9 ตัวเลือกเวลา (สาขาอมตะนคร Part Time)
+  // 9 ตัวเลือกเวลา 
   let availabilityText = "N/A";
   if (data.availability_choice) {
     availabilityText = escape(data.availability_choice);
@@ -117,9 +119,9 @@ exports.handler = async (event) => {
   text += `<b>ที่อยู่</b> ${escape(data.address)}\n`;
   text += `<b>พร้อมเริ่มงาน</b> ${startDateText}\n`;
 
-  // แสดงเฉพาะตำแหน่งที่มีตัวเลือกเวลา (สาขาอมตะนคร Part Time)
-  if (positionKey === "AMATA_PT") {
-    text += `<b>เวลาที่สะดวก (อมตะนคร)</b> ${availabilityText}\n`;
+  // แสดงเฉพาะตำแหน่งที่มีตัวเลือกเวลา (อมตะนคร และ พระยาสัจจา)
+  if (positionKey === "AMATA_PT" || positionKey === "PHRAYA_PT") {
+    text += `<b>เวลาที่สะดวก</b> ${availabilityText}\n`;
   }
 
   text += `<b>ประวัติการทำงาน</b> ${workHistoryText}\n\n`;
