@@ -392,7 +392,7 @@
 
           <section class="border-t border-slate-200 pt-6 pb-4">
             <h3 class="text-xl font-bold text-slate-900 border-l-4 border-red-600 pl-3 mb-2">อัปโหลดรูปถ่าย *</h3>
-            <p class="text-sm text-slate-600 mb-4 pl-4">หน้าชัดเจน ไม่สวมแว่นดำ (JPG/PNG ขนาดไม่เกิน 10MB)</p>
+            <p class="text-sm text-slate-600 mb-4 pl-4">หน้าชัดเจน ไม่สวมแว่นดำ (ระบบจะปรับขนาดรูปอัตโนมัติ)</p>
 
             <div id="uploadArea" class="border-2 border-dashed border-slate-300 rounded-2xl p-6 text-center transition-all bg-white">
               <div class="mx-auto h-16 w-16 bg-slate-100 rounded-full flex items-center justify-center mb-3">
@@ -417,16 +417,6 @@
 
             <input type="file" id="cameraInput" accept="image/jpeg,image/png" capture="environment" class="hidden" onchange="handleFileUpload(event)">
             <input type="file" id="galleryInput" accept="image/jpeg,image/png" class="hidden" onchange="handleFileUpload(event)">
-
-            <div id="uploadProgress" class="hidden mt-4 bg-slate-50 p-4 rounded-xl border border-slate-200">
-              <div class="flex justify-between text-sm font-bold text-slate-700 mb-2">
-                <span id="uploadStatus">กำลังอัปโหลด...</span>
-                <span id="uploadPercent" class="text-blue-600">0%</span>
-              </div>
-              <div class="w-full bg-slate-200 rounded-full h-2.5">
-                <div id="progressBar" class="progress-bar bg-blue-600 h-2.5 rounded-full" style="width: 0%"></div>
-              </div>
-            </div>
 
             <div id="uploadError" class="hidden mt-3 text-red-600 text-sm font-bold bg-red-50 p-3 rounded-lg border border-red-100"></div>
             <div id="uploadSuccess" class="hidden mt-3 text-emerald-600 text-sm font-bold bg-emerald-50 p-3 rounded-lg border border-emerald-100 text-center"></div>
@@ -524,18 +514,13 @@
         <div class="h-12 w-12 border-4 border-slate-200 border-t-red-600 rounded-full animate-spin"></div>
       </div>
       <h3 class="text-lg font-bold text-slate-900 mb-1">กรุณารอสักครู่</h3>
-      <p class="text-sm text-slate-500">กำลังอัปโหลดข้อมูลของคุณ...</p>
+      <p class="text-sm text-slate-500">กำลังส่งใบสมัครของคุณ...</p>
     </div>
   </div>
 
   <script>
-    // ===== Cloudinary config =====
-    const CLOUD_NAME = "dsdtmdygt";
-    const UPLOAD_PRESET = "ml_default";
-    const CLOUD_FOLDER = "job-applications";
-
-    let uploadedImageUrl = "";
-    let pendingFormData = {}; // เก็บข้อมูลไว้ก่อนกดยืนยันส่ง
+    let uploadedImageBase64 = "";
+    let pendingFormData = {}; 
 
     // ===== Position data =====
     const POSITIONS = {
@@ -760,6 +745,7 @@
       }
     }
 
+    // ===== Resize & Compress Image to Base64 =====
     function handleFileUpload(event) {
       const file = event.target.files[0];
       if (!file) return;
@@ -769,65 +755,45 @@
         return;
       }
 
-      if (file.size > 10 * 1024 * 1024) {
-        showUploadError("ไฟล์มีขนาดใหญ่เกิน 10MB");
-        return;
-      }
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = (e) => {
+        const img = new Image();
+        img.src = e.target.result;
+        img.onload = () => {
+          // กำหนดขนาดสูงสุด กว้าง/ยาว ไม่เกิน 800px เพื่อให้ไฟล์เล็ก
+          const MAX_WIDTH = 800;
+          const MAX_HEIGHT = 800;
+          let width = img.width;
+          let height = img.height;
 
-      showUploadProgress();
-      uploadToCloudinary(file);
-    }
-
-    function uploadToCloudinary(file) {
-      const ts = new Date().toISOString().replace(/[:.]/g, "-");
-      const publicId = `job-app-${ts}`;
-
-      const formData = new FormData();
-      formData.append("file", file);
-      formData.append("upload_preset", UPLOAD_PRESET);
-      formData.append("folder", CLOUD_FOLDER);
-      formData.append("public_id", publicId);
-
-      const xhr = new XMLHttpRequest();
-      xhr.open("POST", `https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`);
-
-      xhr.upload.addEventListener("progress", (e) => {
-        if (e.lengthComputable) updateProgress((e.loaded / e.total) * 100);
-      });
-
-      xhr.onload = () => {
-        try {
-          if (xhr.status >= 200 && xhr.status < 300) {
-            const res = JSON.parse(xhr.responseText);
-            if (res.secure_url) {
-              uploadedImageUrl = res.secure_url;
-              showUploadSuccess(file);
-              enableSubmitButton();
-            } else {
-              throw new Error("no secure_url");
+          if (width > height) {
+            if (width > MAX_WIDTH) {
+              height *= MAX_WIDTH / width;
+              width = MAX_WIDTH;
             }
           } else {
-            throw new Error("upload failed");
+            if (height > MAX_HEIGHT) {
+              width *= MAX_HEIGHT / height;
+              height = MAX_HEIGHT;
+            }
           }
-        } catch (err) {
-          showUploadError("อัปโหลดไม่สำเร็จ กรุณาลองใหม่");
-        }
+
+          const canvas = document.createElement("canvas");
+          canvas.width = width;
+          canvas.height = height;
+          const ctx = canvas.getContext("2d");
+          ctx.drawImage(img, 0, 0, width, height);
+
+          // แปลงกลับเป็น Base64 แบบบีบอัด (quality 0.6 = 60%)
+          const compressedBase64 = canvas.toDataURL("image/jpeg", 0.6);
+          
+          uploadedImageBase64 = compressedBase64;
+          showUploadSuccess(compressedBase64);
+          enableSubmitButton();
+        };
       };
-
-      xhr.onerror = () => showUploadError("อัปโหลดไม่สำเร็จ เครือข่ายขัดข้อง");
-      xhr.send(formData);
-    }
-
-    function showUploadProgress() {
-      document.getElementById("uploadProgress").classList.remove("hidden");
-      document.getElementById("uploadError").classList.add("hidden");
-      document.getElementById("uploadSuccess").classList.add("hidden");
-      document.getElementById("uploadArea").classList.add("hidden");
-    }
-
-    function updateProgress(percent) {
-      document.getElementById("progressBar").style.width = percent + "%";
-      document.getElementById("uploadPercent").textContent = Math.round(percent) + "%";
+      reader.onerror = () => showUploadError("อ่านไฟล์ไม่สำเร็จ กรุณาลองใหม่");
     }
 
     function showUploadError(message) {
@@ -841,30 +807,28 @@
 
       uploadErrorEl.textContent = message;
       uploadErrorEl.classList.remove("hidden");
-      document.getElementById("uploadProgress").classList.add("hidden");
       document.getElementById("uploadSuccess").classList.add("hidden");
       document.getElementById("uploadArea").classList.remove("hidden");
-      uploadedImageUrl = "";
+      uploadedImageBase64 = "";
       disableSubmitButton();
     }
 
-    function showUploadSuccess(file) {
+    function showUploadSuccess(dataUrl) {
       const successEl = document.getElementById("uploadSuccess");
       successEl.innerHTML = `
         <div class="flex flex-col items-center">
-          <img src="${URL.createObjectURL(file)}" class="h-24 w-24 object-cover rounded-xl border-4 border-white shadow-md mb-2">
-          <p>อัปโหลดรูปภาพสำเร็จ</p>
+          <img src="${dataUrl}" class="h-24 w-24 object-cover rounded-xl border-4 border-white shadow-md mb-2">
+          <p>เพิ่มรูปภาพสำเร็จ</p>
           <button type="button" onclick="resetUpload()" class="text-xs text-slate-500 underline mt-2">เปลี่ยนรูป</button>
         </div>
       `;
       successEl.classList.remove("hidden");
-      document.getElementById("uploadProgress").classList.add("hidden");
       document.getElementById("uploadError").classList.add("hidden");
       document.getElementById("uploadArea").classList.add("hidden");
     }
 
     function resetUpload() {
-      uploadedImageUrl = "";
+      uploadedImageBase64 = "";
       document.getElementById("cameraInput").value = "";
       document.getElementById("galleryInput").value = "";
       document.getElementById("uploadSuccess").classList.add("hidden");
@@ -920,26 +884,23 @@
     function goToReview() {
       const form = document.getElementById("jobApplicationForm");
       
-      // เช็คว่ากรอกครบมั้ย
       if (!form.reportValidity()) return;
 
-      if (!uploadedImageUrl) {
-        showUploadError("กรุณาอัปโหลดรูปถ่ายก่อนส่งใบสมัคร");
+      if (!uploadedImageBase64) {
+        showUploadError("กรุณาเพิ่มรูปถ่ายก่อนส่งใบสมัคร");
         return;
       }
 
-      // ดึงข้อมูลเตรียมไปโชว์ในหน้า Review
       const formDataObj = new FormData(form);
       pendingFormData = Object.fromEntries(formDataObj.entries());
       
       pendingFormData.position = selectedPositionText;
-      pendingFormData.photo_url = uploadedImageUrl;
+      pendingFormData.photo_base64 = uploadedImageBase64; // เปลี่ยนมาส่ง Base64 แทน URL
 
       if (pendingFormData.availability_choice) {
         pendingFormData.position += ` [เลือกเวลา: ${pendingFormData.availability_choice}]`;
       }
 
-      // ใส่ข้อมูลลงในหน้า Review
       document.getElementById("reviewName").textContent = `${pendingFormData.first_name} ${pendingFormData.last_name} (${pendingFormData.nickname})`;
       document.getElementById("reviewLineId").textContent = pendingFormData.line_id;
       document.getElementById("reviewPhone").textContent = pendingFormData.phone;
@@ -952,7 +913,6 @@
         document.getElementById("reviewAvailBlock").classList.add("hidden");
       }
 
-      // สลับหน้าจอ
       document.getElementById("applicationForm").classList.add("hidden");
       document.getElementById("reviewPage").classList.remove("hidden");
       window.scrollTo(0, 0);
