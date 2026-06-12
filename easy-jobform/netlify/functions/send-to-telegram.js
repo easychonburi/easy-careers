@@ -1,34 +1,30 @@
 // ไฟล์: netlify/functions/send-to-telegram.js
 
 exports.handler = async (event) => {
-  // 1 ตรวจสอบ Method
   if (event.httpMethod !== "POST") {
     return { statusCode: 405, body: "Method Not Allowed" };
   }
 
-  // 2 ดึง Environment Variables
   const {
     TELEGRAM_BOT_TOKEN,
     CHAT_ID_AOAUDOM_PT,
     CHAT_ID_AMATA_WEEKEND_PT,
-    CHAT_ID_PHRAYA_PT, // เพิ่มตัวแปรสำหรับสาขาพระยาสัจจา
-    TELEGRAM_CHAT_ID  // fallback กรณีฉุกเฉิน
+    CHAT_ID_PHRAYA_PT,
+    TELEGRAM_CHAT_ID
   } = process.env;
 
   if (!TELEGRAM_BOT_TOKEN) {
     return { statusCode: 500, body: "Missing Bot Token environment variable" };
   }
 
-  // 3 ดึงข้อมูลจาก body
   const data = JSON.parse(event.body || "{}");
   const positionText = data.position || "";
 
-  // 4 เลือกห้องปลายทาง
   const detectPositionKey = (text) => {
     const t = String(text || "");
     if (t.includes("อ่าวอุดม")) return "AOAUDOM_FT";
     if (t.includes("อมตะนคร")) return "AMATA_PT";
-    if (t.includes("พระยาสัจจา")) return "PHRAYA_PT"; // ดักจับคำว่าพระยาสัจจา
+    if (t.includes("พระยาสัจจา")) return "PHRAYA_PT";
     return "UNKNOWN";
   };
 
@@ -43,14 +39,13 @@ exports.handler = async (event) => {
       targetChatId = CHAT_ID_AMATA_WEEKEND_PT;
       break;
     case "PHRAYA_PT":
-      targetChatId = CHAT_ID_PHRAYA_PT || TELEGRAM_CHAT_ID; // ถ้ายังไม่ได้ตั้ง env var ให้เด้งเข้าห้องแอดมินแทน
+      targetChatId = CHAT_ID_PHRAYA_PT || TELEGRAM_CHAT_ID;
       break;
     default:
       targetChatId = TELEGRAM_CHAT_ID || CHAT_ID_AOAUDOM_PT;
       break;
   }
 
-  // 5 ฟังก์ชัน escape text สำหรับ HTML
   const escape = (str) => {
     if (!str) return "N/A";
     return String(str)
@@ -59,7 +54,6 @@ exports.handler = async (event) => {
       .replace(/>/g, "&gt;");
   };
 
-  // 6 จัดการประวัติการทำงาน
   let workHistoryText = "N/A (ไม่เคยทำงาน)";
   const rawWorkCount = data.workCount || "";
 
@@ -87,7 +81,6 @@ exports.handler = async (event) => {
     }
   }
 
-  // 7 การศึกษา
   let educationText = escape(data.education);
   if (data.education === "กำลังศึกษาอยู่") {
     const lvl = escape(data.studying_level || "ไม่ได้ระบุระดับ");
@@ -95,7 +88,6 @@ exports.handler = async (event) => {
     educationText = `กำลังศึกษาอยู่ (${lvl})\n<i>สาขา</i> ${major}`;
   }
 
-  // 8 วันที่พร้อมเริ่มงาน
   let startDateText = "N/A";
   if (data.start_date_type === "specific") {
     startDateText = `วันที่ ${escape(data.specific_start_date) || "ไม่ได้ระบุ"}`;
@@ -103,70 +95,74 @@ exports.handler = async (event) => {
     startDateText = "พร้อมเริ่มงานได้ทันที";
   }
 
-  // 9 ตัวเลือกเวลา 
   let availabilityText = "N/A";
   if (data.availability_choice) {
     availabilityText = escape(data.availability_choice);
   }
 
-  // 10 ประกอบข้อความหลัก
-  let text = `<b>🔔 มีใบสมัครงานใหม่</b>\n\n`;
-  text += `<b>ตำแหน่ง</b> ${escape(data.position)}\n`;
-  text += `<b>ชื่อ นามสกุล</b> ${escape(data.first_name)} ${escape(data.last_name)} (${escape(data.nickname)})\n`;
-  text += `<b>อายุ น้ำหนัก ส่วนสูง</b> ${escape(data.age)} ปี / ${escape(data.weight)} กก. / ${escape(data.height)} ซม.\n`;
-  text += `<b>ติดต่อ</b> ${escape(data.phone)} (Line ${escape(data.line_id)})\n`;
-  text += `<b>การศึกษา</b> ${educationText}\n`;
-  text += `<b>ที่อยู่</b> ${escape(data.address)}\n`;
-  text += `<b>พร้อมเริ่มงาน</b> ${startDateText}\n`;
+  // เตรียมข้อความทั้งหมดที่จะส่ง
+  let text = `<b>🔔 ใบสมัครงานใหม่</b>\n\n`;
+  text += `<b>ตำแหน่ง:</b> ${escape(data.position)}\n`;
+  text += `<b>ชื่อ:</b> ${escape(data.first_name)} ${escape(data.last_name)} (${escape(data.nickname)})\n`;
+  text += `<b>อายุ:</b> ${escape(data.age)} ปี <b>น้ำหนัก:</b> ${escape(data.weight)} กก. <b>ส่วนสูง:</b> ${escape(data.height)} ซม.\n`;
+  text += `<b>ติดต่อ:</b> ${escape(data.phone)} (Line: ${escape(data.line_id)})\n`;
+  text += `<b>การศึกษา:</b> ${educationText}\n`;
+  text += `<b>ที่อยู่:</b> ${escape(data.address)}\n`;
+  text += `<b>เริ่มงาน:</b> ${startDateText}\n`;
 
-  // แสดงเฉพาะตำแหน่งที่มีตัวเลือกเวลา (อมตะนคร และ พระยาสัจจา)
   if (positionKey === "AMATA_PT" || positionKey === "PHRAYA_PT") {
-    text += `<b>เวลาที่สะดวก</b> ${availabilityText}\n`;
+    text += `<b>เวลาที่สะดวก:</b> ${availabilityText}\n`;
   }
 
-  text += `<b>ประวัติการทำงาน</b> ${workHistoryText}\n\n`;
+  text += `<b>ประวัติการทำงาน:</b> ${workHistoryText}`;
 
-  if (data.photo_url) {
-    text += `<a href="${escape(data.photo_url)}"><b>🔗 ดูรูปถ่ายผู้สมัคร</b></a>`;
-  } else {
-    text += `<b>🔗 ดูรูปถ่ายผู้สมัคร</b> <i>ไม่มีการแนบไฟล์</i>`;
-  }
-
-  // 11 ยิงไป Telegram
   const telegramURL = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}`;
 
-  const sendTelegram = async (endpoint, payload) => {
-    const res = await fetch(`${telegramURL}/${endpoint}`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(payload)
-    });
-
-    if (!res.ok) {
-      throw new Error(`Telegram API error ${endpoint} ${res.status} ${res.statusText}`);
-    }
-  };
-
   try {
-    if (data.photo_url) {
-      const caption =
-        `ใบสมัครงานจาก <b>${escape(data.first_name)} ${escape(data.last_name)}</b>\n` +
-        `ตำแหน่ง <b>${escape(data.position)}</b>`;
+    if (data.photo_base64 && data.photo_base64.startsWith("data:image")) {
+      // ดึงเฉพาะเนื้อหาไฟล์ออกมา (ตัด "data:image/jpeg;base64," ทิ้ง)
+      const base64Data = data.photo_base64.split(",")[1];
+      const buffer = Buffer.from(base64Data, "base64");
 
-      await sendTelegram("sendPhoto", {
-        chat_id: targetChatId,
-        photo: data.photo_url,
-        caption,
-        parse_mode: "HTML"
+      const formData = new FormData();
+      formData.append("chat_id", targetChatId);
+      formData.append("photo", new Blob([buffer], { type: "image/jpeg" }), "photo.jpg");
+      
+      // ป้องกันข้อความยาวเกิน 1,024 ตัวอักษร (ข้อจำกัด Caption ของ Telegram)
+      let finalCaption = text;
+      if (finalCaption.length > 1024) {
+        finalCaption = finalCaption.substring(0, 1020) + "...";
+      }
+
+      formData.append("caption", finalCaption);
+      formData.append("parse_mode", "HTML");
+
+      const photoRes = await fetch(`${telegramURL}/sendPhoto`, {
+        method: "POST",
+        body: formData
       });
-    }
 
-    await sendTelegram("sendMessage", {
-      chat_id: targetChatId,
-      text,
-      parse_mode: "HTML",
-      disable_web_page_preview: false
-    });
+      if (!photoRes.ok) {
+        throw new Error("Failed to send photo");
+      }
+    } else {
+      // ถ้าไม่มีรูป ให้ส่งแบบข้อความธรรมดา
+      text += `\n\n<i>⚠️ ผู้สมัครไม่ได้แนบรูปถ่าย หรือเกิดข้อผิดพลาดในการโหลดรูป</i>`;
+      
+      const textRes = await fetch(`${telegramURL}/sendMessage`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          chat_id: targetChatId,
+          text,
+          parse_mode: "HTML"
+        })
+      });
+
+      if (!textRes.ok) {
+        throw new Error("Failed to send message");
+      }
+    }
 
     return { statusCode: 200, body: JSON.stringify({ message: "Success" }) };
   } catch (err) {
