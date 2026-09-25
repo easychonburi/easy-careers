@@ -8,33 +8,101 @@
   <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <style>
     body { box-sizing: border-box; font-family: 'Kanit', sans-serif; }
-    .clean-bg { background-color:#f8fafc; background-image:radial-gradient(#e2e8f0 1px,transparent 1px); background-size:20px 20px; }
-    .card-clean { background:#fff; border:1px solid #e2e8f0; box-shadow:0 4px 6px -1px rgba(0,0,0,.05),0 2px 4px -1px rgba(0,0,0,.03); }
-    .card-hover { transition:transform .2s ease,box-shadow .2s ease; }
-    .card-hover:active { transform:scale(.99); }
-    .fade-in { animation:fadeIn .4s ease-out; }
-    .slide-up { animation:slideUp .4s ease-out; }
-    @keyframes fadeIn { from { opacity:0 } to { opacity:1 } }
-    @keyframes slideUp { from { opacity:0; transform:translateY(10px) } to { opacity:1; transform:translateY(0) } }
-    .input-focus { transition:all .15s ease; background-color:#f8fafc; }
-    .input-focus:focus { transform:scale(1.01); background:#fff; box-shadow:0 0 0 3px rgba(220,38,38,.15); border-color:#dc2626; }
-    .ribbon { position:absolute; top:14px; right:-46px; transform:rotate(35deg); width:160px; text-align:center; font-weight:700; font-size:12px; padding:6px 0; letter-spacing:.06em; color:#fff; box-shadow:0 4px 6px rgba(0,0,0,.1); }
-    .ribbon-fulltime { background:linear-gradient(90deg,#dc2626,#b91c1c); }
-    .sticky-action { position:sticky; bottom:0; padding:14px 16px; backdrop-filter:blur(10px); background:rgba(255,255,255,.92); border-top:1px solid rgba(0,0,0,.08); z-index:10; }
-    .safe-bottom { padding-bottom:calc(env(safe-area-inset-bottom) + 12px); }
+    .progress-bar { transition: width 0.3s ease; }
+    
+    .clean-bg {
+      background-color: #f8fafc;
+      background-image: radial-gradient(#e2e8f0 1px, transparent 1px);
+      background-size: 20px 20px;
+    }
+    .card-clean {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+    }
+    
+    .card-hover { transition: transform 0.2s ease, box-shadow 0.2s ease; }
+    .card-hover:active { transform: scale(0.99); }
+    .fade-in { animation: fadeIn 0.4s ease-out; }
+    .slide-up { animation: slideUp 0.4s ease-out; }
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .input-focus { transition: all 0.15s ease; background-color: #f8fafc; }
+    .input-focus:focus { 
+      transform: scale(1.01); 
+      background-color: #ffffff;
+      box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.15);
+      border-color: #dc2626;
+    }
+
+    .ribbon {
+      position: absolute;
+      top: 14px;
+      right: -46px;
+      transform: rotate(35deg);
+      width: 160px;
+      text-align: center;
+      font-weight: 700;
+      font-size: 12px;
+      padding: 6px 0;
+      letter-spacing: 0.06em;
+      color: #fff;
+      box-shadow: 0 4px 6px rgba(0,0,0,.1);
+    }
+    .ribbon-parttime { background: linear-gradient(90deg, #2563eb, #1d4ed8); }
+    .ribbon-fulltime { background: linear-gradient(90deg, #dc2626, #b91c1c); }
+
+    .sticky-action {
+      position: sticky;
+      bottom: 0;
+      padding: 14px 16px;
+      backdrop-filter: blur(10px);
+      background: rgba(255,255,255,0.92);
+      border-top: 1px solid rgba(0,0,0,0.08);
+      z-index: 10;
+    }
+    .safe-bottom { padding-bottom: calc(env(safe-area-inset-bottom) + 12px); }
   </style>
 </head>
+
 <body class="clean-bg text-slate-800">
 
   <div id="positionSelection" class="min-h-screen px-4 py-6 fade-in">
     <header class="text-center pt-8 pb-8">
       <h1 class="text-4xl sm:text-5xl font-bold text-red-600 mb-2">EASY หมี่ไก่ฉีก</h1>
       <h2 class="text-2xl sm:text-3xl font-bold text-slate-800 mb-2">ตำแหน่งที่กำลังเปิดรับสมัคร</h2>
-      <p class="text-base sm:text-lg text-slate-500">กรุณาเลือกตำแหน่งที่ต้องการสมัคร แล้วกรอกข้อมูลให้ครบถ้วน</p>
+      <p class="text-base sm:text-lg text-slate-500">
+        กรุณาเลือกตำแหน่งที่ต้องการสมัคร แล้วกรอกข้อมูลให้ครบถ้วน
+      </p>
     </header>
 
     <main class="max-w-xl mx-auto pb-6">
       <div class="grid grid-cols-1 gap-5">
+
+
+
+        <div class="relative card-clean card-hover rounded-2xl p-6 slide-up overflow-hidden">
+          <div class="ribbon ribbon-parttime">PART TIME</div>
+          <p class="text-xs font-bold text-red-600 uppercase tracking-wide">EASY หมี่ไก่ฉีก</p>
+          <div class="flex flex-wrap items-center gap-2 mt-1 mb-2">
+            <h3 class="text-2xl font-bold text-slate-900">สาขาพระยาสัจจา</h3>
+            <span class="px-2.5 py-1 rounded-lg text-sm font-bold bg-blue-100 text-blue-800">พาร์ทไทม์</span>
+            <span class="px-2.5 py-1 rounded-lg text-sm font-bold bg-red-600 text-white">ด่วน</span>
+          </div>
+          <div class="mb-4">
+            <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-bold bg-emerald-50 text-emerald-700 border border-emerald-200">พร้อมเริ่มงานได้ทันที</span>
+          </div>
+          <div class="mt-4 space-y-2">
+            <div class="flex items-start gap-3"><span class="mt-2 h-2 w-2 rounded-full bg-blue-600 shrink-0"></span><p class="text-base text-slate-700"><span class="font-medium">วันจันทร์ถึงเสาร์:</span> 17:00–21:00 น. (ชั่วโมงละ 50 บาท)</p></div>
+            <div class="flex items-start gap-3"><span class="mt-2 h-2 w-2 rounded-full bg-red-600 shrink-0"></span><p class="text-base text-slate-700"><span class="font-medium">วันอาทิตย์:</span> 10:30–20:00 น. (วันละ 475 บาท)</p></div>
+            <div class="flex items-start gap-3"><span class="mt-2 h-2 w-2 rounded-full bg-amber-500 shrink-0"></span><p class="text-base text-slate-700 font-semibold text-amber-700">สามารถแยกสมัครได้</p></div>
+          </div>
+          <button onclick="openDetails(POSITIONS.PHRAYA_PT)" class="mt-6 w-full bg-red-600 active:bg-red-700 text-white py-3.5 px-6 rounded-xl text-base font-bold shadow-sm transition-colors">สมัครตำแหน่งนี้</button>
+        </div>
+
         <div class="relative card-clean card-hover rounded-2xl p-6 slide-up overflow-hidden">
           <div class="ribbon ribbon-fulltime">FULLTIME</div>
           <p class="text-xs font-bold text-red-600 uppercase tracking-wide">EASY หมี่ไก่ฉีก</p>
@@ -49,8 +117,9 @@
             <div class="flex items-start gap-3"><span class="mt-2 h-2 w-2 rounded-full bg-red-600 shrink-0"></span><p class="text-base text-slate-700 font-medium">ทำวันจันทร์–เสาร์ 09:00–18:00 น.</p></div>
             <div class="flex items-start gap-3"><span class="mt-2 h-2 w-2 rounded-full bg-slate-400 shrink-0"></span><p class="text-base text-slate-700">ค่าแรงวันละ 450 บาท (รายวัน)</p></div>
           </div>
-          <button onclick="openDetails()" class="mt-6 w-full bg-red-600 active:bg-red-700 text-white py-3.5 px-6 rounded-xl text-base font-bold shadow-sm transition-colors">สมัครตำแหน่งนี้</button>
+          <button onclick="openDetails(POSITIONS.PATTAYA_FT)" class="mt-6 w-full bg-red-600 active:bg-red-700 text-white py-3.5 px-6 rounded-xl text-base font-bold shadow-sm transition-colors">สมัครตำแหน่งนี้</button>
         </div>
+
       </div>
     </main>
   </div>
@@ -58,50 +127,62 @@
   <div id="positionDetails" class="hidden min-h-screen px-4 py-6 fade-in">
     <div class="card-clean rounded-2xl max-w-xl mx-auto slide-up overflow-hidden">
       <header class="p-6 border-b border-slate-100 relative bg-white">
-        <button onclick="backToSelection()" class="absolute left-4 top-5 text-slate-400 hover:text-slate-600 text-2xl">←</button>
+        <button onclick="backToSelection()" class="absolute left-4 top-5 text-slate-400 hover:text-slate-600 text-2xl transition-colors">
+          ←
+        </button>
+
         <div class="text-center pt-2">
+          <div class="mb-3 inline-flex items-center justify-center w-12 h-12 rounded-full bg-red-50 text-red-600">
+            <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+            </svg>
+          </div>
           <h1 class="text-2xl font-bold text-slate-900">รายละเอียดตำแหน่ง</h1>
-          <p class="mt-2 text-base text-red-600 font-bold">พนักงานประจำสาขา - สาขาพัทยากลาง</p>
+          <p id="detailsTitle" class="mt-2 text-base text-red-600 font-bold"></p>
         </div>
       </header>
+
       <main class="p-6 space-y-5 pb-4 bg-slate-50/50">
-        <div class="flex flex-wrap gap-2">
-          <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-semibold bg-red-50 text-red-700 border border-red-100">พนักงานประจำสาขา</span>
-          <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-semibold bg-emerald-50 text-emerald-700 border border-emerald-100">พร้อมเริ่มงานได้ทันที</span>
-        </div>
+        <div class="flex flex-wrap gap-2" id="detailsBadges"></div>
+
         <div class="bg-white border border-slate-200 rounded-xl p-5 shadow-sm">
-          <h3 class="text-lg font-bold text-slate-900 mb-2">ที่ตั้งร้าน</h3>
-          <p class="text-base text-slate-700">ตลาดกินเพลินฟู้ดมาร์เก็ต พัทยากลาง</p>
-          <a href="https://maps.app.goo.gl/HwQ8Zs7ozYWWj1w28" target="_blank" rel="noopener noreferrer" class="inline-flex items-center mt-3 text-blue-600 font-semibold">📍 เปิดแผนที่ Google Maps</a>
+          <h3 class="text-lg font-bold text-slate-900 mb-2 flex items-center">
+            <svg class="w-5 h-5 mr-2 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+            ที่ตั้งร้าน
+          </h3>
+          <p id="detailsLocationText" class="text-base text-slate-700"></p>
+          <a id="detailsMapLink"
+             href="#"
+             target="_blank"
+             rel="noopener noreferrer"
+             class="inline-flex items-center mt-3 text-blue-600 font-semibold hover:text-blue-800 transition-colors">
+            📍 เปิดแผนที่ Google Maps
+          </a>
         </div>
+
         <div class="bg-white border border-slate-200 rounded-xl p-5 shadow-sm">
           <h3 class="text-lg font-bold text-slate-900 mb-3">รายละเอียดงาน</h3>
-          <div class="text-base text-slate-700 space-y-2">
-            <div>ทำงานวันจันทร์–เสาร์ เวลา 09:00–18:00 น.</div>
-            <div>ค่าแรงวันละ 450 บาท (รายวัน)</div>
-            <div>จ่ายค่าแรงทุกวันที่ 1 และ 16 ของทุกเดือน</div>
-          </div>
+          <div id="detailsJob" class="text-base text-slate-700 space-y-2"></div>
         </div>
+
         <div class="bg-white border border-slate-200 rounded-xl p-5 shadow-sm">
           <h3 class="text-lg font-bold text-slate-900 mb-3">หน้าที่ของคุณ</h3>
-          <ul class="list-disc pl-5 text-base text-slate-700 space-y-1.5">
-            <li>จัดเตรียมวัตถุดิบสำหรับขาย</li>
-            <li>จัดออเดอร์จากแอปเดลิเวอรี่</li>
-            <li>ร้านเป็นร้านเล็กๆ รับเฉพาะเดลิเวอรี่ ไม่มีนั่งทานหน้าร้าน</li>
-          </ul>
+          <ul id="detailsDuties" class="list-disc pl-5 text-base text-slate-700 space-y-1.5"></ul>
         </div>
+
         <div class="bg-white border border-slate-200 rounded-xl p-5 shadow-sm">
           <h3 class="text-lg font-bold text-slate-900 mb-3">คุณสมบัติ</h3>
-          <ul class="list-disc pl-5 text-base text-slate-700 space-y-1.5">
-            <li>เพศหญิงเท่านั้น</li>
-            <li>อายุ 18 ปีขึ้นไป</li>
-            <li>ขยัน สะอาด มีความรับผิดชอบ</li>
-            <li>สามารถทำงานคนเดียวได้เป็นอย่างดี</li>
-          </ul>
+          <ul id="detailsQual" class="list-disc pl-5 text-base text-slate-700 space-y-1.5"></ul>
         </div>
       </main>
+
       <div class="sticky-action safe-bottom bg-white">
-        <button onclick="proceedToForm()" class="w-full bg-red-600 active:bg-red-700 text-white py-4 px-6 rounded-xl text-lg font-bold shadow-md">กรอกแบบฟอร์มสมัคร</button>
+        <button
+          onclick="proceedToForm()"
+          class="w-full bg-red-600 active:bg-red-700 text-white py-4 px-6 rounded-xl text-lg font-bold shadow-md transition-transform hover:scale-[1.02]">
+          กรอกแบบฟอร์มสมัคร
+        </button>
       </div>
     </div>
   </div>
@@ -109,69 +190,216 @@
   <div id="applicationForm" class="hidden min-h-screen px-4 py-6 fade-in">
     <div class="card-clean rounded-2xl max-w-xl mx-auto overflow-hidden">
       <header class="p-6 border-b border-slate-100 relative bg-white">
-        <button onclick="backToDetails()" class="absolute left-4 top-5 text-slate-400 hover:text-slate-600 text-2xl">←</button>
+        <button onclick="backToDetails()" class="absolute left-4 top-5 text-slate-400 hover:text-slate-600 text-2xl transition-colors">
+          ←
+        </button>
         <div class="text-center pt-2">
+          <div class="mb-3 inline-flex items-center justify-center w-12 h-12 rounded-full bg-red-50 text-red-600">
+            <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
+            </svg>
+          </div>
           <h1 class="text-2xl font-bold text-slate-900">กรอกข้อมูลส่วนตัว</h1>
-          <p class="mt-2 text-sm text-red-600 font-bold bg-red-50 inline-block px-3 py-1 rounded-full">พนักงานประจำสาขา - สาขาพัทยากลาง</p>
+          <p id="selectedPosition" class="mt-2 text-sm text-red-600 font-bold bg-red-50 inline-block px-3 py-1 rounded-full"></p>
         </div>
       </header>
+
       <main class="p-6 bg-white">
         <form id="jobApplicationForm" class="space-y-8">
+
           <section class="space-y-4">
             <h3 class="text-xl font-bold text-slate-900 border-l-4 border-red-600 pl-3">ข้อมูลพื้นฐาน</h3>
+
             <div class="grid grid-cols-2 gap-4">
-              <div><label class="block text-sm font-semibold text-slate-700 mb-1.5">ชื่อจริง *</label><input type="text" name="first_name" required autocomplete="given-name" class="input-focus w-full p-3.5 text-base border border-slate-300 rounded-xl outline-none"></div>
-              <div><label class="block text-sm font-semibold text-slate-700 mb-1.5">นามสกุล *</label><input type="text" name="last_name" required autocomplete="family-name" class="input-focus w-full p-3.5 text-base border border-slate-300 rounded-xl outline-none"></div>
+              <div>
+                <label for="firstName" class="block text-sm font-semibold text-slate-700 mb-1.5">ชื่อจริง *</label>
+                <input type="text" id="firstName" name="first_name" required autocomplete="given-name"
+                       class="input-focus w-full p-3.5 text-base border border-slate-300 rounded-xl outline-none">
+              </div>
+              <div>
+                <label for="lastName" class="block text-sm font-semibold text-slate-700 mb-1.5">นามสกุล *</label>
+                <input type="text" id="lastName" name="last_name" required autocomplete="family-name"
+                       class="input-focus w-full p-3.5 text-base border border-slate-300 rounded-xl outline-none">
+              </div>
             </div>
-            <div><label class="block text-sm font-semibold text-slate-700 mb-1.5">ชื่อเล่น *</label><input type="text" name="nickname" required class="input-focus w-full p-3.5 text-base border border-slate-300 rounded-xl outline-none"></div>
-            <div class="grid grid-cols-3 gap-3">
-              <div><label class="block text-sm font-semibold text-slate-700 mb-1.5">อายุ *</label><input type="number" name="age" required min="18" max="70" class="input-focus w-full p-3.5 text-base border border-slate-300 rounded-xl outline-none text-center"></div>
-              <div><label class="block text-sm font-semibold text-slate-700 mb-1.5">น้ำหนัก *</label><input type="number" name="weight" required min="30" max="200" class="input-focus w-full p-3.5 text-base border border-slate-300 rounded-xl outline-none text-center"></div>
-              <div><label class="block text-sm font-semibold text-slate-700 mb-1.5">ส่วนสูง *</label><input type="number" name="height" required min="140" max="220" class="input-focus w-full p-3.5 text-base border border-slate-300 rounded-xl outline-none text-center"></div>
-            </div>
-            <div><label class="block text-sm font-semibold text-slate-700 mb-1.5">ID LINE *</label><input type="text" name="line_id" required class="input-focus w-full p-3.5 text-base border border-slate-300 rounded-xl outline-none"></div>
-            <div><label class="block text-sm font-semibold text-slate-700 mb-1.5">เบอร์โทรติดต่อ *</label><input type="tel" name="phone" required pattern="[0-9]{10}" placeholder="08xxxxxxxx" class="input-focus w-full p-3.5 text-base border border-slate-300 rounded-xl outline-none"></div>
+
             <div>
-              <label class="block text-sm font-semibold text-slate-700 mb-1.5">ระดับการศึกษา *</label>
-              <select id="education" name="education" required class="input-focus w-full p-3.5 text-base border border-slate-300 rounded-xl outline-none bg-white">
-                <option value="">-- เลือกระดับการศึกษา --</option><option>ป.6</option><option>ม.3</option><option>ม.6</option><option>ปวช.</option><option>ปวส.</option><option>ปริญญาตรี</option><option value="กำลังศึกษาอยู่">กำลังศึกษาอยู่</option>
+              <label for="nickname" class="block text-sm font-semibold text-slate-700 mb-1.5">ชื่อเล่น *</label>
+              <input type="text" id="nickname" name="nickname" required autocomplete="nickname"
+                     class="input-focus w-full p-3.5 text-base border border-slate-300 rounded-xl outline-none">
+            </div>
+
+            <div class="grid grid-cols-3 gap-3">
+              <div>
+                <label for="age" class="block text-sm font-semibold text-slate-700 mb-1.5">อายุ *</label>
+                <input type="number" id="age" name="age" required min="18" max="70" inputmode="numeric"
+                       class="input-focus w-full p-3.5 text-base border border-slate-300 rounded-xl outline-none text-center">
+              </div>
+              <div>
+                <label for="weight" class="block text-sm font-semibold text-slate-700 mb-1.5">น้ำหนัก *</label>
+                <input type="number" id="weight" name="weight" required min="30" max="200" inputmode="numeric"
+                       class="input-focus w-full p-3.5 text-base border border-slate-300 rounded-xl outline-none text-center">
+              </div>
+              <div>
+                <label for="height" class="block text-sm font-semibold text-slate-700 mb-1.5">ส่วนสูง *</label>
+                <input type="number" id="height" name="height" required min="140" max="220" inputmode="numeric"
+                       class="input-focus w-full p-3.5 text-base border border-slate-300 rounded-xl outline-none text-center">
+              </div>
+            </div>
+
+            <div>
+              <label for="lineId" class="block text-sm font-semibold text-slate-700 mb-1.5">ID LINE *</label>
+              <input type="text" id="lineId" name="line_id" required autocomplete="off"
+                     class="input-focus w-full p-3.5 text-base border border-slate-300 rounded-xl outline-none">
+            </div>
+
+            <div>
+              <label for="phone" class="block text-sm font-semibold text-slate-700 mb-1.5">เบอร์โทรติดต่อ *</label>
+              <input type="tel" id="phone" name="phone" required pattern="[0-9]{10}" inputmode="numeric" autocomplete="tel" placeholder="08xxxxxxxx"
+                     class="input-focus w-full p-3.5 text-base border border-slate-300 rounded-xl outline-none">
+            </div>
+
+            <div class="pt-2">
+              <label for="education" class="block text-sm font-semibold text-slate-700 mb-1.5">ระดับการศึกษา *</label>
+              <select id="education" name="education" required
+                      class="input-focus w-full p-3.5 text-base border border-slate-300 rounded-xl outline-none bg-white">
+                <option value="">-- เลือกระดับการศึกษา --</option>
+                <option value="ป.6">ป.6</option>
+                <option value="ม.3">ม.3</option>
+                <option value="ม.6">ม.6</option>
+                <option value="ปวช.">ปวช.</option>
+                <option value="ปวส.">ปวส.</option>
+                <option value="ปริญญาตรี">ปริญญาตรี</option>
+                <option value="กำลังศึกษาอยู่">กำลังศึกษาอยู่</option>
               </select>
             </div>
-            <div id="studyingExtra" class="hidden bg-slate-50 border border-slate-200 rounded-xl p-4 space-y-3">
-              <select id="studyingLevel" name="studying_level" class="input-focus w-full p-3.5 text-base border border-slate-300 rounded-xl outline-none bg-white"><option value="">-- เลือกระดับ --</option><option>ม.3</option><option>ม.6</option><option>ปวช.</option><option>ปวส.</option><option>ปริญญาตรี</option></select>
-              <input id="studyingMajor" type="text" name="studying_major" placeholder="สาขาที่กำลังศึกษา" class="input-focus w-full p-3.5 text-base border border-slate-300 rounded-xl outline-none">
+
+            <div id="studyingExtra" class="hidden bg-slate-50 border border-slate-200 rounded-xl p-4 space-y-3 mt-2">
+              <div>
+                <label for="studyingLevel" class="block text-sm font-semibold text-slate-700 mb-1.5">กำลังศึกษาอยู่ระดับไหน *</label>
+                <select id="studyingLevel" name="studying_level"
+                        class="input-focus w-full p-3.5 text-base border border-slate-300 rounded-xl outline-none bg-white">
+                  <option value="">-- เลือกระดับ --</option>
+                  <option value="ม.3">ม.3</option>
+                  <option value="ม.6">ม.6</option>
+                  <option value="ปวช.">ปวช.</option>
+                  <option value="ปวส.">ปวส.</option>
+                  <option value="ปริญญาตรี">ปริญญาตรี</option>
+                </select>
+              </div>
+
+              <div>
+                <label for="studyingMajor" class="block text-sm font-semibold text-slate-700 mb-1.5">สาขาที่กำลังศึกษา *</label>
+                <input type="text" id="studyingMajor" name="studying_major"
+                       class="input-focus w-full p-3.5 text-base border border-slate-300 rounded-xl outline-none"
+                       placeholder="เช่น การตลาด, บัญชี, วิศวะ">
+              </div>
             </div>
-            <div><label class="block text-sm font-semibold text-slate-700 mb-1.5">ที่อยู่ปัจจุบัน *</label><textarea name="address" required rows="2" class="input-focus w-full p-3.5 text-base border border-slate-300 rounded-xl outline-none"></textarea></div>
+
+            <div class="pt-2">
+              <label for="address" class="block text-sm font-semibold text-slate-700 mb-1.5">ที่อยู่ปัจจุบัน *</label>
+              <textarea id="address" name="address" required rows="2" autocomplete="street-address" placeholder="บ้านเลขที่ ซอย ถนน ตำบล..."
+                        class="input-focus w-full p-3.5 text-base border border-slate-300 rounded-xl outline-none"></textarea>
+            </div>
           </section>
 
           <section class="border-t border-slate-200 pt-6">
             <h3 class="text-xl font-bold text-slate-900 border-l-4 border-red-600 pl-3 mb-4">วันที่พร้อมเริ่มงาน</h3>
+
             <div class="space-y-3">
-              <label class="flex items-center p-3.5 border border-slate-300 rounded-xl"><input type="radio" name="start_date_type" value="immediate" checked required class="mr-3 w-5 h-5 accent-red-600"><span class="text-base font-medium">พร้อมเริ่มงานได้ทันที</span></label>
-              <label class="flex items-center p-3.5 border border-slate-300 rounded-xl"><input type="radio" name="start_date_type" value="specific" required class="mr-3 w-5 h-5 accent-red-600"><span class="text-base font-medium">กำหนดวันที่เฉพาะ</span></label>
-              <div id="dateInputContainer" class="hidden"><input type="date" id="specificDate" name="specific_start_date" class="input-focus w-full p-3.5 text-base border border-slate-300 rounded-xl outline-none"></div>
+              <label class="flex items-center p-3.5 border border-slate-300 rounded-xl cursor-pointer hover:bg-slate-50 transition-colors">
+                <input type="radio" id="startImmediateRadio" name="start_date_type" value="immediate" checked required
+                       class="mr-3 text-red-600 focus:ring-red-500 w-5 h-5 accent-red-600">
+                <span id="startImmediateLabel" class="text-base text-slate-900 font-medium">พร้อมเริ่มงานได้ทันที</span>
+              </label>
+
+              <label class="flex items-center p-3.5 border border-slate-300 rounded-xl cursor-pointer hover:bg-slate-50 transition-colors">
+                <input type="radio" name="start_date_type" value="specific" required
+                       class="mr-3 text-red-600 focus:ring-red-500 w-5 h-5 accent-red-600">
+                <span class="text-base text-slate-900 font-medium">กำหนดวันที่เฉพาะ</span>
+              </label>
+
+              <div id="dateInputContainer" class="hidden mt-3 pl-1">
+                <label for="specificDate" class="block text-sm font-semibold text-slate-700 mb-1.5">กรุณาเลือกวันที่ *</label>
+                <input type="date" id="specificDate" name="specific_start_date"
+                       class="input-focus w-full p-3.5 text-base border border-slate-300 rounded-xl outline-none">
+              </div>
+            </div>
+          </section>
+
+          <section id="availabilitySection" class="border-t border-slate-200 pt-6 hidden bg-blue-50/50 -mx-6 px-6 pb-6">
+            <h3 id="availabilitySectionTitle" class="text-xl font-bold text-slate-900 border-l-4 border-blue-600 pl-3 mb-2">เวลาที่ต้องการสมัคร *</h3>
+            <div class="space-y-3 pl-4 mt-4">
+              <label class="flex items-start p-3.5 border border-blue-200 bg-white rounded-xl cursor-pointer hover:border-blue-400 transition-colors shadow-sm"><input type="radio" name="availability_choice" value="ทำทุกวัน" class="mt-1 mr-3 text-blue-600 focus:ring-blue-500 w-5 h-5 accent-blue-600"><div><span class="block text-base text-slate-900 font-bold">ทำทุกวัน</span><span class="block text-sm text-slate-500 mt-0.5">จันทร์ถึงเสาร์ 17:00–21:00 น. และอาทิตย์ 10:30–20:00 น.</span></div></label>
+              <label class="flex items-start p-3.5 border border-slate-200 bg-white rounded-xl cursor-pointer hover:bg-slate-50 transition-colors shadow-sm"><input type="radio" name="availability_choice" value="เฉพาะวันจันทร์ถึงเสาร์" class="mt-1 mr-3 text-blue-600 focus:ring-blue-500 w-5 h-5 accent-blue-600"><div><span class="block text-base text-slate-900 font-bold">เฉพาะวันจันทร์ถึงเสาร์</span><span class="block text-sm text-slate-500 mt-0.5">เวลา 17:00–21:00 น.</span></div></label>
+              <label class="flex items-start p-3.5 border border-slate-200 bg-white rounded-xl cursor-pointer hover:bg-slate-50 transition-colors shadow-sm"><input type="radio" name="availability_choice" value="เฉพาะวันอาทิตย์" class="mt-1 mr-3 text-blue-600 focus:ring-blue-500 w-5 h-5 accent-blue-600"><div><span class="block text-base text-slate-900 font-bold">เฉพาะวันอาทิตย์</span><span class="block text-sm text-slate-500 mt-0.5">เวลา 10:30–20:00 น.</span></div></label>
             </div>
           </section>
 
           <section class="border-t border-slate-200 pt-6">
             <h3 class="text-xl font-bold text-slate-900 border-l-4 border-red-600 pl-3 mb-2">ประวัติการทำงาน</h3>
-            <p class="text-sm text-slate-500 mb-4 pl-4">หากไม่เคยทำงาน สามารถเลือก 0 หรือเว้นว่างได้</p>
-            <select id="workCount" name="workCount" onchange="showWorkHistory()" class="input-focus w-full p-3.5 text-base border border-slate-300 rounded-xl outline-none bg-white"><option value="">-- เลือกจำนวน --</option><option value="0">0 (ไม่เคยทำงาน)</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="5+">มากกว่า 5</option></select>
-            <div id="workHistorySection" class="space-y-4 hidden mt-4"><div id="workHistoryContainer" class="space-y-4"></div></div>
+            <p class="text-sm text-slate-500 mb-4 pl-4">หากไม่เคยทำงาน สามารถเลือก "0" หรือเว้นว่างได้</p>
+
+            <div class="mb-4">
+              <label for="workCount" class="block text-sm font-semibold text-slate-700 mb-1.5">เคยทำงานมาแล้วกี่ที่</label>
+              <select id="workCount" name="workCount" onchange="showWorkHistory()"
+                      class="input-focus w-full p-3.5 text-base border border-slate-300 rounded-xl outline-none bg-white">
+                <option value="">-- เลือกจำนวน --</option>
+                <option value="0">0 (ไม่เคยทำงาน)</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="5+">มากกว่า 5</option>
+              </select>
+            </div>
+
+            <div id="workHistorySection" class="space-y-4 hidden mt-4">
+              <h4 class="text-sm font-bold text-slate-700 bg-slate-100 p-2 rounded-md text-center">
+                กรอกรายละเอียด (เรียงจากล่าสุดไปเก่า)
+              </h4>
+              <div id="workHistoryContainer" class="space-y-4"></div>
+            </div>
           </section>
 
           <section class="border-t border-slate-200 pt-6 pb-4">
             <h3 class="text-xl font-bold text-slate-900 border-l-4 border-red-600 pl-3 mb-2">อัปโหลดรูปถ่าย *</h3>
-            <p class="text-sm text-slate-600 mb-4 pl-4">หน้าชัดเจน ไม่สวมแว่นดำ</p>
-            <div id="uploadArea" class="border-2 border-dashed border-slate-300 rounded-2xl p-6 text-center bg-white">
+            <p class="text-sm text-slate-600 mb-4 pl-4">หน้าชัดเจน ไม่สวมแว่นดำ (ระบบจะปรับขนาดรูปอัตโนมัติ)</p>
+
+            <div id="uploadArea" class="border-2 border-dashed border-slate-300 rounded-2xl p-6 text-center transition-all bg-white">
+              <div class="mx-auto h-16 w-16 bg-slate-100 rounded-full flex items-center justify-center mb-3">
+                <svg class="h-8 w-8 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                </svg>
+              </div>
               <p class="text-base text-slate-700 font-bold mb-4">เลือกวิธีอัปโหลดรูปภาพ</p>
-              <div class="flex flex-col sm:flex-row gap-3 justify-center"><button type="button" onclick="document.getElementById('cameraInput').click()" class="bg-white border-2 border-slate-200 py-2.5 px-4 rounded-xl font-bold">ถ่ายภาพ</button><button type="button" onclick="document.getElementById('galleryInput').click()" class="bg-white border-2 border-slate-200 py-2.5 px-4 rounded-xl font-bold">เลือกจากแกลเลอรี่</button></div>
+              
+              <div class="flex flex-col sm:flex-row gap-3 justify-center">
+                <button type="button" onclick="document.getElementById('cameraInput').click()" class="bg-white border-2 border-slate-200 hover:border-red-500 hover:bg-red-50 text-slate-700 py-2.5 px-4 rounded-xl font-bold flex items-center justify-center transition-colors">
+                  <svg class="w-5 h-5 mr-2 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                  ถ่ายภาพ
+                </button>
+                <button type="button" onclick="document.getElementById('galleryInput').click()" class="bg-white border-2 border-slate-200 hover:border-red-500 hover:bg-red-50 text-slate-700 py-2.5 px-4 rounded-xl font-bold flex items-center justify-center transition-colors">
+                  <svg class="w-5 h-5 mr-2 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                  เลือกจากแกลเลอรี่
+                </button>
+              </div>
+              <p class="text-sm text-red-500 mt-4">* จำเป็นต้องอัปโหลด</p>
             </div>
-            <input type="file" id="cameraInput" accept="image/jpeg,image/png" capture="environment" class="hidden" onchange="handleFileUpload(event)"><input type="file" id="galleryInput" accept="image/jpeg,image/png" class="hidden" onchange="handleFileUpload(event)">
-            <div id="uploadError" class="hidden mt-3 text-red-600 text-sm font-bold bg-red-50 p-3 rounded-lg"></div><div id="uploadSuccess" class="hidden mt-3 text-emerald-600 text-sm font-bold bg-emerald-50 p-3 rounded-lg text-center"></div>
+
+            <input type="file" id="cameraInput" accept="image/jpeg,image/png" capture="environment" class="hidden" onchange="handleFileUpload(event)">
+            <input type="file" id="galleryInput" accept="image/jpeg,image/png" class="hidden" onchange="handleFileUpload(event)">
+
+            <div id="uploadError" class="hidden mt-3 text-red-600 text-sm font-bold bg-red-50 p-3 rounded-lg border border-red-100"></div>
+            <div id="uploadSuccess" class="hidden mt-3 text-emerald-600 text-sm font-bold bg-emerald-50 p-3 rounded-lg border border-emerald-100 text-center"></div>
           </section>
 
-          <button type="button" id="reviewBtn" onclick="goToReview()" disabled class="w-full bg-slate-300 text-slate-500 py-4 px-6 rounded-xl text-lg font-bold cursor-not-allowed transition-all mt-4">ส่งใบสมัคร</button>
+          <button type="button" id="reviewBtn" onclick="goToReview()" disabled
+                  class="w-full bg-slate-300 text-slate-500 py-4 px-6 rounded-xl text-lg font-bold cursor-not-allowed transition-all mt-4">
+            ส่งใบสมัคร
+          </button>
         </form>
       </main>
     </div>
@@ -179,49 +407,538 @@
 
   <div id="reviewPage" class="hidden min-h-screen px-4 py-6 fade-in">
     <div class="card-clean rounded-2xl max-w-xl mx-auto overflow-hidden">
-      <header class="p-6 border-b border-slate-100 bg-white"><h1 class="text-2xl font-bold text-slate-900 text-center">ตรวจสอบข้อมูล</h1><p class="text-center text-slate-500 mt-2">กรุณาตรวจสอบความถูกต้องก่อนกดส่งใบสมัคร</p></header>
+      <header class="p-6 border-b border-slate-100 bg-white">
+        <h1 class="text-2xl font-bold text-slate-900 text-center">ตรวจสอบข้อมูล</h1>
+        <p class="text-center text-slate-500 mt-2">กรุณาตรวจสอบความถูกต้องก่อนกดส่งใบสมัคร</p>
+      </header>
       <main class="p-6 bg-slate-50 space-y-5">
-        <div class="bg-white p-4 rounded-xl border border-slate-200"><p class="text-sm text-slate-500 mb-1">ชื่อ-นามสกุล (ชื่อเล่น)</p><p id="reviewName" class="text-lg font-bold text-slate-900"></p></div>
-        <div class="bg-emerald-50 p-5 rounded-xl border-2 border-emerald-400"><p class="text-sm text-emerald-700 font-bold mb-2">กรุณาตรวจสอบ ID LINE (สำคัญมาก)</p><p id="reviewLineId" class="text-xl font-bold text-emerald-800 bg-white px-3 py-2 rounded-lg text-center"></p></div>
-        <div class="bg-white p-4 rounded-xl border border-slate-200 space-y-4"><div><p class="text-sm text-slate-500">เบอร์โทรศัพท์</p><p id="reviewPhone" class="font-bold text-slate-900"></p></div><div><p class="text-sm text-slate-500">ตำแหน่งที่สมัคร</p><p class="font-bold text-slate-900">พนักงานประจำสาขา - สาขาพัทยากลาง</p></div></div>
-        <div class="flex gap-3 pt-2"><button onclick="backToForm()" class="w-1/3 bg-white border-2 border-slate-200 text-slate-700 font-bold py-3.5 rounded-xl">แก้ไข</button><button onclick="submitApplication()" class="w-2/3 bg-red-600 text-white font-bold py-3.5 rounded-xl">ยืนยันและส่งใบสมัคร</button></div>
+        
+        <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
+          <p class="text-sm text-slate-500 mb-1">ชื่อ-นามสกุล (ชื่อเล่น)</p>
+          <p id="reviewName" class="text-lg font-bold text-slate-900"></p>
+        </div>
+
+        <div class="bg-emerald-50 p-5 rounded-xl border-2 border-emerald-400 shadow-sm relative overflow-hidden">
+          <div class="absolute top-0 left-0 w-1.5 h-full bg-emerald-500"></div>
+          <p class="text-sm text-emerald-700 font-bold flex items-center mb-1">
+            <svg class="w-5 h-5 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+            กรุณาตรวจสอบ ID LINE (สำคัญมาก)
+          </p>
+          <p class="text-xs text-emerald-600 mb-2">เพื่อใช้ในการติดต่อกลับหากผ่านการพิจารณา</p>
+          <p id="reviewLineId" class="text-xl font-bold text-emerald-800 bg-white px-3 py-2 rounded-lg border border-emerald-200 inline-block w-full text-center"></p>
+        </div>
+
+        <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm space-y-4">
+          <div>
+            <p class="text-sm text-slate-500">เบอร์โทรศัพท์</p>
+            <p id="reviewPhone" class="font-bold text-slate-900"></p>
+          </div>
+          <div>
+            <p class="text-sm text-slate-500">ตำแหน่งที่สมัคร</p>
+            <p id="reviewPosition" class="font-bold text-slate-900"></p>
+          </div>
+          <div id="reviewAvailBlock">
+            <p class="text-sm text-slate-500">เวลาที่ต้องการทำ</p>
+            <p id="reviewAvailability" class="font-bold text-slate-900"></p>
+          </div>
+        </div>
+
+        <div class="flex gap-3 pt-2">
+          <button onclick="backToForm()" class="w-1/3 bg-white border-2 border-slate-200 text-slate-700 font-bold py-3.5 rounded-xl hover:bg-slate-50 transition-colors">
+            แก้ไข
+          </button>
+          <button onclick="submitApplication()" class="w-2/3 bg-red-600 text-white font-bold py-3.5 rounded-xl hover:bg-red-700 shadow-md transition-transform hover:scale-[1.02]">
+            ยืนยันและส่งใบสมัคร
+          </button>
+        </div>
       </main>
     </div>
   </div>
 
-  <div id="successModal" class="hidden fixed inset-0 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4 z-50"><div class="bg-white rounded-2xl p-8 max-w-sm w-full text-center slide-up shadow-2xl"><h3 class="text-2xl font-bold text-slate-900 mb-2">ส่งใบสมัครสำเร็จ!</h3><p class="text-base text-slate-600 mb-6">หากผ่านการคัดเลือก ทางร้านจะติดต่อกลับไปโดยเร็วที่สุด</p><a href="https://lin.ee/ShkrKFE" target="_blank" rel="noopener noreferrer" class="flex items-center justify-center w-full bg-[#06C755] text-white px-4 py-3 rounded-xl text-base font-bold">เพิ่มเพื่อน LINE @244dnoyw</a><button onclick="resetAll()" class="mt-5 text-slate-500 text-sm font-bold underline">กลับไปหน้าเลือกตำแหน่ง</button></div></div>
-  <div id="loadingModal" class="hidden fixed inset-0 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4 z-40"><div class="bg-white rounded-2xl p-8 max-w-xs w-full text-center slide-up shadow-xl"><div class="h-12 w-12 border-4 border-slate-200 border-t-red-600 rounded-full animate-spin mx-auto mb-5"></div><h3 class="text-lg font-bold text-slate-900 mb-1">กรุณารอสักครู่</h3><p class="text-sm text-slate-500">กำลังส่งใบสมัครของคุณ...</p></div></div>
+  <div id="successModal" class="hidden fixed inset-0 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4 z-50">
+    <div class="bg-white rounded-2xl p-8 max-w-sm w-full text-center slide-up shadow-2xl">
+      <div class="mx-auto flex items-center justify-center h-20 w-20 rounded-full bg-emerald-100 mb-6">
+        <svg class="h-10 w-10 text-emerald-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/>
+        </svg>
+      </div>
+      <h3 class="text-2xl font-bold text-slate-900 mb-2">ส่งใบสมัครสำเร็จ!</h3>
+      <p class="text-base text-slate-600 mb-6">หากผ่านการคัดเลือก ทางร้านจะติดต่อกลับไปโดยเร็วที่สุด</p>
+      
+      <div class="bg-slate-50 p-4 rounded-xl mb-6">
+        <p class="text-sm text-slate-700 font-medium mb-3">หากมีข้อสงสัยสามารถทักสอบถามได้ที่</p>
+        <a href="https://lin.ee/ShkrKFE" target="_blank" rel="noopener noreferrer"
+           class="flex items-center justify-center w-full bg-[#06C755] hover:bg-[#05b34c] text-white px-4 py-3 rounded-xl text-base font-bold transition-colors">
+          <svg class="w-5 h-5 mr-2" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M24 10.304c0-5.369-5.383-9.738-12-9.738-6.616 0-12 4.369-12 9.738 0 4.814 3.55 8.845 8.365 9.578.324.069.757.215.867.502.1.258.066.66.031.93-.042.348-.266 1.62-.326 1.956-.078.43-.357 1.761 1.547.958 1.905-.803 10.252-6.046 12.186-9.117.886-1.42 1.33-2.99 1.33-4.807zm-14.775 3.328h-2.52c-.222 0-.402-.18-.402-.402v-5.28c0-.223.18-.403.402-.403h.804c.222 0 .402.18.402.403v4.475h1.314c.222 0 .402.18.402.403v.804c0 .222-.18.402-.402.402zm3.325 0h-.804c-.222 0-.403-.18-.403-.402v-5.28c0-.223.181-.403.403-.403h.804c.222 0 .402.18.402.403v5.28c0 .222-.18.402-.402.402zm4.35 0h-2.185c-.222 0-.402-.18-.402-.402v-5.28c0-.223.18-.403.402-.403h.804c.222 0 .402.18.402.403v3.136l1.636-2.902c.089-.156.257-.253.438-.253h.885c.27 0 .445.283.315.52l-1.92 3.25 1.968 3.336c.133.226-.032.518-.293.518h-.878c-.16 0-.31-.078-.405-.213l-1.564-2.585v1.875c0 .222-.18.402-.402.402z"/>
+          </svg>
+          เพิ่มเพื่อน LINE @244dnoyw
+        </a>
+      </div>
+
+      <button onclick="resetAll()" class="text-slate-500 hover:text-slate-800 text-sm font-bold transition-colors underline underline-offset-4">
+        กลับไปหน้าเลือกตำแหน่ง
+      </button>
+    </div>
+  </div>
+
+  <div id="loadingModal" class="hidden fixed inset-0 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4 z-40">
+    <div class="bg-white rounded-2xl p-8 max-w-xs w-full text-center slide-up shadow-xl">
+      <div class="flex justify-center mb-5">
+        <div class="h-12 w-12 border-4 border-slate-200 border-t-red-600 rounded-full animate-spin"></div>
+      </div>
+      <h3 class="text-lg font-bold text-slate-900 mb-1">กรุณารอสักครู่</h3>
+      <p class="text-sm text-slate-500">กำลังส่งใบสมัครของคุณ...</p>
+    </div>
+  </div>
 
   <script>
-    const POSITION_TEXT = "สาขาพัทยากลาง – ประจำสาขา (จันทร์–เสาร์ 09:00–18:00 ค่าแรง 450 บาท/วัน)";
     let uploadedImageBase64 = "";
-    let pendingFormData = {};
+    let pendingFormData = {}; 
 
-    function openDetails(){ document.getElementById('positionSelection').classList.add('hidden'); document.getElementById('positionDetails').classList.remove('hidden'); window.scrollTo(0,0); }
-    function backToSelection(){ document.getElementById('positionDetails').classList.add('hidden'); document.getElementById('positionSelection').classList.remove('hidden'); window.scrollTo(0,0); }
-    function proceedToForm(){ document.getElementById('positionDetails').classList.add('hidden'); document.getElementById('applicationForm').classList.remove('hidden'); window.scrollTo(0,0); }
-    function backToDetails(){ document.getElementById('applicationForm').classList.add('hidden'); document.getElementById('positionDetails').classList.remove('hidden'); window.scrollTo(0,0); }
-    function backToForm(){ document.getElementById('reviewPage').classList.add('hidden'); document.getElementById('applicationForm').classList.remove('hidden'); window.scrollTo(0,0); }
+    // ===== Position data =====
+    const POSITIONS = {
+      PATTAYA_FT: {
+        key: "PATTAYA_FT",
+        typeBadge: { text: "พนักงานประจำสาขา", tone: "red" },
+        startBadge: { text: "พร้อมเริ่มงานได้ทันที", tone: "emerald" },
+        titleBold: "พนักงานประจำสาขา - สาขาพัทยากลาง",
+        selectionText: "พนักงานประจำสาขา - สาขาพัทยากลาง",
+        positionPayload: "สาขาพัทยากลาง – ประจำสาขา (จันทร์–เสาร์ 09:00–18:00 ค่าแรง 450 บาท/วัน)",
+        startImmediateLabel: "พร้อมเริ่มงานได้ทันที",
+        showAvailabilitySection: false,
+        locationText: "ตลาดกินเพลินฟู้ดมาร์เก็ต พัทยากลาง",
+        mapUrl: "https://maps.app.goo.gl/HwQ8Zs7ozYWWj1w28",
+        jobLines: [
+          "ทำงานวันจันทร์–เสาร์ เวลา 09:00–18:00 น.",
+          "ค่าแรงวันละ 450 บาท (รายวัน)",
+          "จ่ายค่าแรงทุกวันที่ 1 และ 16 ของทุกเดือน"
+        ],
+        duties: [
+          "จัดเตรียมวัตถุดิบสำหรับขาย",
+          "จัดออเดอร์จากแอปเดลิเวอรี่",
+          "ร้านเป็นร้านเล็กๆ รับเฉพาะเดลิเวอรี่ ไม่มีนั่งทานหน้าร้าน"
+        ],
+        qualifications: [
+          "เพศหญิงเท่านั้น",
+          "อายุ 18 ปีขึ้นไป",
+          "ขยัน สะอาด มีความรับผิดชอบ",
+          "สามารถทำงานคนเดียวได้เป็นอย่างดี"
+        ]
+      },
+      PHRAYA_PT: {
+        key: "PHRAYA_PT",
+        typeBadge: { text: "พาร์ทไทม์", tone: "blue" },
+        startBadge: { text: "พร้อมเริ่มงานได้ทันที", tone: "emerald" },
+        titleBold: "พนักงานพาร์ทไทม์ - สาขาพระยาสัจจา",
+        selectionText: "พนักงานพาร์ทไทม์ - สาขาพระยาสัจจา",
+        positionPayload: "สาขาพระยาสัจจา – PART TIME",
+        startImmediateLabel: "พร้อมเริ่มงานได้ทันที",
+        showAvailabilitySection: true,
+        availabilitySectionTitle: "เวลาที่ต้องการสมัคร (สาขาพระยาสัจจา) *",
+        locationText: "ตลาดธนา ถนนพระยาสัจจา (ข้างๆ ร้านแก้วรักสัตว์)",
+        mapUrl: "https://maps.app.goo.gl/kKczyyq8rCuFHfkQ9",
+        jobLines: ["วันจันทร์ถึงเสาร์: เวลา 17:00–21:00 น. (ชั่วโมงละ 50 บาท)","วันอาทิตย์: เวลา 10:30–20:00 น. (วันละ 475 บาท)","จ่ายค่าแรงเป็นรายอาทิตย์","**สามารถแยกสมัครได้**"],
+        duties: ["จัดออเดอร์จากแอปเดลิเวอรี่","เช็กสต็อกและปิดร้าน"],
+        qualifications: ["เพศหญิงเท่านั้น","อายุ 17 ปีขึ้นไป","ขยัน สะอาด มีความรับผิดชอบ","สามารถทำงานคนเดียวได้เป็นอย่างดี"]
+      }
+    };
 
-    function toggleDateInput(){ const specific=document.querySelector('input[name="start_date_type"][value="specific"]'); const box=document.getElementById('dateInputContainer'); const input=document.getElementById('specificDate'); if(specific.checked){box.classList.remove('hidden');input.required=true;}else{box.classList.add('hidden');input.required=false;input.value='';} }
-    document.querySelectorAll('input[name="start_date_type"]').forEach(r=>r.addEventListener('change',toggleDateInput));
+    let currentPosition = null;
+    let selectedPositionText = "";
 
-    function toggleStudyingExtra(){ const isStudying=document.getElementById('education').value==='กำลังศึกษาอยู่'; const box=document.getElementById('studyingExtra'); const level=document.getElementById('studyingLevel'); const major=document.getElementById('studyingMajor'); box.classList.toggle('hidden',!isStudying); level.required=isStudying; major.required=isStudying; if(!isStudying){level.value='';major.value='';} }
-    document.getElementById('education').addEventListener('change',toggleStudyingExtra);
+    // ===== Navigation =====
+    function openDetails(positionObj) {
+      currentPosition = positionObj;
+      document.getElementById("positionSelection").classList.add("hidden");
+      document.getElementById("positionDetails").classList.remove("hidden");
+      document.getElementById("applicationForm").classList.add("hidden");
+      document.getElementById("reviewPage").classList.add("hidden");
+      window.scrollTo(0, 0);
+      renderDetails(positionObj);
+    }
 
-    function showWorkHistory(){ const value=document.getElementById('workCount').value; const section=document.getElementById('workHistorySection'); const container=document.getElementById('workHistoryContainer'); container.innerHTML=''; if(!value||value==='0'){section.classList.add('hidden');return;} const count=value==='5+'?5:parseInt(value,10); section.classList.remove('hidden'); for(let i=1;i<=count;i++){ const d=document.createElement('div'); d.className='bg-white p-4 rounded-xl border border-slate-200 shadow-sm'; d.innerHTML=`<input type="text" name="workplace${i}" placeholder="ชื่อสถานที่ทำงาน" class="input-focus w-full p-3 mb-3 text-sm border border-slate-300 rounded-lg outline-none"><input type="text" name="position${i}" placeholder="ตำแหน่ง" class="input-focus w-full p-3 mb-3 text-sm border border-slate-300 rounded-lg outline-none"><textarea name="description${i}" placeholder="อธิบายสิ่งที่ทำคร่าวๆ" rows="2" class="input-focus w-full p-3 text-sm border border-slate-300 rounded-lg outline-none"></textarea>`; container.appendChild(d); } }
+    function backToSelection() {
+      document.getElementById("positionDetails").classList.add("hidden");
+      document.getElementById("applicationForm").classList.add("hidden");
+      document.getElementById("positionSelection").classList.remove("hidden");
+      window.scrollTo(0, 0);
+    }
 
-    function handleFileUpload(event){ const file=event.target.files[0]; if(!file)return; if(!file.type.match(/^image\/(jpeg|png)$/)){showUploadError('กรุณาเลือกไฟล์ JPG หรือ PNG เท่านั้น');return;} const reader=new FileReader(); reader.readAsDataURL(file); reader.onload=e=>{ const img=new Image(); img.src=e.target.result; img.onload=()=>{ let w=img.width,h=img.height; const max=800; if(w>h&&w>max){h*=max/w;w=max;}else if(h>max){w*=max/h;h=max;} const canvas=document.createElement('canvas'); canvas.width=w;canvas.height=h;canvas.getContext('2d').drawImage(img,0,0,w,h); uploadedImageBase64=canvas.toDataURL('image/jpeg',.6); document.getElementById('uploadSuccess').innerHTML=`<img src="${uploadedImageBase64}" class="h-24 w-24 object-cover rounded-xl mx-auto mb-2"><p>เพิ่มรูปภาพสำเร็จ</p><button type="button" onclick="resetUpload()" class="text-xs text-slate-500 underline mt-2">เปลี่ยนรูป</button>`; document.getElementById('uploadSuccess').classList.remove('hidden'); document.getElementById('uploadArea').classList.add('hidden'); enableSubmitButton(); }; }; }
-    function showUploadError(msg){ const e=document.getElementById('uploadError'); e.textContent=msg; e.classList.remove('hidden'); }
-    function resetUpload(){ uploadedImageBase64=''; document.getElementById('cameraInput').value=''; document.getElementById('galleryInput').value=''; document.getElementById('uploadSuccess').classList.add('hidden'); document.getElementById('uploadArea').classList.remove('hidden'); disableSubmitButton(); }
-    function enableSubmitButton(){ const b=document.getElementById('reviewBtn'); b.disabled=false; b.classList.remove('bg-slate-300','text-slate-500','cursor-not-allowed'); b.classList.add('bg-red-600','text-white','cursor-pointer'); }
-    function disableSubmitButton(){ const b=document.getElementById('reviewBtn'); b.disabled=true; b.classList.add('bg-slate-300','text-slate-500','cursor-not-allowed'); b.classList.remove('bg-red-600','text-white','cursor-pointer'); }
+    function backToDetails() {
+      document.getElementById("applicationForm").classList.add("hidden");
+      document.getElementById("positionDetails").classList.remove("hidden");
+      window.scrollTo(0, 0);
+    }
 
-    function goToReview(){ const form=document.getElementById('jobApplicationForm'); if(!form.reportValidity())return; if(!uploadedImageBase64){showUploadError('กรุณาเพิ่มรูปถ่ายก่อนส่งใบสมัคร');return;} pendingFormData=Object.fromEntries(new FormData(form).entries()); pendingFormData.position=POSITION_TEXT; pendingFormData.photo_base64=uploadedImageBase64; document.getElementById('reviewName').textContent=`${pendingFormData.first_name} ${pendingFormData.last_name} (${pendingFormData.nickname})`; document.getElementById('reviewLineId').textContent=pendingFormData.line_id; document.getElementById('reviewPhone').textContent=pendingFormData.phone; document.getElementById('applicationForm').classList.add('hidden'); document.getElementById('reviewPage').classList.remove('hidden'); window.scrollTo(0,0); }
+    function proceedToForm() {
+      if (!currentPosition) return;
 
-    async function submitApplication(){ const loading=document.getElementById('loadingModal'); loading.classList.remove('hidden'); try{ const response=await fetch('/.netlify/functions/send-to-telegram',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(pendingFormData)}); if(!response.ok)throw new Error('Server error '+response.statusText); loading.classList.add('hidden'); document.getElementById('reviewPage').classList.add('hidden'); document.getElementById('successModal').classList.remove('hidden'); }catch(error){ console.error(error); loading.classList.add('hidden'); backToForm(); showUploadError('เกิดข้อผิดพลาดในการส่งฟอร์ม กรุณาลองอีกครั้ง'); } }
+      document.getElementById("positionDetails").classList.add("hidden");
+      document.getElementById("applicationForm").classList.remove("hidden");
+      window.scrollTo(0, 0);
 
-    function resetAll(){ document.getElementById('successModal').classList.add('hidden'); document.getElementById('applicationForm').classList.add('hidden'); document.getElementById('reviewPage').classList.add('hidden'); document.getElementById('positionDetails').classList.add('hidden'); document.getElementById('positionSelection').classList.remove('hidden'); document.getElementById('jobApplicationForm').reset(); document.getElementById('workHistorySection').classList.add('hidden'); document.getElementById('workHistoryContainer').innerHTML=''; resetUpload(); toggleStudyingExtra(); toggleDateInput(); pendingFormData={}; window.scrollTo(0,0); }
+      document.getElementById("selectedPosition").textContent = currentPosition.selectionText;
+      selectedPositionText = currentPosition.positionPayload;
+      document.getElementById("startImmediateLabel").textContent = currentPosition.startImmediateLabel;
+
+      const availSection = document.getElementById("availabilitySection");
+      const availRadios = document.querySelectorAll('input[name="availability_choice"]');
+      const availTitle = document.getElementById("availabilitySectionTitle");
+
+      if (currentPosition.showAvailabilitySection) {
+        availSection.classList.remove("hidden");
+        availRadios.forEach(r => r.required = true);
+        if (currentPosition.availabilitySectionTitle) {
+          availTitle.textContent = currentPosition.availabilitySectionTitle;
+        }
+      } else {
+        availSection.classList.add("hidden");
+        availRadios.forEach(r => { r.required = false; r.checked = false; });
+      }
+
+      document.getElementById("startImmediateRadio").checked = true;
+      toggleDateInput();
+    }
+
+    function badgeClass(tone) {
+      const map = {
+        emerald: "bg-emerald-50 text-emerald-700 border border-emerald-100",
+        blue: "bg-blue-50 text-blue-700 border border-blue-100",
+        red: "bg-red-50 text-red-700 border border-red-100",
+        amber: "bg-amber-50 text-amber-700 border border-amber-100"
+      };
+      return map[tone] || "bg-slate-100 text-slate-700 border border-slate-200";
+    }
+
+    function renderDetails(p) {
+      document.getElementById("detailsTitle").textContent = p.titleBold;
+
+      const badges = document.getElementById("detailsBadges");
+      badges.innerHTML = "";
+      const makeBadge = (text, tone) => {
+        const span = document.createElement("span");
+        span.className = `inline-flex items-center px-3 py-1 rounded-full text-sm font-semibold ${badgeClass(tone)}`;
+        span.textContent = text;
+        return span;
+      };
+
+      if (p.typeBadge) badges.appendChild(makeBadge(p.typeBadge.text, p.typeBadge.tone));
+      if (p.startBadge) badges.appendChild(makeBadge(p.startBadge.text, p.startBadge.tone));
+
+      document.getElementById("detailsLocationText").textContent = p.locationText || "N/A";
+      const link = document.getElementById("detailsMapLink");
+      link.href = p.mapUrl || "#";
+      link.style.display = (p.mapUrl && p.mapUrl !== "#") ? "inline-flex" : "none";
+
+      const job = document.getElementById("detailsJob");
+      job.innerHTML = "";
+      p.jobLines.forEach(line => {
+        const div = document.createElement("div");
+        if (line.includes("**")) {
+          div.innerHTML = line.replace(/\*\*(.*?)\*\*/g, '<strong class="text-slate-900 font-bold">$1</strong>');
+        } else {
+          div.textContent = line;
+        }
+        job.appendChild(div);
+      });
+
+      const duties = document.getElementById("detailsDuties");
+      duties.innerHTML = "";
+      p.duties.forEach(item => {
+        const li = document.createElement("li");
+        li.textContent = item;
+        duties.appendChild(li);
+      });
+
+      const qual = document.getElementById("detailsQual");
+      qual.innerHTML = "";
+      p.qualifications.forEach(item => {
+        const li = document.createElement("li");
+        li.textContent = item;
+        qual.appendChild(li);
+      });
+    }
+
+    function toggleDateInput() {
+      const specificRadio = document.querySelector('input[name="start_date_type"][value="specific"]');
+      const dateInputContainer = document.getElementById("dateInputContainer");
+      const dateInput = document.getElementById("specificDate");
+
+      if (specificRadio.checked) {
+        dateInputContainer.classList.remove("hidden");
+        dateInput.required = true;
+      } else {
+        dateInputContainer.classList.add("hidden");
+        dateInput.required = false;
+        dateInput.value = "";
+      }
+    }
+
+    function showWorkHistory() {
+      const workCountValue = document.getElementById("workCount").value;
+      const workHistorySection = document.getElementById("workHistorySection");
+      const container = document.getElementById("workHistoryContainer");
+
+      container.innerHTML = "";
+
+      if (!workCountValue || workCountValue === "0") {
+        workHistorySection.classList.add("hidden");
+        return;
+      }
+
+      let count;
+      if (workCountValue === "5+") count = 5;
+      else count = parseInt(workCountValue, 10) || 0;
+
+      if (count <= 0) {
+        workHistorySection.classList.add("hidden");
+        return;
+      }
+
+      workHistorySection.classList.remove("hidden");
+
+      for (let i = 1; i <= count; i++) {
+        const wrapper = document.createElement("div");
+        wrapper.className = "bg-white p-4 rounded-xl border border-slate-200 shadow-sm relative";
+
+        wrapper.innerHTML = `
+          <div class="absolute -top-3 -left-2 bg-slate-800 text-white text-xs font-bold px-2 py-1 rounded-md shadow-sm">งานที่ ${i}</div>
+          <input type="text" name="workplace${i}" placeholder="ชื่อสถานที่ทำงาน"
+                 class="input-focus w-full p-3 mt-2 mb-3 text-sm border border-slate-300 rounded-lg outline-none">
+          <input type="text" name="position${i}" placeholder="ตำแหน่ง"
+                 class="input-focus w-full p-3 mb-3 text-sm border border-slate-300 rounded-lg outline-none">
+          <textarea name="description${i}" placeholder="อธิบายสิ่งที่ทำคร่าวๆ" rows="2"
+                    class="input-focus w-full p-3 text-sm border border-slate-300 rounded-lg outline-none"></textarea>
+        `;
+        container.appendChild(wrapper);
+      }
+    }
+
+    function toggleStudyingExtra() {
+      const education = document.getElementById("education").value;
+      const box = document.getElementById("studyingExtra");
+      const level = document.getElementById("studyingLevel");
+      const major = document.getElementById("studyingMajor");
+
+      if (education === "กำลังศึกษาอยู่") {
+        box.classList.remove("hidden");
+        level.required = true;
+        major.required = true;
+      } else {
+        box.classList.add("hidden");
+        level.required = false;
+        major.required = false;
+        level.value = "";
+        major.value = "";
+      }
+    }
+
+    // ===== Resize & Compress Image to Base64 =====
+    function handleFileUpload(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+
+      if (!file.type.match(/^image\/(jpeg|png)$/)) {
+        showUploadError("กรุณาเลือกไฟล์ JPG หรือ PNG เท่านั้น");
+        return;
+      }
+
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = (e) => {
+        const img = new Image();
+        img.src = e.target.result;
+        img.onload = () => {
+          const MAX_WIDTH = 800;
+          const MAX_HEIGHT = 800;
+          let width = img.width;
+          let height = img.height;
+
+          if (width > height) {
+            if (width > MAX_WIDTH) {
+              height *= MAX_WIDTH / width;
+              width = MAX_WIDTH;
+            }
+          } else {
+            if (height > MAX_HEIGHT) {
+              width *= MAX_HEIGHT / height;
+              height = MAX_HEIGHT;
+            }
+          }
+
+          const canvas = document.createElement("canvas");
+          canvas.width = width;
+          canvas.height = height;
+          const ctx = canvas.getContext("2d");
+          ctx.drawImage(img, 0, 0, width, height);
+
+          const compressedBase64 = canvas.toDataURL("image/jpeg", 0.6);
+          uploadedImageBase64 = compressedBase64;
+          showUploadSuccess(compressedBase64);
+          enableSubmitButton();
+        };
+      };
+      reader.onerror = () => showUploadError("อ่านไฟล์ไม่สำเร็จ กรุณาลองใหม่");
+    }
+
+    function showUploadError(message) {
+      const uploadErrorEl = document.getElementById("uploadError");
+
+      if (!message) {
+        uploadErrorEl.textContent = "";
+        uploadErrorEl.classList.add("hidden");
+        return;
+      }
+
+      uploadErrorEl.textContent = message;
+      uploadErrorEl.classList.remove("hidden");
+      document.getElementById("uploadSuccess").classList.add("hidden");
+      document.getElementById("uploadArea").classList.remove("hidden");
+      uploadedImageBase64 = "";
+      disableSubmitButton();
+    }
+
+    function showUploadSuccess(dataUrl) {
+      const successEl = document.getElementById("uploadSuccess");
+      successEl.innerHTML = `
+        <div class="flex flex-col items-center">
+          <img src="${dataUrl}" class="h-24 w-24 object-cover rounded-xl border-4 border-white shadow-md mb-2">
+          <p>เพิ่มรูปภาพสำเร็จ</p>
+          <button type="button" onclick="resetUpload()" class="text-xs text-slate-500 underline mt-2">เปลี่ยนรูป</button>
+        </div>
+      `;
+      successEl.classList.remove("hidden");
+      document.getElementById("uploadError").classList.add("hidden");
+      document.getElementById("uploadArea").classList.add("hidden");
+    }
+
+    function resetUpload() {
+      uploadedImageBase64 = "";
+      document.getElementById("cameraInput").value = "";
+      document.getElementById("galleryInput").value = "";
+      document.getElementById("uploadSuccess").classList.add("hidden");
+      document.getElementById("uploadArea").classList.remove("hidden");
+      disableSubmitButton();
+    }
+
+    function enableSubmitButton() {
+      const submitBtn = document.getElementById("reviewBtn");
+      submitBtn.disabled = false;
+      submitBtn.classList.remove("bg-slate-300", "text-slate-500", "cursor-not-allowed");
+      submitBtn.classList.add("bg-red-600", "text-white", "cursor-pointer", "hover:bg-red-700", "hover:shadow-md");
+    }
+
+    function disableSubmitButton() {
+      const submitBtn = document.getElementById("reviewBtn");
+      submitBtn.disabled = true;
+      submitBtn.classList.add("bg-slate-300", "text-slate-500", "cursor-not-allowed");
+      submitBtn.classList.remove("bg-red-600", "text-white", "cursor-pointer", "hover:bg-red-700", "hover:shadow-md");
+    }
+
+    function resetAll() {
+      document.getElementById("successModal").classList.add("hidden");
+      document.getElementById("loadingModal").classList.add("hidden");
+      document.getElementById("applicationForm").classList.add("hidden");
+      document.getElementById("reviewPage").classList.add("hidden");
+      document.getElementById("positionDetails").classList.add("hidden");
+      document.getElementById("positionSelection").classList.remove("hidden");
+
+      document.getElementById("jobApplicationForm").reset();
+      resetUpload();
+
+      document.getElementById("workCount").value = "";
+      document.getElementById("workHistorySection").classList.add("hidden");
+      document.getElementById("workHistoryContainer").innerHTML = "";
+
+      toggleStudyingExtra();
+
+      const availSection = document.getElementById("availabilitySection");
+      const availRadios = document.querySelectorAll('input[name="availability_choice"]');
+      availSection.classList.add("hidden");
+      availRadios.forEach(r => { r.required = false; r.checked = false; });
+
+      toggleDateInput();
+
+      currentPosition = null;
+      selectedPositionText = "";
+      pendingFormData = {};
+      window.scrollTo(0, 0);
+    }
+
+    // ===== Review & Submit Logic =====
+    function goToReview() {
+      const form = document.getElementById("jobApplicationForm");
+      
+      if (!form.reportValidity()) return;
+
+      if (!uploadedImageBase64) {
+        showUploadError("กรุณาเพิ่มรูปถ่ายก่อนส่งใบสมัคร");
+        return;
+      }
+
+      const formDataObj = new FormData(form);
+      pendingFormData = Object.fromEntries(formDataObj.entries());
+      
+      pendingFormData.position = selectedPositionText;
+      pendingFormData.photo_base64 = uploadedImageBase64;
+
+      if (pendingFormData.availability_choice) {
+        pendingFormData.position += ` [เลือกเวลา: ${pendingFormData.availability_choice}]`;
+      }
+
+      document.getElementById("reviewName").textContent = `${pendingFormData.first_name} ${pendingFormData.last_name} (${pendingFormData.nickname})`;
+      document.getElementById("reviewLineId").textContent = pendingFormData.line_id;
+      document.getElementById("reviewPhone").textContent = pendingFormData.phone;
+      document.getElementById("reviewPosition").textContent = selectedPositionText;
+      
+      if (pendingFormData.availability_choice) {
+        document.getElementById("reviewAvailBlock").classList.remove("hidden");
+        document.getElementById("reviewAvailability").textContent = pendingFormData.availability_choice;
+      } else {
+        document.getElementById("reviewAvailBlock").classList.add("hidden");
+      }
+
+      document.getElementById("applicationForm").classList.add("hidden");
+      document.getElementById("reviewPage").classList.remove("hidden");
+      window.scrollTo(0, 0);
+    }
+
+    function backToForm() {
+      document.getElementById("reviewPage").classList.add("hidden");
+      document.getElementById("applicationForm").classList.remove("hidden");
+      window.scrollTo(0, 0);
+    }
+
+    async function submitApplication() {
+      const loadingModal = document.getElementById("loadingModal");
+      loadingModal.classList.remove("hidden");
+
+      try {
+        const response = await fetch("/.netlify/functions/send-to-telegram", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(pendingFormData),
+        });
+
+        if (!response.ok) throw new Error("Server error " + response.statusText);
+
+        loadingModal.classList.add("hidden");
+        document.getElementById("reviewPage").classList.add("hidden");
+        document.getElementById("successModal").classList.remove("hidden");
+      } catch (error) {
+        console.error("Submit error:", error);
+        loadingModal.classList.add("hidden");
+        backToForm();
+        showUploadError("เกิดข้อผิดพลาดในการส่งฟอร์ม กรุณาลองอีกครั้ง");
+      }
+    }
+
+    document.querySelectorAll('input[name="start_date_type"]').forEach((radio) => {
+      radio.addEventListener("change", toggleDateInput);
+    });
+
+    document.getElementById("education").addEventListener("change", toggleStudyingExtra);
     toggleStudyingExtra();
   </script>
 </body>
