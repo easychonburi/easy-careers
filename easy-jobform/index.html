@@ -103,23 +103,6 @@
           <button onclick="openDetails(POSITIONS.PHRAYA_PT)" class="mt-6 w-full bg-red-600 active:bg-red-700 text-white py-3.5 px-6 rounded-xl text-base font-bold shadow-sm transition-colors">สมัครตำแหน่งนี้</button>
         </div>
 
-        <div class="relative card-clean card-hover rounded-2xl p-6 slide-up overflow-hidden">
-          <div class="ribbon ribbon-fulltime">FULLTIME</div>
-          <p class="text-xs font-bold text-red-600 uppercase tracking-wide">EASY หมี่ไก่ฉีก</p>
-          <div class="flex flex-wrap items-center gap-2 mt-1 mb-2">
-            <h3 class="text-2xl font-bold text-slate-900">สาขาพัทยากลาง</h3>
-            <span class="px-2.5 py-1 rounded-lg text-sm font-bold bg-red-100 text-red-800">พนักงานประจำสาขา</span>
-          </div>
-          <div class="mb-4">
-            <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-bold bg-emerald-50 text-emerald-700 border border-emerald-200">พร้อมเริ่มงานได้ทันที</span>
-          </div>
-          <div class="mt-4 space-y-2">
-            <div class="flex items-start gap-3"><span class="mt-2 h-2 w-2 rounded-full bg-red-600 shrink-0"></span><p class="text-base text-slate-700 font-medium">ทำวันจันทร์–เสาร์ 09:00–18:00 น.</p></div>
-            <div class="flex items-start gap-3"><span class="mt-2 h-2 w-2 rounded-full bg-slate-400 shrink-0"></span><p class="text-base text-slate-700">ค่าแรงวันละ 450 บาท (รายวัน)</p></div>
-          </div>
-          <button onclick="openDetails(POSITIONS.PATTAYA_FT)" class="mt-6 w-full bg-red-600 active:bg-red-700 text-white py-3.5 px-6 rounded-xl text-base font-bold shadow-sm transition-colors">สมัครตำแหน่งนี้</button>
-        </div>
-
       </div>
     </main>
   </div>
@@ -498,34 +481,6 @@
 
     // ===== Position data =====
     const POSITIONS = {
-      PATTAYA_FT: {
-        key: "PATTAYA_FT",
-        typeBadge: { text: "พนักงานประจำสาขา", tone: "red" },
-        startBadge: { text: "พร้อมเริ่มงานได้ทันที", tone: "emerald" },
-        titleBold: "พนักงานประจำสาขา - สาขาพัทยากลาง",
-        selectionText: "พนักงานประจำสาขา - สาขาพัทยากลาง",
-        positionPayload: "สาขาพัทยากลาง – ประจำสาขา (จันทร์–เสาร์ 09:00–18:00 ค่าแรง 450 บาท/วัน)",
-        startImmediateLabel: "พร้อมเริ่มงานได้ทันที",
-        showAvailabilitySection: false,
-        locationText: "ตลาดกินเพลินฟู้ดมาร์เก็ต พัทยากลาง",
-        mapUrl: "https://maps.app.goo.gl/HwQ8Zs7ozYWWj1w28",
-        jobLines: [
-          "ทำงานวันจันทร์–เสาร์ เวลา 09:00–18:00 น.",
-          "ค่าแรงวันละ 450 บาท (รายวัน)",
-          "จ่ายค่าแรงทุกวันที่ 1 และ 16 ของทุกเดือน"
-        ],
-        duties: [
-          "จัดเตรียมวัตถุดิบสำหรับขาย",
-          "จัดออเดอร์จากแอปเดลิเวอรี่",
-          "ร้านเป็นร้านเล็กๆ รับเฉพาะเดลิเวอรี่ ไม่มีนั่งทานหน้าร้าน"
-        ],
-        qualifications: [
-          "เพศหญิงเท่านั้น",
-          "อายุ 18 ปีขึ้นไป",
-          "ขยัน สะอาด มีความรับผิดชอบ",
-          "สามารถทำงานคนเดียวได้เป็นอย่างดี"
-        ]
-      },
       PHRAYA_PT: {
         key: "PHRAYA_PT",
         typeBadge: { text: "พาร์ทไทม์", tone: "blue" },
